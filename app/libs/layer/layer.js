@@ -69,7 +69,7 @@
 
 "use strict";
 
-import style from './layer.css';
+import './layer.css';
 
 var doc = document,
     query = 'querySelectorAll',

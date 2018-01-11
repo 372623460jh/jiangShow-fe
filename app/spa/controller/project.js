@@ -5,8 +5,9 @@
 'use strict';
 
 import $jh from 'lib/spa';
-import style from '../style/project.css';
-import projectTemp from '../template/projectTemp';
+import 'style/project.css';
+import projectTemp from 'template/projectTemp';
+
 import $ from 'jquery';
 import Swiper from 'swiper';
 import LazyLoad from 'lib/lazyLoad';
@@ -57,9 +58,9 @@ class Bcontroller extends $jh.SpaCon {
             ]
         };
 
-        CommonModel.getProject(function (res) {
-            console.log(res);
-        });
+        // CommonModel.getProject(function (res) {
+        //     console.log(res);
+        // });
 
         that.rootDom = $jh.parseDom(projectTemp.html, that.data)[0];
         nowPage.dom.appendChild(this.rootDom);

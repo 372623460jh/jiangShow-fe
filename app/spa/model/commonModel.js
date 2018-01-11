@@ -9,17 +9,12 @@ var CommonConfig = require('../config/commonConfig');
 
 export default {
     getProject: function (fn) {
-        fetch(CommonConfig.getProject, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (response) {
+        fetch(CommonConfig.getProject, CommonConfig.getDefaultConfig).then(function (response) {
             response.text().then(function (responseText) {
                 fn(ProcessData.parseJSON(responseText));
             })
         }).then(function (json) {
-            // insertPhotos(json);
+            console.log('请求超时');
         });
     }
 }

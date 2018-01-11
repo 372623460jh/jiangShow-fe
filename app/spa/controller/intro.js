@@ -3,8 +3,8 @@
  */
 'use strict';
 
-import style from '../style/intro.css';
-import introTemp from '../template/introTemp';
+import 'style/intro.css';
+import introTemp from 'template/introTemp';
 import $jh from 'lib/spa';
 import $ from 'jquery';
 import layer from 'lib/layer/layer';

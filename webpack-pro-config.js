@@ -108,8 +108,10 @@ module.exports = {
             // 以前你可能这样引用 import { Nav } from '../../components'
             // 现在你可以这样引用 import { Nav } from 'lib/components'
             lib: path.resolve(__dirname, 'app/libs'),
-
-            // 注意：别名只能在.js文件中使用。
+            model: path.resolve(__dirname, 'app/spa/model'),
+            template: path.resolve(__dirname, 'app/spa/template'),
+            style: path.resolve(__dirname, 'app/spa/style'),
+            controller: path.resolve(__dirname, 'app/spa/controller')
         }
     }
 } 

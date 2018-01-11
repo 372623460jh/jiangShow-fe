@@ -58,6 +58,19 @@
     //    height:2rem;
     //}
     ```
+   
+- 用法
+
+    ```javascript
+    // 视口组件
+    import autoViewPort from 'lib/autoViewPort/autoViewPort';
+    
+    // 返回值中有一个属性htmlFontSize代表1rem等于多少像素
+    // deviceInfo = {
+    //     htmlFontSize: fontSize
+    // }
+    let deviceInfo = autoViewPort();
+    ```
     
 - DEMO
 

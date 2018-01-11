@@ -12,23 +12,27 @@ cookie('userId', 'jianghe', {});
 import autoViewPort from 'lib/autoViewPort/autoViewPort';
 let deviceInfo = autoViewPort();
 
+// 让bable将ES6的api通过babel-polyfill垫片转为ES5，
+// 不加这个垫片使用bable-es2015只会讲语法转为ES5 不会将es6的新api转为es5
+import 'babel-polyfill';
+
 // 引入spa组件
 import $jh from 'lib/spa';
-
+// 设置rem常量
 $jh.prop.rem = deviceInfo.htmlFontSize;
 
 /**
  * 公共样式部分
  */
-import base from '../style/base.css';
-import basic from '../style/basic.css';
+import 'style/base.css';
+import 'style/basic.css';
 
 /**
  * 控制器部分
  */
-import index from '../controller/intro';
-import main from '../controller/project';
-import author from '../controller/skills';
+import 'controller/intro';
+import 'controller/project';
+import 'controller/skills';
 
 // 点击态组件
 import cs from 'lib/clickState';
@@ -45,5 +49,5 @@ $jh.init({
 /**
  * 导航栏初始化
  */
-import baseModel from '../model/baseModel';
+import baseModel from 'model/baseModel';
 baseModel.initNav({initPageName: 'project'});

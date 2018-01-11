@@ -100,14 +100,16 @@ module.exports = {
             // 现在你可以这样引用 import { Nav } from 'lib/components'
             lib: path.resolve(__dirname, 'app/libs'),
             model: path.resolve(__dirname, 'app/spa/model'),
-            // 注意：别名只能在.js文件中使用。
+            template: path.resolve(__dirname, 'app/spa/template'),
+            style: path.resolve(__dirname, 'app/spa/style'),
+            controller: path.resolve(__dirname, 'app/spa/controller')
         }
     },
     devServer: {
         // historyApiFallback: true,
         hot: true,
         inline: true,
-        // progress: true,
+        progress: true,
         port: 9527 //端口你可以自定义
     }
 } 

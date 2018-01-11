@@ -5,7 +5,7 @@
 'use strict';
 
 import $jh from 'lib/spa';
-import style from '../style/allin.css';
+import 'style/allin.css';
 import $ from 'jquery';
 
 let rootDom,
