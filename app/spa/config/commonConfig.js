@@ -9,22 +9,22 @@ module.exports = {
     getDefaultConfig: {
         method: 'GET',
         // credentials有三个值可以配置，
-        // 默认是:‘omit’， 即忽略cookie
-        // ‘same-origin’： 同域名下请求会发送cookie。
-        // 'include‘：是否同域名都会发送cookie。
-        credentials: "same-origin",
+        // 默认是:'omit'， 即忽略cookie
+        // 'same-origin'： 同域名下请求会发送cookie。
+        // 'include'：是否同域名都会发送cookie。
+        credentials: "include",
         headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            "Accept": "application/json,text/plain,*/*",
+            "Content-Type": "application/json;charset=utf-8"
         }
     },
     // fetch POST请求的默认配置
     PostDefaultConfig: {
         method: 'POST',
-        credentials: "same-origin",
+        credentials: "include",
         headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            "Accept": "application/json,text/plain,*/*",
+            "Content-Type": "application/json;charset=utf-8"
         }
     },
     // 获取项目接口

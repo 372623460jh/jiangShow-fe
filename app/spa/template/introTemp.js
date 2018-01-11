@@ -85,22 +85,36 @@ let template =
                                 </div>
                                 <img src="${yun3}" alt="">
                                 <div class="person_info">
-                                    <i></i>
-                                    <span class="title">个人信息</span>
-                                    <span class="title">个人信息</span>
-                                    <span class="title">个人信息</span>
-                                    <span class="title">个人信息</span>
-                                    <span class="title">个人信息</span>
-                                    {{#}}
-                                    <div class="person_info">
-                                        <span class="title">个人信息</span>
-                                        <span class="title">个人信息</span>
-                                        <span class="title">个人信息</span>
-                                        <span class="title">个人信息</span>
-                                        <span class="title">个人信息</span>
+                                    <div class="row">
+                                        <i class="big_icon"></i>
+                                        <span class="big_span name">蒋和</span>
+                                        <span class="small_span sex">男</span>
+                                        <span class="small_span age">24岁</span>
+                                        <span class="small_span edu">本科</span>
+                                        <span class="small_span exp">3年工作经验</span>
+                                    </div>
+                                    <span class="small_span tips1">曾就职于</span>
+                                    <div class="row com">
+                                        <span class="small_span company">竞技世界(JJ比赛)</span>
+                                        <span class="small_span position">高级前端工程师</span>
+                                    </div>
+                                    <div class="row com">
+                                        <span class="small_span company">东软集团</span>
+                                        <span class="small_span position">中级前端工程师</span>
+                                    </div>
+                                    <div class="row row_info">
+                                        <i class="big_icon"></i>
+                                        <span class="small_span phone">13095308808</span>
+                                        <i class="big_icon"></i>
+                                        <span class="small_span email">573748150jh@163.com</span>
                                     </div>
                                 </div>
-                                <div class="pi_util"></div>
+                                <div class="pi_util">
+                                    <div class="row">
+                                        <i class="big_icon"></i>
+                                        <i class="big_icon"></i>
+                                    </div>
+                                </div>
                                 <div class="clear"></div> 
                             </div>
                         </li>

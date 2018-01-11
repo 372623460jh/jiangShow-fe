@@ -30,9 +30,6 @@ let template =
                     <li class="project_other">
                         <canvas id="c1"></canvas>
                     </li>
-                    <li class="project_other">
-
-                    </li>
                     {{#imgList}}
                     <li class="project_other">
                         <img src="${img}" class="jhlazyload testlazyload" data-src="{{name}}" alt="">

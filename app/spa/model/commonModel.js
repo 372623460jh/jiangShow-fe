@@ -14,7 +14,7 @@ export default {
                 fn(ProcessData.parseJSON(responseText));
             })
         }).then(function (json) {
-            console.log('请求超时');
+            // console.log(json);
         });
     }
 }

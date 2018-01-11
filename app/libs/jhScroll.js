@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import IScroll from 'iscroll';
+import IScroll from 'lib/iScroll/iscroll-probe';
 
 class JhScroll {
     constructor(el, options) {

@@ -4,9 +4,9 @@
 
 'use strict';
 
-//写cookie
-import cookie from 'lib/cookie/cookie';
-cookie('userId', 'jianghe', {});
+// 写cookie
+// import cookie from 'lib/cookie/cookie';
+// cookie('userId', 'jianghe', {domain: '192.168.0.105:8081', path: '/'});
 
 // 视口组件
 import autoViewPort from 'lib/autoViewPort/autoViewPort';
@@ -42,7 +42,7 @@ cs.prop();
  * spa初始化
  */
 $jh.init({
-    home: '/project',//默认首页
+    home: '/intro',//默认首页
     container: '#jhAppWrap',//主页面中的占位标签
 });
 
@@ -50,4 +50,4 @@ $jh.init({
  * 导航栏初始化
  */
 import baseModel from 'model/baseModel';
-baseModel.initNav({initPageName: 'project'});
+baseModel.initNav({initPageName: 'intro'});

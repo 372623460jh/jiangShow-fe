@@ -63,6 +63,81 @@
     color: #9d9d9d;
 }
 
+.intro .big_icon:before {
+    content: '';
+    position: absolute;
+    height: 0.55rem;
+    width: 0.55rem;
+    background-color: #279d3a;
+}
+
+.intro .big_span {
+    color: #212121;
+    height: 0.55rem;
+    line-height: 0.55rem;
+    font-size: 0.5rem;
+    font-family: Ionicons;
+}
+
+.intro .small_span {
+    display: inline-block;
+    color: #4b4b4b;
+    font-size: 0.3rem;
+    vertical-align: bottom;
+    font-family: Ionicons;
+}
+
+.intro .row {
+    height: 0.55rem;
+    width: 100%;
+}
+
+.intro .row span {
+    margin-top: 0.15rem;
+}
+
+.intro .row.com {
+    height: 0.45rem;
+}
+
+.intro .row .name {
+    margin-left: 0.7rem;
+}
+
+.intro .row .sex, .intro .row .exp, .intro .row .position {
+    margin-left: 0.3rem;
+}
+
+.intro .row .age, .intro .row .edu {
+    margin-left: 0.15rem;
+}
+
+.intro .row .age, .intro .row .edu {
+    margin-left: 0.15rem;
+}
+
+.intro .row .company {
+    margin-left: 1.5rem;
+}
+
+.intro .row.row_info {
+    margin-top: 0.15rem;
+}
+
+.intro .row .phone, .intro .row .email {
+    margin-right: 0.3rem;
+    margin-left: 0.7rem;
+    height: 0.55rem;
+    margin-top: 0;
+    line-height: 0.55rem;
+}
+
+.intro .small_span.tips1 {
+    position: absolute;
+    display: block;
+    top: 1.22rem;
+}
+
 .intro .info img {
     width: 9.2rem;
     float: left;
@@ -73,12 +148,12 @@
 .intro .info .person_info, .intro .info .resume_info, .intro .info .work_info, .intro .info .study_info {
     width: 9.2rem;
     float: left;
-    padding: 0.6rem 0.6rem 0.3rem 0.6rem;
+    padding: 0.5rem 0.6rem 0.15rem 0.6rem;
     box-sizing: border-box;
 }
 
 .intro .info .person_info {
-    height: 2.5rem;
+    position: relative;
 }
 
 .intro .info .resume_info {
@@ -96,9 +171,16 @@
 .intro .info .pi_util {
     width: 9.2rem;
     float: left;
-    height: 1rem;
-    padding: 0.1rem 0.6rem 0.3rem 0.6rem;
+    padding: 0 0.6rem 0.4rem 0.6rem;
     box-sizing: border-box;
+}
+
+.intro .pi_util .big_icon:nth-child(1):before {
+    right: 0.55rem;
+}
+
+.intro .pi_util .big_icon:nth-child(2):before {
+    right: 1.3rem;
 }
 
 /*首页滑动*/
