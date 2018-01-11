@@ -1,0 +1,35 @@
+{
+  "name": "testwebpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config webpack-dev-config.js --hot --inline",
+    "pro": "webpack --config webpack-pro-config.js -w",
+    "dev": "webpack --config webpack-dev-config.js -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@antv/f2": "^3.0.2-beta",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "fetch-polyfill2": "0.0.3",
+    "file-loader": "^1.1.6",
+    "html-webpack-plugin": "^2.30.1",
+    "iscroll": "^5.2.0",
+    "jquery": "^3.2.1",
+    "style-loader": "^0.19.1",
+    "swiper": "^4.0.7",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-dev-server": "^2.9.7"
+  }
+}

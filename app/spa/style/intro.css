@@ -1,0 +1,340 @@
+.intro {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.intro .intro_content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #54c590;
+    overflow: hidden;
+}
+
+.intro .intro_drawer {
+    z-index: 30;
+    width: 6rem;
+    top: 0;
+    left: 0;
+    bottom: 1.44rem;
+    position: absolute;
+    background-color: #54c590;
+}
+
+/*首页scroll*/
+.intro .intro_scroll .info {
+    width: 9.2rem;
+    background-color: #fff;
+    border-radius: 0.35rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 0.2rem rgba(155, 155, 155, 0.6);
+    font-family: Ionicons;
+}
+
+.intro .info .pi_top {
+    width: 9.2rem;
+    height: 1.75rem;
+    padding: 0.45rem 0.5rem 0.3rem 0.35rem;
+    box-sizing: border-box;
+    float: left;
+}
+
+.intro .pi_top .title, .intro .pi_top .tips {
+    width: 100%;
+    text-align: left;
+    float: left;
+}
+
+.intro .pi_top .title {
+    height: 0.55rem;
+    font-size: 0.53rem;
+    line-height: 0.55rem;
+    color: #111;
+}
+
+.intro .pi_top .tips {
+    height: 0.35rem;
+    font-size: 0.31rem;
+    line-height: 0.35rem;
+    margin-top: 0.15rem;
+    color: #9d9d9d;
+}
+
+.intro .info img {
+    width: 9.2rem;
+    float: left;
+    height: 3.8rem;
+    background-color: #2975ff;
+}
+
+.intro .info .person_info, .intro .info .resume_info, .intro .info .work_info, .intro .info .study_info {
+    width: 9.2rem;
+    float: left;
+    padding: 0.6rem 0.6rem 0.3rem 0.6rem;
+    box-sizing: border-box;
+}
+
+.intro .info .person_info {
+    height: 2.5rem;
+}
+
+.intro .info .resume_info {
+    height: 3.5rem;
+}
+
+.intro .info .work_info {
+    height: 6rem;
+}
+
+.intro .info .study_info {
+    height: 2.5rem;
+}
+
+.intro .info .pi_util {
+    width: 9.2rem;
+    float: left;
+    height: 1rem;
+    padding: 0.1rem 0.6rem 0.3rem 0.6rem;
+    box-sizing: border-box;
+}
+
+/*首页滑动*/
+.intro .intro_scroll {
+    width: 100%;
+    position: absolute;
+    bottom: 1.44rem;
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+.intro .intro_scroll ul {
+    background-color: #54c590;
+}
+
+.intro .intro_scroll li {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.4rem;
+    position: relative;
+}
+
+.intro .intro_down_cell {
+    width: 100%;
+    height: 0;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    line-height: 100%;
+}
+
+.intro .intro_down_cell img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/*左侧菜单*/
+.intro .myphoto {
+    position: relative;
+    width: 100%;
+    height: 2rem;
+    margin-top: 0.9rem;
+    padding: 0;
+}
+
+.intro .myphoto img {
+    display: block;
+    position: absolute;
+    width: 2rem;
+    left: 0.88rem;
+}
+
+.intro .myphoto span {
+    display: block;
+    font-family: '微软雅黑';
+    font-size: 0.54rem;
+    line-height: 0.6rem;
+    position: absolute;
+    left: 3.1rem;
+    top: 1.25rem;
+    width: 2.8rem;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.intro .mainlist {
+    width: 100%;
+    height: 4.8rem;
+    position: relative;
+    margin-top: 1.44rem;
+}
+
+.intro .menu {
+    width: 100%;
+    float: left;
+    height: 1.2rem;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.intro .menu.cs_down {
+    transition: background-color 0.25s ease-out;
+    -moz-transition: background-color 0.25s ease-out;
+    -webkit-transition: background-color 0.25s ease-out;
+    -o-transition: background-color 0.25s ease-out;
+    background-color: rgba(255, 255, 255, .15);
+}
+
+.intro .menu i {
+    width: 0.64rem;
+    height: 0.64rem;
+    font-size: 0.64rem;
+    line-height: 1.2rem;
+    position: absolute;
+    left: 0.53rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font-family: "Ionicons";
+}
+
+.intro .menu i.baseInfo:before {
+    content: "";
+}
+
+.intro .menu i.work:before {
+    content: "";
+}
+
+.intro .menu i.ehco:before {
+    content: "";
+}
+
+.intro .menu i.idea:before {
+    content: "";
+}
+
+.intro .menu span {
+    line-height: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 1.68rem;
+    font-size: 0.5rem;
+}
+
+/*底部图片*/
+.intro .leftbottom {
+    position: absolute;
+    margin-bottom: 0px;
+    width: 100%;
+    bottom: 0;
+}
+
+.intro .leftbottom img {
+    width: 100%;
+    background-size: 100% auto;
+}
+
+/*轮播图*/
+.intro .top-pic {
+    width: 100%;
+    position: relative;
+}
+
+.intro .pic1,
+.intro .pic2 {
+    position: absolute;
+    width: 100%;
+}
+
+.intro .pic1 {
+    z-index: 20;
+}
+
+.intro .pic2 {
+    z-index: 10;
+}
+
+.intro .bai-box,
+.intro .hei-box {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    transition: margin-left 1.5s linear 0s;
+}
+
+.intro .bai-box {
+    margin-left: 0;
+}
+
+.intro .bg,
+.intro .yun1,
+.intro .yun2,
+.intro .yun3,
+.intro .zhu {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+/*初始化位置和过度效果*/
+.intro .yun1 {
+    width: 3%;
+    left: 4.4%;
+    top: 37.2%;
+    transition: left 2s ease 0s;
+}
+
+.intro .yun2 {
+    width: 23%;
+    left: 10.5%;
+    top: 33.5%;
+    transition: left 2s ease 0s;
+}
+
+.intro .yun3 {
+    width: 12%;
+    left: 60.2%;
+    top: 12.5%;
+    transition: left 1.7s ease-out 0s;
+}
+
+.intro .zhu {
+    width: 17%;
+    left: 12.8%;
+    top: 19.7%;
+    transition: left 2s ease 0s;
+}
+
+.intro .bg {
+    width: 100%;
+    left: 0;
+    transition: left 1.5s linear 0s;
+}
+
+/*菜单*/
+.intro .intro_menu {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.53rem;
+    top: 0.53rem;
+    left: 0.27rem;
+    z-index: 21;
+    position: absolute;
+    color: #ffffff;
+    text-align: center;
+    font-size: 0.67rem;
+    line-height: 1rem;
+}
+
+.intro .intro_menu:before {
+    content: '\F20D';
+    font-family: "Ionicons";
+}
+
+.intro .intro_menu.cs_down {
+    background-color: rgba(255, 255, 255, .15);
+}
