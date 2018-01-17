@@ -14,7 +14,7 @@ let template = '' +
     '   <div class="author_return"></div>' +
     '</div>';
 
-class Ccontroller extends $jh.SpaCon {
+class Dcontroller extends $jh.SpaCon {
 
     constructor() {
         super();
@@ -36,4 +36,4 @@ class Ccontroller extends $jh.SpaCon {
     }
 }
 
-export default $jh.controller['/test1'] = Ccontroller;
+export default $jh.controller['/test1'] = Dcontroller;

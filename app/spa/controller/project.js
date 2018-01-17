@@ -9,12 +9,12 @@ import 'style/project.css';
 import projectTemp from 'template/projectTemp';
 
 import $ from 'jquery';
-import Swiper from 'swiper';
+import Swiper from 'lib/swiper/swiper';
 import LazyLoad from 'lib/lazyLoad';
 import JhScroll from 'lib/jhScroll';
 import CommonModel from 'model/commonModel';
 
-const F2 = require('@antv/f2');
+// const F2 = require('@antv/f2');
 
 class Bcontroller extends $jh.SpaCon {
 

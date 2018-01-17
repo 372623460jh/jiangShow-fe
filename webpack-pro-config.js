@@ -17,7 +17,7 @@ module.exports = {
     },
     output: {
         //输出文件
-        path: path.join(__dirname, '/build'),
+        path: __dirname + '/pro',
         // publicPath: '',
         filename: 'bundle.js',
     },
@@ -38,12 +38,12 @@ module.exports = {
             //字体部分
             {
                 test: /\.(otf|eot|svg|ttf|woff|woff2).*$/,
-                loader: 'url-loader?limit=1024&name=fonts/[name].[ext]'
+                loader: 'url-loader?limit=20480&name=fonts/[name].[ext]'
             },
             //图片部分
             {
                 test: /\.(gif|jpe?g|png|ico)$/,
-                loader: 'url-loader?limit=1024&name=images/[name].[ext]'
+                loader: 'url-loader?limit=20480&name=images/[name].[ext]'
             }
         ]
     },
@@ -51,7 +51,8 @@ module.exports = {
         //通过该插件配置的属性会成为一个全局属性
         new webpack.DefinePlugin({
             //在任何地方都可以访问到__DEV__()
-            __DEV__: false
+            __DEV__: false,
+            'process.env': {NODE_ENV: '"production"'}
         }),
 
         // 'vendor' 就是把依赖库(比如react react-router, redux,jquery)全部打包到 vendor.js中
@@ -69,7 +70,7 @@ module.exports = {
             // 输入html模板
             template: 'app/index.html',
             // 输出html
-            filename: 'bundle.html',
+            filename: 'index.html',
             // js插入的位置，true/'head'  false/'body'
             inject: 'body',
             // 引入那几个js对应entry的key
@@ -92,9 +93,10 @@ module.exports = {
 
         //UglifyJs插件
         new webpack.optimize.UglifyJsPlugin({
-            compressor: {
+            compress: {
                 warnings: false
-            },//压缩代码
+            },
+            //压缩代码
             // beautify: true,//美化代码(压缩后不需要美化)
             mangle: {
                 except: ['$', 'exports', 'require']
@@ -114,4 +116,4 @@ module.exports = {
             controller: path.resolve(__dirname, 'app/spa/controller')
         }
     }
-} 
+}

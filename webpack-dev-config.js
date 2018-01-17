@@ -18,7 +18,7 @@ module.exports = {
     },
     output: {
         //输出文件
-        path: __dirname + '/build',
+        path: __dirname + '/dev',
         // publicPath: '',
         filename: 'bundle.js'
     },
@@ -28,7 +28,8 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+
             },
             //css部分通过style-loader加载样式通过css-loader将css嵌入js
             {

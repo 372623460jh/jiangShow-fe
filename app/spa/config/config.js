@@ -17,7 +17,6 @@ let deviceInfo = autoViewPort();
 import 'babel-polyfill';
 
 // 引入spa组件
-// let $jh = require('lib/spa');
 import $jh from 'lib/spa';
 // 设置rem常量
 $jh.prop.rem = deviceInfo.htmlFontSize;
@@ -35,9 +34,9 @@ import 'controller/intro';
 import 'controller/project';
 import 'controller/skills';
 
-import 'controller/test1';
-import 'controller/test2';
-import 'controller/test3';
+// import 'controller/test1';
+// import 'controller/test2';
+// import 'controller/test3';
 
 // 点击态组件
 import cs from 'lib/clickState';
@@ -47,12 +46,12 @@ cs.prop();
  * spa初始化
  */
 $jh.init({
-    home: '/test1',//默认首页
+    home: '/intro',//默认首页
     container: '#jhAppWrap',//主页面中的占位标签
 });
 
 /**
  * 导航栏初始化
  */
-// import baseModel from 'model/baseModel';
-// baseModel.initNav({initPageName: 'intro'});
+import baseModel from 'model/baseModel';
+baseModel.initNav({initPageName: 'intro'});
