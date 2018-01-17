@@ -95,7 +95,7 @@ let template =
                                     </div>
                                     <span class="small_span tips1">曾就职于</span>
                                     <div class="row com">
-                                        <span class="small_span company">竞技世界(JJ比赛)</span>
+                                        <span class="small_span company">XXXXXXXX</span>
                                         <span class="small_span position">高级前端工程师</span>
                                     </div>
                                     <div class="row com">
