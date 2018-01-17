@@ -3,27 +3,23 @@ body {
     background-color: #54c590;
 }
 
-/*最外层盒子*/
+/*所有单页统一的父盒子最外层盒子*/
 .jhAppWrap {
+    position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     transform: translate3d(0, 0, 0);
     -webkit-transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
     -webkit-transform-style: preserve-3d;
 }
 
-/*所有单页统一的父盒子*/
-.jhAppBox {
-    position: relative;
-    margin-left: 0px;
-    margin-top: 0px;
-    width: 100%;
-    height: 100%;
-}
-
 /*页面最外层盒子*/
 .jhAppView {
+    position: absolute;
+    left: 0px;
+    top: 0px;
     width: 100%;
     height: 100%;
 }
