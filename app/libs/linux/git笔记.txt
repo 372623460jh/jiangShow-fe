@@ -1,0 +1,24 @@
+//克隆
+$ git clone <版本库的网址> <本地目录名>
+git clone https://github.com/372623460jh/jiangShow.git /data/mydir
+将github上项目克隆到/data/mydir目录下
+
+//提交
+$ git push <远程主机名> <本地分支名>:<远程分支名>
+远程主机名:可以在.git下config下查看
+<远程分支名><本地分支名>：本地的哪个分支提交到远程的哪个分支
+//提交到github上
+git push https://github.com/372623460jh/jiangShow.git master:master
+在.git/config中remote origin指向https://github.com/372623460jh/jiangShow.git 所以上述指令可以写为
+git push origin master:master 合并分支名相同可以简化为
+git push origin master
+
+//更新
+$ git pull <远程主机名> <远程分支名>:<本地分支名>
+远程主机名:可以在.git下config下查看
+<远程分支名><本地分支名>：远程的哪个分支和本地的哪个分支合并
+//更新github上应用
+git pull https://github.com/372623460jh/jiangShow.git master:master
+在.git/config中remote origin指向https://github.com/372623460jh/jiangShow.git 所以上述指令可以写为
+git pull origin master:master 合并分支名相同可以简化为
+git pull origin master
