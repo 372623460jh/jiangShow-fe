@@ -125,7 +125,44 @@ let template =
                                     <span class="tips">简单介绍本人从毕业至今的工作经历，职位以及工作描述</span>
                                 </div>
                                 <img src="${yun3}" alt="">
-                                <div class="work_info"></div>
+                                <div class="work_info">
+                                    <div class="company">
+                                        <div class="row">
+                                            <i class="big_icon"></i>
+                                            <span class="big_span name">XX世界</span>
+                                            <span class="small_span sex">2017.04~2018.04</span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="small_span">企业性质：</span>
+                                            <span class="small_span cp_info">不需要融资</span>
+                                            <i class="small_icon img_pos"></i>
+                                            <span class="small_span cp_pos">职位：</span>
+                                            <span class="small_span">高级前端工程师</span>
+                                        </div>
+                                        <div class="row work_cont">
+                                            <i class="small_icon img_con"></i>
+                                            <p class="cp_con">我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容是内容我是内容</p>
+                                        </div>
+                                    </div>
+                                    <div class="company">
+                                        <div class="row">
+                                            <i class="big_icon"></i>
+                                            <span class="big_span name">东软集团</span>
+                                            <span class="small_span sex">2015.07~2017.03</span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="small_span">企业性质：</span>
+                                            <span class="small_span cp_info">上市公司</span>
+                                            <i class="small_icon img_pos"></i>
+                                            <span class="small_span cp_pos">职位：</span>
+                                            <span class="small_span">前端工程师</span>
+                                        </div>
+                                        <div class="row work_cont">
+                                            <i class="small_icon img_con"></i>
+                                            <p class="cp_con">是内容我是内容我是内容我容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容是内容我是内容</p>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="clear"></div> 
                             </div>
                         </li>

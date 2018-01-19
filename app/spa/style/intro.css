@@ -63,6 +63,44 @@
     color: #9d9d9d;
 }
 
+.intro .small_icon.img_pos {
+    position: relative;
+    margin-left: 0.25rem;
+}
+
+.intro .small_icon.img_con {
+    position: absolute;
+    margin-left: 0.1rem;
+    margin-top: 0.26rem;
+}
+
+.intro .work_cont {
+    margin-top: 0.15rem;
+}
+
+.intro .work_info .cp_con {
+    width: 100%;
+    line-height: 0.6rem;
+    font-size: 0.31rem;
+    color: #4b4b4b;
+    text-indent: 2em;
+    padding: 0;
+}
+
+.intro .work_info .company {
+    margin-bottom: 0.25rem;
+}
+
+.intro .small_icon:before {
+    content: '';
+    position: absolute;
+    height: 0.4rem;
+    width: 0.4rem;
+    top: -0.17rem;
+    left: 0rem;
+    background-color: #ba7bff;
+}
+
 .intro .big_icon:before {
     content: '';
     position: absolute;
@@ -88,7 +126,7 @@
 }
 
 .intro .row {
-    height: 0.55rem;
+    min-height: 0.55rem;
     width: 100%;
 }
 
@@ -100,7 +138,7 @@
     height: 0.45rem;
 }
 
-.intro .row .name {
+.intro .row .name, .intro .row .cp_pos {
     margin-left: 0.7rem;
 }
 
@@ -108,7 +146,7 @@
     margin-left: 0.3rem;
 }
 
-.intro .row .age, .intro .row .edu {
+.intro .row .age, .intro .row .edu, .intro .row .cp_info {
     margin-left: 0.15rem;
 }
 
@@ -158,10 +196,6 @@
 
 .intro .info .resume_info {
     height: 3.5rem;
-}
-
-.intro .info .work_info {
-    height: 6rem;
 }
 
 .intro .info .study_info {
