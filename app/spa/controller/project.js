@@ -16,7 +16,7 @@ import CommonModel from 'model/commonModel';
 
 // const F2 = require('@antv/f2');
 
-class Bcontroller extends $jh.SpaCon {
+class Bcontroller extends $jh.SpaController {
 
     constructor() {
         super();
@@ -157,4 +157,4 @@ class Bcontroller extends $jh.SpaCon {
     }
 }
 
-export default $jh.controller['/project'] = Bcontroller;
+$jh.addController('/project', Bcontroller);

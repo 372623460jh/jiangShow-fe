@@ -15,7 +15,7 @@ let rootDom,
         '   <div class="author_return"></div>' +
         '</div>';
 
-class Ccontroller extends $jh.SpaCon {
+class Ccontroller extends $jh.SpaController {
 
     constructor() {
         super();
@@ -37,4 +37,4 @@ class Ccontroller extends $jh.SpaCon {
     }
 }
 
-export default $jh.controller['/skills'] = Ccontroller;
+$jh.addController('/skills', Ccontroller);

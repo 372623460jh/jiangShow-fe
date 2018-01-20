@@ -12,7 +12,7 @@ import Drawer from 'lib/drawer';
 import JhScroll from 'lib/jhScroll';
 
 
-class Acontroller extends $jh.SpaCon {
+class Acontroller extends $jh.SpaController {
 
     constructor() {
         super();
@@ -348,6 +348,7 @@ class Acontroller extends $jh.SpaCon {
         }
     }
 }
-export default $jh.controller['/intro'] = Acontroller;
+
+$jh.addController('/intro', Acontroller);
 
 

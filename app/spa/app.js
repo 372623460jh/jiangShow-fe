@@ -34,9 +34,9 @@ import 'controller/intro';
 import 'controller/project';
 import 'controller/skills';
 
-// import 'controller/test1';
-// import 'controller/test2';
-// import 'controller/test3';
+import 'controller/test1';
+import 'controller/test2';
+import 'controller/test3';
 
 // 点击态组件
 import cs from 'lib/clickState';
@@ -46,12 +46,13 @@ cs.prop();
  * spa初始化
  */
 $jh.init({
-    home: '/intro',//默认首页
+    home: '/test1',//默认首页
     container: '#jhAppWrap',//主页面中的占位标签
+    errRoute: '/404'//错误页路由名不配置默认是/error
 });
 
-/**
- * 导航栏初始化
- */
-import baseModel from 'model/baseModel';
-baseModel.initNav({initPageName: 'intro'});
+// /**
+//  * 导航栏初始化
+//  */
+// import baseModel from 'model/baseModel';
+// baseModel.initNav({initPageName: 'intro'});

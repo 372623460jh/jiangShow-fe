@@ -3,7 +3,7 @@
  */
 
 import 'whatwg-fetch';
-import ProcessData from 'lib/processData';
+import ProcessData from 'lib/processData/processData';
 
 var CommonConfig = require('../config/commonConfig');
 

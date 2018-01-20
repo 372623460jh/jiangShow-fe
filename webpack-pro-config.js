@@ -10,7 +10,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: {
         //入口文件
-        index: './app/spa/config/config.js',
+        index: './app/spa/app.js',
         vendor: [
             'jquery'
         ]

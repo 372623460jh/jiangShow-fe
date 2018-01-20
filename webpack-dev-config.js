@@ -11,7 +11,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 module.exports = {
     entry: {
         //入口文件
-        index: './app/spa/config/config.js',
+        index: './app/spa/app.js',
         vendor: [
             'jquery'
         ]

@@ -8,6 +8,7 @@
     var $jh = {};
     factory(global, $jh);
     if (typeof exports === 'object' && exports && typeof exports.nodeName !== 'string') {
+        global.$jh = $jh;
         module.exports = $jh; // CommonJS
     } else if (typeof define === 'function' && define.amd) {
         define(['exports'], $jh); // AMD
@@ -15,6 +16,8 @@
         global.$jh = $jh;
     }
 })(window, function (global, $jh, undefined) {
+
+    var router;
     /**
      * 路由部分 director
      */
@@ -160,7 +163,7 @@
             }
         };
 
-        var Router = $jh.Router = function (routes) {
+        var Router = router = function (routes) {
             //执行方法也返回对象 var a = a(); var a = new a();
             if (!(this instanceof Router)) return new Router(routes);
 
@@ -739,7 +742,6 @@
             }
         };
     }());
-    var router = $jh.Router;
 
     /**
      * 模板引擎 mustache
@@ -1218,20 +1220,15 @@
     }
 
     // mustache工厂加工mustache对象
-    var Mustache = $jh.Mustache = {};//模板引擎
+    var Mustache = {};//模板引擎
     mustacheFactory(Mustache);
 
     var doc = document,
-        data = $jh.data = {};
-
-    //保存所有的控制器
-    $jh.controller = {};
-
-    //保存所有的模型
-    $jh.model = {};
-
-    //用户保存公共数据的对象
-    $jh.storage = {};
+        data = {},
+        //用户保存公共数据的对象
+        storage = {},
+        //保存所有的控制器
+        controller = {};
 
     //用户保存公共属性
     $jh.prop = {
@@ -1242,7 +1239,7 @@
      * 原生返回按钮按下回调
      */
     global.webGotoPage = function () {
-        _backHandle();
+        $jh.backHandle();
     };
 
     /**
@@ -1400,7 +1397,7 @@
      */
     $jh.extend({
         /**
-         * $jh用于保存数据的方法（数据是深拷贝到$jh.storage中）
+         * $jh用于保存数据的方法（数据是深拷贝到storage中）
          * @param key 键
          * @param value 值
          */
@@ -1408,15 +1405,15 @@
             var save = {};
             save[key] = value;
             $jh.delStorage(key);
-            $jh.extend.call($jh.storage, true, save);
+            $jh.extend.call(storage, true, save);
         },
         /**
-         * $jh用于保存数据的方法（数据是深拷贝到$jh.storage中）
+         * $jh用于保存数据的方法（数据是深拷贝到storage中）
          * @param key 键
          * @param value 值
          */
         getStorage: function (key) {
-            return $jh.storage[key];
+            return storage[key];
         },
         /**
          * $jh用于删除数据的方法
@@ -1426,10 +1423,19 @@
         delStorage: function (key) {
             if ($jh.getStorage(key)) {
                 try {
-                    delete $jh.storage[key];
+                    delete storage[key];
                 } catch (e) {
                 }
             }
+        },
+
+        /**
+         * 增加控制器的方法
+         * @param routeName 路由名
+         * @param controllerClass 控制器类
+         */
+        addController: function (routeName, controllerClass) {
+            controller[routeName + ''] = controllerClass;
         }
     });
 
@@ -1500,10 +1506,10 @@
     data.animation = '';
 
     //spa控制器类
-    function SpaCon() {
+    function SpaController() {
     };
-    SpaCon.prototype = {
-        constructor: SpaCon,
+    SpaController.prototype = {
+        constructor: SpaController,
         // 创建生命周期方法
         onCreate: function (nowPage, lastPage) {
         },
@@ -1519,7 +1525,7 @@
         }
     };
 
-    $jh.SpaCon = SpaCon;
+    $jh.SpaController = SpaController;
 
     /**
      * 页面对象
@@ -1564,7 +1570,7 @@
      *  push方法：压栈
      *  pop方法：出栈
      */
-    $jh.Stacks = {
+    var Stacks = {
         //保存着页面对象
         page: {},
         //按顺序保存着页面标志位
@@ -1576,26 +1582,26 @@
      * 压栈操作，当要压栈对象已经存在在页面中时
      * @param page 需要入栈的页面
      */
-    $jh.Stacks.push = function (page) {
-        $jh.Stacks.pageFlag.push(page.pageId);
-        $jh.Stacks.page[page.pageId] = page;
+    Stacks.push = function (page) {
+        Stacks.pageFlag.push(page.pageId);
+        Stacks.page[page.pageId] = page;
     };
     /**
      * 出栈操作
      * @return Object 出栈页面
      */
-    $jh.Stacks.pop = function () {
+    Stacks.pop = function () {
         //栈中只剩下最后一页
-        return $jh.Stacks.page[$jh.Stacks.pageFlag.pop()];
+        return Stacks.page[Stacks.pageFlag.pop()];
     };
     /**
      * 查询栈中是否存在page对象
      * @param page page对象
-     * @return 下标$jh.Stacks.pageFlag（-1为没找到）
+     * @return 下标Stacks.pageFlag（-1为没找到）
      */
-    $jh.Stacks.pageExist = function (page) {
-        for (var i = 0; i < $jh.Stacks.pageFlag.length; i++) {
-            if ($jh.Stacks.pageFlag[i] == page.pageId) {
+    Stacks.pageExist = function (page) {
+        for (var i = 0; i < Stacks.pageFlag.length; i++) {
+            if (Stacks.pageFlag[i] == page.pageId) {
                 return i;
             }
         }
@@ -1605,11 +1611,11 @@
     /**
      * 执行goBack时根据goBack的入参返回待返回页的pageId,如果未找到符合条件的返回页返回false
      */
-    $jh.Stacks.findPageId = function (obj) {
+    Stacks.findPageId = function (obj) {
         if (obj.routeName) {
             //返回距离栈顶最近的满足routeName,key的页面
-            for (var n = $jh.Stacks.pageFlag.length - 2; n >= 0; n--) {
-                var pg = $jh.Stacks.getPage(n);
+            for (var n = Stacks.pageFlag.length - 2; n >= 0; n--) {
+                var pg = Stacks.getPage(n);
                 if (pg.routeName === obj.routeName) {
                     if (obj.key) {
                         if (pg.pageKey === obj.key) {
@@ -1625,11 +1631,11 @@
             return false;
         } else {
             //获取栈顶页
-            var topPage = $jh.Stacks.getPage(-1);
+            var topPage = Stacks.getPage(-1);
             if (topPage.pageType === 'normal') {
                 //栈顶页是正常页返回
-                for (var n = $jh.Stacks.pageFlag.length - 2; n >= 0; n--) {
-                    var pg = $jh.Stacks.getPage(n);
+                for (var n = Stacks.pageFlag.length - 2; n >= 0; n--) {
+                    var pg = Stacks.getPage(n);
                     if (pg.pageType === 'normal') {
                         //找到离栈顶最近的正常页
                         return pg.pageId;
@@ -1638,7 +1644,7 @@
                 return false;
             } else if (topPage.pageType === 'temp') {
                 //栈顶页是临时页返回
-                return $jh.Stacks.getPage(-2).pageId;
+                return Stacks.getPage(-2).pageId;
             }
         }
     };
@@ -1647,26 +1653,26 @@
      * @param index 索引值如果为+是数组下标，如果为-是倒数
      * @return {*}
      */
-    $jh.Stacks.getPage = function (index) {
-        if ($jh.Stacks.pageFlag.length === 0) {
+    Stacks.getPage = function (index) {
+        if (Stacks.pageFlag.length === 0) {
             return false;
         }
-        index = index % $jh.Stacks.pageFlag.length;
+        index = index % Stacks.pageFlag.length;
         if (index < 0) {
-            return $jh.Stacks.page[$jh.Stacks.pageFlag[$jh.Stacks.pageFlag.length + index]];
+            return Stacks.page[Stacks.pageFlag[Stacks.pageFlag.length + index]];
         } else {
-            return $jh.Stacks.page[$jh.Stacks.pageFlag[index]];
+            return Stacks.page[Stacks.pageFlag[index]];
         }
     };
     /**
      * 从栈中倒数第二个page开始查询返回第一个进栈的page
      * @return {*}
      */
-    $jh.Stacks.getInstackPage = function () {
-        var lastFlag = $jh.Stacks.pageFlag.length - 2;
+    Stacks.getInstackPage = function () {
+        var lastFlag = Stacks.pageFlag.length - 2;
         var lastInstackPage = null;
         for (lastFlag; lastFlag >= 0; lastFlag--) {
-            var ss = $jh.Stacks.page[$jh.Stacks.pageFlag[lastFlag]];
+            var ss = Stacks.page[Stacks.pageFlag[lastFlag]];
             if (ss.notinstack === false) {
                 lastInstackPage = ss;
                 break;
@@ -1686,38 +1692,46 @@
                 backFlag = true;
             }, 300);
 
-            if ($jh.Stacks.getPage(-1).controller && $jh.Stacks.getPage(-1).controller.onBack) {
-                $jh.Stacks.getPage(-1).controller.onBack();
+            if (Stacks.getPage(-1).controller && Stacks.getPage(-1).controller.onBack) {
+                Stacks.getPage(-1).controller.onBack();
             } else {
                 $jh.goBack();
             }
         }
-    }
-
-    //跳转错误页面
-    $jh.showError = function () {
-        $jh.go("/error");
     };
 
     /**
      * 将模板字串转为dom对象返回或html字串和data渲染后返回dom
      * @param htmlstr 需要装换的字串
      * @param data 转载模板的数据
+     * @param type 转载类型：是转换成字符串还是转换成dom对象
      * @returns {NodeList} dom对象
      */
-    $jh.parseDom = function (htmlstr, data) {
-        var objE = document.createElement("div");
+    $jh.parseDom = function (htmlstr, data, type) {
         var templateStr;
-        if (data) {
-            // 初始化胡子模板
-            Mustache.parse(htmlstr);
-            // 转载模板的数据
-            templateStr = Mustache.render(htmlstr, data);
+        if (type == 'string') {
+            if (data) {
+                // 初始化胡子模板
+                Mustache.parse(htmlstr);
+                // 转载模板的数据
+                templateStr = Mustache.render(htmlstr, data);
+            } else {
+                templateStr = htmlstr;
+            }
+            return templateStr;
         } else {
-            templateStr = htmlstr;
+            var objE = document.createElement("div");
+            if (data) {
+                // 初始化胡子模板
+                Mustache.parse(htmlstr);
+                // 转载模板的数据
+                templateStr = Mustache.render(htmlstr, data);
+            } else {
+                templateStr = htmlstr;
+            }
+            objE.innerHTML = templateStr;
+            return objE.childNodes;
         }
-        objE.innerHTML = templateStr;
-        return objE.childNodes;
     };
 
     /**
@@ -1735,12 +1749,12 @@
             // data.parent.appendChild(page.dom);
         }
         // 判断是否需要加载css和js
-        if ($jh.controller[page.routeName]) {
+        if (controller[page.routeName]) {
             // 已经加载过js和css(但是当前没在栈中)
             // 深拷控制器
-            page.controller = new $jh.controller[page.routeName]();
+            page.controller = new controller[page.routeName]();
             // 获取当前栈顶页page对象
-            var lastPage = $jh.Stacks.getPage(-1);
+            var lastPage = Stacks.getPage(-1);
             // 调用该页的生命周期方法(如果lastPage == false说明没有上一页)
             page.controller.onCreate(page, lastPage);
             // 执行动画
@@ -1756,20 +1770,20 @@
      * @param lastPage 上一个页面对象
      */
     function showPage(nowPage, lastPage) {
-        var index = $jh.Stacks.pageExist(nowPage),//获取当前页所在栈中的索引值
-            len = $jh.Stacks.pageFlag.length;// 页面栈中有几个页
+        var index = Stacks.pageExist(nowPage),//获取当前页所在栈中的索引值
+            len = Stacks.pageFlag.length;// 页面栈中有几个页
         if (index != -1) {
             // 存在栈中循环取出执行销毁方法
-            for (index; index < $jh.Stacks.pageFlag.length - 1;) {
-                var page = $jh.Stacks.pop();
+            for (index; index < Stacks.pageFlag.length - 1;) {
+                var page = Stacks.pop();
                 (function (page) {
                     page.controller.onDestroy && page.controller.onDestroy();
                     setTimeout(function () {
                         page.destroy();
                         // 如果是临时页就删除栈中的记录
                         try {
-                            $jh.Stacks.page[page.pageId] = '';
-                            delete $jh.Stacks.page[page.pageId];
+                            Stacks.page[page.pageId] = '';
+                            delete Stacks.page[page.pageId];
                         } catch (e) {
                             console.error('移除堆区page对象失败');
                         }
@@ -1779,11 +1793,11 @@
             nowPage.controller.onResume && nowPage.controller.onResume(nowPage, lastPage);
         } else {
             // 不存在栈中 压栈
-            $jh.Stacks.push(nowPage);
+            Stacks.push(nowPage);
         }
         if (len === 0) {
             //第一次显示
-            $jh.Stacks.firstPage = nowPage;
+            Stacks.firstPage = nowPage;
             pageAnimation(nowPage, lastPage, 'one');
         } else {
             pageAnimation(nowPage, lastPage, data.animation);
@@ -1850,11 +1864,11 @@
     function _initPage(page) {
         if (data.pageId) {
             //调用的是goBack方法，pageId对应的是要返回的页面的pageId
-            var backPage = $jh.Stacks.page[data.pageId];
+            var backPage = Stacks.page[data.pageId];
             data.pageId = '';
             backPage.args = data.args;
             backPage.params = page.params;
-            showPage(backPage, $jh.Stacks.getPage(-1));
+            showPage(backPage, Stacks.getPage(-1));
         } else {
             //调用的是go方法或初始化创建页面，新建页面
             newPage(page);
@@ -1944,7 +1958,6 @@
      * 核心方法块
      */
     var goHandle = true;//防连点
-    // switchHandle = true;//switch防连点
     $jh.extend({
         /**
          * 前进的跳转（执行前进动画）只负责修改url
@@ -1955,7 +1968,7 @@
                 console.error('go方法缺少参数');
                 return;
             }
-            if (goHandle) {
+            if (goHandle || obj.douTap) {
                 goHandle = false;
                 setTimeout(function () {
                     goHandle = true;
@@ -1977,17 +1990,17 @@
          * @param obj 跳页参数
          */
         goBack: function (obj) {
-            if ($jh.Stacks.pageFlag.length === 1) {
+            if (Stacks.pageFlag.length === 1) {
                 console.log('关闭webview');
                 return;
             }
-            var pageId = $jh.Stacks.findPageId(obj || {});
-            if (pageId) {
-                if (goHandle) {
-                    goHandle = false;
-                    setTimeout(function () {
-                        goHandle = true;
-                    }, 300);
+            if (goHandle || obj.douTap) {
+                goHandle = false;
+                setTimeout(function () {
+                    goHandle = true;
+                }, 300);
+                var pageId = Stacks.findPageId(obj || {});
+                if (pageId) {
                     // 返回页的pageId
                     data.pageId = pageId;
                     // 页面间传递的参数
@@ -1995,11 +2008,11 @@
                     // 页面间切换动画
                     data.animation = (obj && obj.animation) ? obj.animation : 'baseOut';
                     // 修改url
-                    global.location.hash = '#' + $jh.Stacks.page[pageId].routeName + ((obj && obj.params) ? ('?' + obj.params) : '');
+                    global.location.hash = '#' + Stacks.page[pageId].routeName + ((obj && obj.params) ? ('?' + obj.params) : '');
+                } else {
+                    console.error('未找到goBack指定返回页');
+                    return;
                 }
-            } else {
-                console.error('未找到goBack指定返回页');
-                return;
             }
         },
         /**
@@ -2011,15 +2024,13 @@
                 console.error('change必须要有routeName');
                 return;
             }
-            if (goHandle /*&& switchHandle*/) {
+            if (goHandle || obj.douTap) {
                 goHandle = false;
-                // switchHandle = false;
                 setTimeout(function () {
                     goHandle = true;
-                    // switchHandle = true;
                 }, 300);
                 //入参的routeName或key是否存在栈中
-                var pageId = $jh.Stacks.findPageId(obj);
+                var pageId = Stacks.findPageId(obj);
                 if (pageId) {
                     // 返回页的pageId
                     data.pageId = pageId;
@@ -2028,9 +2039,9 @@
                     // 页面间切换动画
                     data.animation = (obj && obj.animation) ? obj.animation : 'baseOut';
                     // 修改url
-                    global.location.hash = '#' + $jh.Stacks.page[pageId].routeName + ((obj && obj.params) ? ('?' + obj.params) : '');
+                    global.location.hash = '#' + Stacks.page[pageId].routeName + ((obj && obj.params) ? ('?' + obj.params) : '');
                 } else {
-                    goHandle = true;
+                    obj.douTap = true;
                     $jh.go(obj);
                 }
             }
@@ -2043,15 +2054,10 @@
         init: function (config) {
             // 单页的最外层父盒子
             data.parent = config.container ? doc.querySelector(config.container) : window.document.body;
-            // // 包裹所有单页的父盒子
-            // data.container = createDom('div', {
-            //     className: 'jhAppBox',
-            // });
-            // data.parent.appendChild(data.container);
             /**
              * 初始化路由配置对象
              */
-            for (var key in $jh.controller) {
+            for (var key in controller) {
                 (function (index, item) {
                     data.routes[index] = {
                         before: function () {
@@ -2075,9 +2081,16 @@
                             item.after && item.after();
                         }
                     };
-                })(key, $jh.controller[key]);
+                })(key, controller[key]);
             }
-            router(data.routes).configure({notfound: $jh.showError}).init(config.home || '/');
+            router(data.routes).configure({
+                notfound: function () {
+                    $jh.go({
+                        routeName: config.errRoute || '/error',
+                        douTap: true
+                    });
+                }
+            }).init(config.home || '/');
         }
     });
 });
