@@ -19,7 +19,7 @@
 
     var router;
     /**
-     * 路由部分 director
+     * 路由部分director
      */
     (function () {
         var dloc = document.location;
