@@ -188,7 +188,7 @@
             this.handler = function (onChangeEvent) {
                 var newURL = onChangeEvent && onChangeEvent.newURL || window.location.hash;
                 var url = self.history === true ? self.getPath() : newURL.replace(/.*#/, '');
-                self.di$jhtch('on', url.charAt(0) === '/' ? url : '/' + url);
+                self.dispatch('on', url.charAt(0) === '/' ? url : '/' + url);
             };
 
             listener.init(this.handler, this.history);
@@ -197,7 +197,7 @@
                 if (dlocHashEmpty() && r) {
                     dloc.hash = r;
                 } else if (!dlocHashEmpty()) {
-                    self.di$jhtch('on', '/' + dloc.hash.replace(/^(#\/|#|\/)/, ''));
+                    self.dispatch('on', '/' + dloc.hash.replace(/^(#\/|#|\/)/, ''));
                 }
             } else {
                 if (this.convert_hash_in_init) {
@@ -462,7 +462,7 @@
             this.scope.splice(length, path.length);
         };
 
-        Router.prototype.di$jhtch = function (method, path, callback) {
+        Router.prototype.dispatch = function (method, path, callback) {
             var self = this,
                 fns = this.traverse(method, path.replace(QUERY_SEPARATOR, ""), this.routes, ""),
                 invoked = this._invoked,
@@ -775,10 +775,10 @@
             return regExpTest.call(re, string);
         }
 
-        var non$jhceRe = /\S/;
+        var nonspaceRe = /\S/;
 
-        function isWhite$jhce(string) {
-            return !testRegExp(non$jhceRe, string);
+        function isWhitespace(string) {
+            return !testRegExp(nonspaceRe, string);
         }
 
         var entityMap = {
@@ -799,7 +799,7 @@
         }
 
         var whiteRe = /\s*/;
-        var $jhceRe = /\s+/;
+        var spaceRe = /\s+/;
         var equalsRe = /\s*=/;
         var curlyRe = /\s*\}/;
         var tagRe = /#|\^|\/|>|\{|&|=|!/;
@@ -810,27 +810,27 @@
 
             var sections = [];
             var tokens = [];
-            var $jhces = [];
+            var spaces = [];
             var hasTag = false;
-            var non$jhce = false;
+            var nonspace = false;
 
-            function strip$jhce() {
-                if (hasTag && !non$jhce) {
-                    while ($jhces.length)
-                        delete tokens[$jhces.pop()];
+            function stripspace() {
+                if (hasTag && !nonspace) {
+                    while (spaces.length)
+                        delete tokens[spaces.pop()];
                 } else {
-                    $jhces = [];
+                    spaces = [];
                 }
 
                 hasTag = false;
-                non$jhce = false;
+                nonspace = false;
             }
 
             var openingTagRe, closingTagRe, closingCurlyRe;
 
             function compileTags(tagsToCompile) {
                 if (typeof tagsToCompile === 'string')
-                    tagsToCompile = tagsToCompile.split($jhceRe, 2);
+                    tagsToCompile = tagsToCompile.split(spaceRe, 2);
 
                 if (!isArray(tagsToCompile) || tagsToCompile.length !== 2)
                     throw new Error('Invalid tags: ' + tagsToCompile);
@@ -854,17 +854,17 @@
                     for (var i = 0, valueLength = value.length; i < valueLength; ++i) {
                         chr = value.charAt(i);
 
-                        if (isWhite$jhce(chr)) {
-                            $jhces.push(tokens.length);
+                        if (isWhitespace(chr)) {
+                            spaces.push(tokens.length);
                         } else {
-                            non$jhce = true;
+                            nonspace = true;
                         }
 
                         tokens.push(['text', chr, start, start + 1]);
                         start += 1;
 
                         if (chr === '\n')
-                            strip$jhce();
+                            stripspace();
                     }
                 }
 
@@ -906,7 +906,7 @@
                     if (openSection[1] !== value)
                         throw new Error('Unclosed section "' + openSection[1] + '" at ' + start);
                 } else if (type === 'name' || type === '{' || type === '&') {
-                    non$jhce = true;
+                    nonspace = true;
                 } else if (type === '=') {
                     compileTags(value);
                 }
