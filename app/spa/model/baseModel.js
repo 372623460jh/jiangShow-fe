@@ -6,7 +6,7 @@
 import $jh from 'lib/spa';
 import $ from 'jquery';
 
-export default $jh.model['baseModel'] = {
+export default {
     /**
      * 返回平台类别
      * @return {string}
