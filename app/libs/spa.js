@@ -1397,7 +1397,7 @@
      */
     $jh.extend({
         /**
-         * $jh用于保存数据的方法（数据是深拷贝到storage中）
+         * $jh 用于保存数据的方法（数据是深拷贝到storage中）
          * @param key 键
          * @param value 值
          */
