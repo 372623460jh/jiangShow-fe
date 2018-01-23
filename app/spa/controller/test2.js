@@ -4,7 +4,7 @@
 
 'use strict';
 
-import $jh from 'lib/spa';
+import $jh from 'lib/spa/spa';
 import 'style/allin.css';
 import $ from 'jquery';
 

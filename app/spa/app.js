@@ -17,9 +17,10 @@ let deviceInfo = autoViewPort();
 import 'babel-polyfill';
 
 // 引入spa组件
-import $jh from 'lib/spa';
+import $jh from 'lib/spa/spa';
 // 设置rem常量
 $jh.prop.rem = deviceInfo.htmlFontSize;
+$jh.prop.userId = 'jianghe';
 
 /**
  * 公共样式部分

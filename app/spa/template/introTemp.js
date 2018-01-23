@@ -23,12 +23,12 @@ let template =
         <div class="intro_drawer">
             <div class="row myphoto">
                 <img src="${myphoto}" alt=""/>
-                <span>蒋和</span>
+                <span>{{personInfo.name}}</span>
             </div>
             <ul class='mainlist'>
                 <li class="menu" data-clickstate="1">
                     <i class="baseInfo"></i>
-                    <span>基本信息</span>
+                    <span>个人信息</span>
                 </li>
                 <li class="menu" data-clickstate="1">
                     <i class="work"></i>
@@ -36,11 +36,11 @@ let template =
                 </li>
                 <li class="menu" data-clickstate="1">
                     <i class="ehco"></i>
-                    <span>教育经历</span>
+                    <span>求职意向</span>
                 </li>
                 <li class="menu" data-clickstate="1">
                     <i class="idea"></i>
-                    <span>求职意向</span>
+                    <span>教育经历</span>
                 </li>
             </ul>
             <div class="leftbottom"><img src="${left_bottom}" alt=""/></div>
@@ -77,6 +77,7 @@ let template =
                         </div>
                     </div>
                     <ul>
+                        {{#personInfo}}
                         <li>
                             <div class="info">
                                 <div class="pi_top">
@@ -87,26 +88,24 @@ let template =
                                 <div class="person_info">
                                     <div class="row">
                                         <i class="big_icon"></i>
-                                        <span class="big_span mar07">蒋和</span>
-                                        <span class="small_span mar03">男</span>
-                                        <span class="small_span mar015">24岁</span>
-                                        <span class="small_span mar015">本科</span>
-                                        <span class="small_span mar03">3年工作经验</span>
+                                        <span class="big_span mar07">{{name}}</span>
+                                        <span class="small_span mar03">{{sex}}</span>
+                                        <span class="small_span mar015">{{age}}</span>
+                                        <span class="small_span mar015">{{education}}</span>
+                                        <span class="small_span mar03">{{workTime}}</span>
                                     </div>
                                     <span class="small_span tips1">曾就职于</span>
+                                    {{#work}}
                                     <div class="row com">
-                                        <span class="small_span mar15">XXXXXXXX</span>
-                                        <span class="small_span mar03">高级前端工程师</span>
+                                        <span class="small_span mar15">{{company}}</span>
+                                        <span class="small_span mar03">{{position}}</span>
                                     </div>
-                                    <div class="row com">
-                                        <span class="small_span mar15">东软集团</span>
-                                        <span class="small_span mar03">中级前端工程师</span>
-                                    </div>
+                                    {{/work}}
                                     <div class="row row_info">
                                         <i class="big_icon"></i>
-                                        <span class="small_span phone">13095308808</span>
+                                        <span class="small_span phone">{{tel}}</span>
                                         <i class="big_icon"></i>
-                                        <span class="small_span email">573748150jh@163.com</span>
+                                        <span class="small_span email">{{email}}</span>
                                     </div>
                                 </div>
                                 <div class="pi_util">
@@ -118,6 +117,7 @@ let template =
                                 <div class="clear"></div> 
                             </div>
                         </li>
+                        {{/personInfo}}              
                         <li>
                             <div class="info">
                                 <div class="pi_top">
@@ -126,42 +126,26 @@ let template =
                                 </div>
                                 <img src="${yun3}" alt="">
                                 <div class="work_info">
+                                    {{#workInfo}}
                                     <div class="compdiv">
                                         <div class="row">
                                             <i class="big_icon"></i>
-                                            <span class="big_span mar07">XX世界</span>
-                                            <span class="small_span mar03">2017.04~2018.04</span>
+                                            <span class="big_span mar07">{{company}}</span>
+                                            <span class="small_span mar03">{{timeTrunk}}</span>
                                         </div>
                                         <div class="row">
-                                            <span class="small_span">企业性质：</span>
-                                            <span class="small_span mar015">不需要融资</span>
+                                            <span class="small_span">企业性质:</span>
+                                            <span class="small_span mar015">{{companyNature}}</span>
                                             <i class="small_icon img025"></i>
-                                            <span class="small_span mar07">职位：</span>
-                                            <span class="small_span">高级前端工程师</span>
+                                            <span class="small_span mar07">职位:</span>
+                                            <span class="small_span">{{position}}</span>
                                         </div>
                                         <div class="row work_cont">
                                             <i class="small_icon img_con"></i>
-                                            <p class="cp_con">我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容是内容我是内容</p>
+                                            <p class="cp_con">{{jobDesc}}</p>
                                         </div>
                                     </div>
-                                    <div class="compdiv">
-                                        <div class="row">
-                                            <i class="big_icon"></i>
-                                            <span class="big_span mar07">东软集团</span>
-                                            <span class="small_span mar03">2015.07~2017.03</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="small_span">企业性质：</span>
-                                            <span class="small_span mar015">上市公司</span>
-                                            <i class="small_icon img025"></i>
-                                            <span class="small_span mar07">职位：</span>
-                                            <span class="small_span">前端工程师</span>
-                                        </div>
-                                        <div class="row work_cont">
-                                            <i class="small_icon img_con"></i>
-                                            <p class="cp_con">是内容我是内容我是内容我容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容是内容我是内容</p>
-                                        </div>
-                                    </div>
+                                    {{/workInfo}}                            
                                 </div>
                                 <div class="clear"></div> 
                             </div>
@@ -174,44 +158,30 @@ let template =
                                 </div>
                                 <img src="${yun3}" alt="">
                                 <div class="resume_info">
+                                    {{#intension}}
                                     <div class="compdiv">
                                         <div class="row">
                                             <i class="big_icon"></i>
-                                            <span class="big_span mar07">高级前端开发工程师</span>
+                                            <span class="big_span mar07">{{position}}</span>
                                         </div>
                                         <div class="row">
                                             <span class="small_span">期望行业:</span>
-                                            <span class="small_span">互联网,计算机软件</span>
+                                            <span class="small_span">{{trade}}</span>
                                             <i class="small_icon img025"></i>
                                             <span class="small_span mar07">薪资:</span>
-                                            <span class="small_span">20K+</span>
+                                            <span class="small_span">{{pay}}</span>
                                         </div>
                                         <div class="row work_cont">
                                             <i class="small_icon img_con"></i>
-                                            <p class="cp_con">是内容我是内容我是内容我容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容是内容我是内容</p>
+                                            <p class="cp_con">{{intensionDesc}}</p>
                                         </div>  
                                     </div>
-                                    <div class="compdiv">
-                                        <div class="row">
-                                            <i class="big_icon"></i>
-                                            <span class="big_span mar07">全栈工程师(nodejs)</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="small_span">期望行业:</span>
-                                            <span class="small_span">互联网,计算机软件</span>
-                                            <i class="small_icon img025"></i>
-                                            <span class="small_span mar07">薪资:</span>
-                                            <span class="small_span">20K+</span>
-                                        </div>
-                                        <div class="row work_cont">
-                                            <i class="small_icon img_con"></i>
-                                            <p class="cp_con">是内容我是内容我是内容我容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容是内容我是内容</p>
-                                        </div>  
-                                    </div>
+                                    {{/intension}}
                                 </div>
                                 <div class="clear"></div> 
                             </div>
                         </li>
+                        {{#education}}
                         <li>
                             <div class="info">
                                 <div class="pi_top">
@@ -222,25 +192,26 @@ let template =
                                 <div class="study_info">
                                     <div class="row">
                                         <i class="big_icon"></i>
-                                        <span class="big_span mar07">云南大学</span>
-                                        <span class="small_span mar03">2011.09~2015.06</span>
+                                        <span class="big_span mar07">{{school}}</span>
+                                        <span class="small_span mar03">{{learnTime}}</span>
                                     </div>
                                     <div class="row">
                                         <span class="small_span">学历:</span>
-                                        <span class="small_span">本科</span>
+                                        <span class="small_span">{{education}}</span>
                                         <span class="small_span mar03">学位:</span>
-                                        <span class="small_span">工学学士</span>
-                                        <span class="small_span mar03">全日制统招</span>
+                                        <span class="small_span">{{degree}}</span>
+                                        <span class="small_span mar03">{{nature}}</span>
                                     </div>
                                     <div class="row">
                                         <i class="small_icon img01"></i>
                                         <span class="small_span mar05">专业:</span>
-                                        <span class="small_span mar015">软件工程</span>
+                                        <span class="small_span mar015">{{major}}</span>
                                     </div>
                                 </div>
                                 <div class="clear"></div> 
                             </div>
                         </li>
+                        {{/education}}
                     </ul>
                 </div>
             </div>

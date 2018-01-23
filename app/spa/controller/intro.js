@@ -5,11 +5,13 @@
 
 import 'style/intro.css';
 import introTemp from 'template/introTemp';
-import $jh from 'lib/spa';
+import $jh from 'lib/spa/spa';
 import $ from 'jquery';
 import layer from 'lib/layer/layer';
 import Drawer from 'lib/drawer';
 import JhScroll from 'lib/jhScroll';
+import IScroll from 'lib/iScroll/iscroll-probe';
+import CommonModel from 'model/commonModel';
 
 
 class Acontroller extends $jh.SpaController {
@@ -17,16 +19,45 @@ class Acontroller extends $jh.SpaController {
     constructor() {
         super();
         this.rootDom = null;
+        this.data = {};
     }
 
     onCreate(nowPage, lastPage) {
         var that = this;
-        this.rootDom = $jh.parseDom(introTemp.html)[0];
-        nowPage.dom.appendChild(this.rootDom);
-        $(document).ready(function () {
+        this.data = {};
+        // 请求数据
+        CommonModel.getMainInfo(
+            {userId: $jh.prop.userId},
+            function (res) {
+                if (res.REV) {
+                    that.data = res.DATA;
+                    $jh.setStorage('getMainInfo', res.DATA);
+                    that.render(nowPage, lastPage);
+                } else {
+                    layer.open({
+                        content: `${res.MSG}`,
+                        btn: '我知道了',
+                        yes: function (index) {
+                            layer.close(index);
+                        }
+                    });
+                }
+            }
+        );
 
+    }
+
+    render(nowPage, lastPage) {
+        var that = this;
+        this.rootDom = $jh.parseDom(introTemp.html, that.data)[0];
+        nowPage.dom.innerHTML = '';
+        nowPage.dom.appendChild(this.rootDom);
+        $(this.rootDom).ready(function () {
+            // 执行动画
+            that.initAnimation();
             var $content = $(that.rootDom).find('.intro_content'),
                 $drawer = $(that.rootDom).find('.intro_drawer'),
+                $drawer_menu = $(that.rootDom).find('.intro_drawer .menu'),
                 $menu = $(that.rootDom).find(".intro_menu"),
                 $introScroll = $(that.rootDom).find(".intro_scroll"),
                 $scrollWrapper = $(that.rootDom).find(".intro_wrapper"),
@@ -35,30 +66,6 @@ class Acontroller extends $jh.SpaController {
                 $loaderInner = $(that.rootDom).find('.intro_down_cell .loader-inner'),
                 $rootDom = $(that.rootDom),
                 dra;
-
-            // 执行动画
-            that.initAnimation();
-
-            var initwidth = $drawer.width();
-            dra = new Drawer({
-                dir: 'left',
-                container: $rootDom,
-                main: $drawer,
-                moveFn: function (obj) {
-                    var leftscale = ((obj.showPx / initwidth) * 25) + '%';
-                    $content.css({
-                        '-webkit-transition': 'none',
-                        'margin-left': leftscale
-                    });
-                },
-                endFn: function (obj) {
-                    var leftscale = ((obj.showPx / initwidth) * 25) + '%';
-                    $content.css({
-                        '-webkit-transition': 'margin-left .15s ease-out',
-                        'margin-left': leftscale
-                    });
-                }
-            });
 
             var myScroll = new JhScroll('.intro_scroll', {
                 click: true,//false阻止事件冒泡
@@ -84,7 +91,6 @@ class Acontroller extends $jh.SpaController {
                     $scrollWrapper: $scrollWrapper,
                     $downCell: $downCell,
                     downMove: function (obj) {
-
                         var rih = obj.height * 0.6,
                             riw = obj.height * 0.6 * 2.92;
                         $refreshImg.css({
@@ -102,25 +108,41 @@ class Acontroller extends $jh.SpaController {
                         });
                     },
                     downEnd: function () {
-                        setTimeout(function () {
-                            $refreshImg.css({
-                                opacity: 0,
-                                transition: 'opacity 0.5s linear'
-                            });
-                            $loaderInner.css({
-                                opacity: 1,
-                                transition: 'opacity 0.5s linear'
-                            });
-                        }, 500);
-                        setTimeout(function () {
-                            myScroll.closeRefresh();
-                        }, 2500);
+                        // 下拉刷新数据
+                        CommonModel.getMainInfo(
+                            {userId: $jh.prop.userId},
+                            function (res) {
+                                if (res.REV) {
+                                    that.data = res.DATA;
+                                    $jh.setStorage('getMainInfo', res.DATA);
+                                    setTimeout(function () {
+                                        myScroll.closeRefresh();
+                                        that.render(nowPage, lastPage);
+                                    }, 500);
+                                } else {
+                                    $jh.loading.close();
+                                    layer.open({
+                                        content: `${res.MSG}`,
+                                        btn: '我知道了',
+                                        yes: function (index) {
+                                            layer.close(index);
+                                        }
+                                    });
+                                }
+                            }
+                        );
+                        $refreshImg.css({
+                            opacity: 0,
+                            transition: 'opacity 0.2s linear'
+                        });
+                        $loaderInner.css({
+                            opacity: 1,
+                            transition: 'opacity 0.2s linear'
+                        });
                     }
                 }
             });
 
-
-            //
             // myScroll.on("scrollStart", function () {
             //     console.log("scrollStart" + this.y);
             // });
@@ -135,29 +157,33 @@ class Acontroller extends $jh.SpaController {
             // 移动到某个位置
             // myScroll.scrollTo(0, -600, 2000, IScroll.utils.ease.elastic);
 
-            $drawer.on("click", function () {
-                //询问框
-                layer.open({
-                    content: '收起抽屉',
-                    btn: ['确定', '取消'],
-                    yes: function (index) {
-                        layer.close(index);
-                        setTimeout(function () {
-                            if (dra.moveObj.drawerStatic == 'yes') {
-                                $content.css({
-                                    '-webkit-transition': 'margin-left .15s ease-out',
-                                    'margin-left': '0'
-                                });
-                                dra.triggerDrawer();
-                            }
-                            setTimeout(function () {
-                                // myScroll.scrollTo(0, -600, 500, IScroll.utils.ease.elastic);
-                            }, 100);
-                        }, 100);
-                    },
-                    no: function () {
-                    }
-                });
+            $drawer_menu.on("click", function (e) {
+
+                let name = e.currentTarget.innerText;
+                if (name == '个人信息') {
+                    name = 0;
+                } else if (name == '工作经历') {
+                    name = 1;
+                } else if (name == '求职意向') {
+                    name = 2;
+                } else if (name == '教育经历') {
+                    name = 3;
+                }
+
+                var hei = -$scrollWrapper.find('ul').children().eq(name).get(0).offsetTop,
+                    moveY = (myScroll.iScroll.maxScrollY >= hei) ? myScroll.iScroll.maxScrollY : hei;
+
+
+                if (dra.moveObj.drawerStatic == 'yes') {
+                    $content.css({
+                        '-webkit-transition': 'margin-left .15s ease-out',
+                        'margin-left': '0'
+                    });
+                    dra.triggerDrawer();
+                }
+                setTimeout(function () {
+                    myScroll.iScroll.scrollTo(0, moveY, 1500, IScroll.utils.ease.bounce);
+                }, 100);
                 return false;//阻止冒泡
             });
 
@@ -190,8 +216,32 @@ class Acontroller extends $jh.SpaController {
                 return false;//阻止冒泡
             });
 
+            var initwidth = $drawer.width();
+            dra = new Drawer({
+                dir: 'left',
+                container: $rootDom,
+                main: $drawer,
+                moveFn: function (obj) {
+                    var leftscale = ((obj.showPx / initwidth) * 25) + '%';
+                    $content.css({
+                        '-webkit-transition': 'none',
+                        'margin-left': leftscale
+                    });
+                },
+                endFn: function (obj) {
+                    var leftscale = ((obj.showPx / initwidth) * 25) + '%';
+                    $content.css({
+                        '-webkit-transition': 'margin-left .15s ease-out',
+                        'margin-left': leftscale
+                    });
+                }
+            });
+
         });
-    }
+
+
+    };
+
 
     onResume(nowPage, lastPage) {
         //重回时启动动画

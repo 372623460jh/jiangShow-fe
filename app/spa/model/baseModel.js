@@ -3,7 +3,7 @@
  */
 
 'use strict';
-import $jh from 'lib/spa';
+import $jh from 'lib/spa/spa';
 import $ from 'jquery';
 
 export default {
