@@ -4,7 +4,7 @@
 环境：centos 7.4，nginx 1.12.2
 
 场景：现有一台外网轻量级服务器。dns会将*.ijianghe.cn这个根域统统解析成该服务器的IP。需求如下
-- www\.ijianghe.cn  
+- www.ijianghe.cn  
    - 网站主页业务
    - 对应目录：/data/wwwsite/www/ 
    当访问www\.ijianghe.cn时加载/data/wwwsite/www/index.html
@@ -15,10 +15,16 @@
     - 对应目录：/data/wwwsite/mob/
     当访问mob\.ijianghe.cn时加载/data/wwwsite/mob/index.html
     当访问mob\.ijianghe.cn/mobapi/(apiname)时访问127.0.0.1:9528的本地移动端nodejs服务
+    
+- img.ijianghe.cn  
+    - 图片服务业务
+    - 对应目录：/data/wwwsite/img/
+    当访问img.ijianghe.cn时加载/data/wwwsite/mob/index/index.html
+    当访问img.ijianghe.cn/img/(picPath)时访问获取/data/wwwsite/img/images/下的静态资源如果404或403连接重定向到默认图片(默认图片在/data/wwwsite/img/images/default/default.png)
 
 ## nginx安装部分：
 
-- 安装gc++
+- 安装gc++(默认装的版本有点低，想装高版本可以看gcc-6.1.0安装.md)
     ```
     yum install gcc-c++
     ```
@@ -80,21 +86,34 @@
     chmod 755 rc.local          #设置权限755
     ```
 
+## nginx基础
+    
+- location匹配规则   
+    ```shell
+    #匹配优先级：
+    #(location =) > (location 匹配到完整路径) > (location ^~ 路径) > (location ~,~* 正则顺序) > (location 部分起始路径) > (/)
+    # =  严格匹配。如果这个查询匹配，那么将停止搜索并立即处理此请求。
+    # ~  区分大小写的正则匹配;
+    # ~* 不区分大小写的正则匹配;
+    # !~ 区分大小写正则不匹配
+    # !~*不区分大小写正则不匹配
+    # ^~ 开头表示uri以某个常规字符串开头，不是正则匹配
+    ```
+    
 ## 通过配置nginx来实现前言中的需求
 
 - 准备日志目录和项目根目录
-
     ```
     mkdir /etc/nginx/nginxhost          #在nginx主配置文件同级目录新建nginxhost文件夹来放置nginx虚拟主机配置
     mkdir /data/logs                    #在开发目录下新建logs文件用来防止nginx的所有日志文件
     ```
-
+    
 - 1.编辑nginx主配置文件
     ```
     nginx -t                        #查看主配置文件位置
     vi /etc/nginx/nginx.conf        #编辑nginx主配置文件
     
-    user  nginx;                    #使用者
+    user  nginx;                    #使用者(有时出现403错误可能是nginx用户没有资源的读执行权限，改为root就行)
     worker_processes  2;            #进程数一遍为cpu核数的1-2倍
     #worker_cpu_affinity 01 10;     #01表示启用第一个CPU内核，10表示启用第二个CPU内核 
     
@@ -119,6 +138,38 @@
         keepalive_timeout  65;
     
         gzip  on;        #开启gzip压缩http传输的内容
+        
+        server{
+            listen	80;              
+            #当直接输入ip时
+            server_name 192.168.0.88;
+                                       
+            access_log  /data/logs/www.ijianghe.cn.log main;            
+        
+            location / {
+                #只输入ip或者ip/就访问www域服务
+                root /data/wwwsite/www;  
+                index  index.html;
+            }
+            
+            location ~ ^/wwwapi/(.*)$ {
+                #只输入ip/wwwapi/XXX就访问www本地接口
+                proxy_pass http://127.0.0.1:9527/wwwapi/$1;
+            }
+        
+            #当发生403,404错误把location定向为/error.html
+            error_page  404 403    /error.html;
+            
+            location = /error.html {
+                #匹配上面错误访问指定错误html（/data/wwwsite/error/error.html）
+                root /data/wwwsite/error;
+            }
+
+            #禁止访问 .htxxx 文件
+            location ~ /.ht {
+                deny all;
+            }
+        }
     
         include /etc/nginx/nginxhost/*.conf;        #使用通配符引入所有虚拟主机配置文件
     }
@@ -126,7 +177,7 @@
     ```
 
 - 2.配置nginx虚拟主机配置
-    - 1.配置www\.ijianghe.cn.conf
+    - 1.配置www.ijianghe.cn.conf
     ```
     touch /etc/nginx/nginxhost/www.ijianghe.cn.conf;                #新建www.ijianghe.cn的配置文件
     vi /etc/nginx/nginxhost/www.ijianghe.cn.conf;                   #编辑www.ijianghe.cn配置文件
@@ -135,10 +186,8 @@
          #入口端口
         listen	80;                                                 
         #入口服务名可以多写空格分开
-        server_name www.ijianghe.cn  www.test.ijianghe.cn;                              
-        #当入口为www.ijianghe.cn 80端口时将根路径设置到/data/wwwsite/www路径
-        root /data/wwwsite/www;                                     
-    
+        server_name www.ijianghe.cn;                              
+                                   
         #日志文件输出位置
         access_log  /data/logs/www.ijianghe.cn.log main;            
     
@@ -148,6 +197,8 @@
     
         #目录为/时加载root+index路径下的静态资源（也就是/data/wwwsite/www/index.html）;
         location / {
+            #当入口为www.ijianghe.cn 80端口时将根路径设置到/data/wwwsite/www路径
+            root /data/wwwsite/www;  
             index  index.html;
         }
         
@@ -162,8 +213,13 @@
             proxy_pass http://127.0.0.1:9527/wwwapi/$1;
         }
     
-        #定义错误提示页面
-        error_page  404    /404.html;
+        #当发生403,404错误把location定向为/error.html
+        error_page  404 403    /error.html;
+        
+        location = /error.html {
+            #匹配上面错误访问指定错误html（/data/wwwsite/error/error.html）
+            root /data/wwwsite/error;
+        }
         
         #禁止访问 .htxxx 文件
         location ~ /.ht {
@@ -178,14 +234,14 @@
     
     server{
         listen	80;                  
-        server_name mob.ijianghe.cn mob.test.ijianghe.cn;                                
-        root /data/wwwsite/mob;                                     
+        server_name mob.ijianghe.cn;                                                                   
    
         access_log  /data/logs/mob.ijianghe.cn.log main;            
              
         server_name_in_redirect off;
     
         location / {
+            root /data/wwwsite/mob;
             index  index.html;
         }
         
@@ -193,13 +249,58 @@
             proxy_pass http://127.0.0.1:9528/mobapi/$1;
         }
     
-        error_page  404    /404.html;
+        error_page  404 403    /error.html;
         
+        location = /error.html {
+            root /data/wwwsite/error;
+        }
+        
+        #禁止访问 .htxxx 文件
         location ~ /.ht {
             deny all;
         }
     }
     ```
+    - 3.配置img.ijianghe.cn.conf（解释如上一个配置不赘述）
+    ```
+    touch /etc/nginx/nginxhost/img.ijianghe.cn.conf;               
+    vi /etc/nginx/nginxhost/img.ijianghe.cn.conf;                   
+    
+    server{
+        listen	80;                  
+        server_name img.ijianghe.cn;                                                                   
+   
+        access_log  /data/logs/img.ijianghe.cn.log main;            
+             
+        server_name_in_redirect off;
+    
+        location / {
+            root /data/wwwsite/img/index;
+            index  index.html;
+        }
+        
+        location ~ ^/(.+)$ {
+            root /data/wwwsite/img/images;
+            #缓存30天
+            expires 30d;
+        }
+    
+        #当403 404时永久重定向到/default/default.png默认图片
+        error_page  404 403   rewrite ^ /default/default.png permanent;
+      
+        location = /default/default.png {
+            root /data/wwwsite/img/images;
+            #缓存30天
+            expires 30d;
+        }
+        
+        #禁止访问 .htxxx 文件
+        location ~ /.ht {
+            deny all;
+        }
+    }
+    ```
+
 
 ## 其他
 
@@ -363,3 +464,5 @@
 
     }
     ```
+##好贴
+- https://segmentfault.com/a/1190000002797606
