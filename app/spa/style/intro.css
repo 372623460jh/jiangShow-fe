@@ -63,9 +63,14 @@
     color: #9d9d9d;
 }
 
-.intro .small_icon.img_pos {
+.intro .small_icon.img025 {
     position: relative;
     margin-left: 0.25rem;
+}
+
+.intro .small_icon.img01 {
+    position: relative;
+    margin-left: 0.1rem;
 }
 
 .intro .small_icon.img_con {
@@ -78,7 +83,7 @@
     margin-top: 0.15rem;
 }
 
-.intro .work_info .cp_con {
+.intro .work_info .cp_con, .intro .resume_info .cp_con {
     width: 100%;
     line-height: 0.6rem;
     font-size: 0.31rem;
@@ -87,7 +92,7 @@
     padding: 0;
 }
 
-.intro .work_info .company {
+.intro .compdiv {
     margin-bottom: 0.25rem;
 }
 
@@ -138,24 +143,24 @@
     height: 0.45rem;
 }
 
-.intro .row .name, .intro .row .cp_pos {
+.intro .row .mar015 {
+    margin-left: 0.15rem;
+}
+
+.intro .row .mar07 {
     margin-left: 0.7rem;
 }
 
-.intro .row .sex, .intro .row .exp, .intro .row .position {
+.intro .row .mar03 {
     margin-left: 0.3rem;
 }
 
-.intro .row .age, .intro .row .edu, .intro .row .cp_info {
-    margin-left: 0.15rem;
-}
-
-.intro .row .age, .intro .row .edu {
-    margin-left: 0.15rem;
-}
-
-.intro .row .company {
+.intro .row .mar15 {
     margin-left: 1.5rem;
+}
+
+.intro .row .mar05 {
+    margin-left: 0.5rem;
 }
 
 .intro .row.row_info {
@@ -186,20 +191,12 @@
 .intro .info .person_info, .intro .info .resume_info, .intro .info .work_info, .intro .info .study_info {
     width: 9.2rem;
     float: left;
-    padding: 0.5rem 0.6rem 0.15rem 0.6rem;
+    padding: 0.5rem 0.6rem 0.3rem 0.6rem;
     box-sizing: border-box;
 }
 
 .intro .info .person_info {
     position: relative;
-}
-
-.intro .info .resume_info {
-    height: 3.5rem;
-}
-
-.intro .info .study_info {
-    height: 2.5rem;
 }
 
 .intro .info .pi_util {
