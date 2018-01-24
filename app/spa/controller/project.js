@@ -9,12 +9,11 @@ import 'style/project.css';
 import projectTemp from 'template/projectTemp';
 
 import $ from 'jquery';
-import Swiper from 'lib/swiper/swiper';
+import Swiper from 'lib/swiper/js/swiper3';
+import 'lib/swiper/css/swiper.css';
 import LazyLoad from 'lib/lazyLoad';
 import JhScroll from 'lib/jhScroll';
 import CommonModel from 'model/commonModel';
-
-// const F2 = require('@antv/f2');
 
 class Bcontroller extends $jh.SpaController {
 
@@ -57,10 +56,6 @@ class Bcontroller extends $jh.SpaController {
                 // }
             ]
         };
-
-        // CommonModel.getProject(function (res) {
-        //     console.log(res);
-        // });
 
         that.rootDom = $jh.parseDom(projectTemp.html, that.data)[0];
         nowPage.dom.appendChild(this.rootDom);
@@ -132,11 +127,13 @@ class Bcontroller extends $jh.SpaController {
                 }
             });
 
-            //使用Swiper组件
             var mySwiper = new Swiper('.project_swiper', {
-                autoplay: true,//可选选项，自动滑动
-                roundLengths: true,
-                autoHeight: true
+                autoplay: 5000,//可选选项，自动滑动
+                effect: 'coverflow',
+                loop: true,
+                pagination: '.swiper-pagination',
+                autoplayDisableOnInteraction: false,//操作后继续执行autoplay
+                lazyLoading: true//懒加载
             });
 
             //使用图片懒加载组件
