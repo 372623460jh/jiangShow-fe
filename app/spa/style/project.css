@@ -37,7 +37,7 @@
 }
 
 .project .project_scroll ul {
-    background-color: #ffffff;
+    background-color: #f2f4f7;
 }
 
 .project .down_cell {
@@ -89,4 +89,70 @@
 
 .project .swiper-slide img {
     width: 100%;
+}
+
+/*卡片部分*/
+.project .card {
+    box-sizing: border-box;
+    margin: 0.25rem 0 0 0;
+    width: 100%;
+    height: 7rem;
+    padding: 0.2rem;
+    font-family: '微软雅黑';
+    background-color: #ffffff;
+    box-shadow: 0 0.02rem 0.04rem rgba(0, 0, 0, 0.3);
+}
+
+.project .card.cs_down {
+    transition: background-color .1s linear 0s;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.project .title {
+    width: 100%;
+    max-height: 1.5rem;
+    padding: 0.2rem;
+}
+
+.project .title img {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-left: 0.2rem;
+}
+
+.project .title span {
+    display: inline-block;
+    height: 1.1rem;
+    line-height: 1.1rem;
+    font-family: Ionicons;
+    color: #afb7bd;
+    font-size: 0.5rem;
+    margin-left: 0.2rem;
+}
+
+.project .background {
+    height: 1.4rem;
+    padding: 0.1rem 0.3rem;
+    text-align: left;
+    line-height: 0.7rem;
+    color: #111111;
+    font-size: 0.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.project .detial {
+    box-sizing: border-box;
+    height: 1.7rem;
+    padding: 0.1rem 0.3rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: left;
+    line-height: 0.5rem;
+    color: #444444;
+    font-size: 0.35rem;
 }

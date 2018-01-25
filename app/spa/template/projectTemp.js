@@ -46,29 +46,20 @@ let template =
                     </li>
                     {{#imgList}}
                     <!--卡片-->
-                    <div class="list card mycard">
-                        <!--栅格布局-->
-                        <div class="row">
-                            <div class="col col-20">
-                                <img src="${img}" data-src="{{name}}" alt=""/>
-                            </div>
-                            <div class="col">{{item.title}}</div>
+                    <li class="card" data-clickstate="1">
+                        <div class="title">
+                            <img src="${img}"></img>    
+                            <span>{{projectName}}</span>
                         </div>
-                        <div class="row">
-                            <div class="col">{{item.jianjie}}</div>
+                        <div class="background">{{bg}}</div>
+                        <div class="detial">{{detial}}</div>
+                        <div>
+                            {{#skills}}
+                            <span>{{skill}}</span>
+                            {{/skills}}
                         </div>
-                        <div class="row">
-                            <div class="col">{{item.miaoshu}}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <span>{{jn}}</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">{{item.time}}</div>
-                        </div>
-                    </div>
+                        <div>{{time}}</div>
+                    </li>
                     {{/imgList}}
                 </ul>
                 <div class="up_cell">
@@ -81,9 +72,5 @@ let template =
 export default {
     html: template
 };
-
-// <li class="project_other">
-//     <img src="${img}" class="jhlazyload testlazyload" data-src="{{name}}" alt="">
-//     </li>
 
 

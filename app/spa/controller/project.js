@@ -28,32 +28,65 @@ class Bcontroller extends $jh.SpaController {
         that.data = {
             'imgList': [
                 {
-                    name: '//img.alicdn.com/imgextra/i1/59857264/TB2ItmtdaigSKJjSsppXXabnpXa_!!0-saturn_solar.jpg_220x220.jpg'
+                    projectName: '撒旦法撒大声地',
+                    bg: '黄金客户接口和进黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可口黄金客户即可黄金客户接口和进口黄金客户即可',
+                    detial: '黄金客黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可黄金客户接口和户即可',
+                    skills: [
+                        {
+                            skill: 'java'
+                        }, {
+                            skill: 'js'
+                        }, {
+                            skill: 'react'
+                        }
+                    ],
+                    time: '2017205-20465154'
                 },
                 {
-                    name: '//img.alicdn.com/imgextra/i1/122400877/TB2GQ6eiOqAXuNjy1XdXXaYcVXa_!!0-saturn_solar.jpg_220x220.jpg'
+                    projectName: '1123123',
+                    bg: '12322222222dasdasda111111111111111',
+                    detial: 'dssssssssssssssssgvsdfffffffffsd',
+                    skills: [
+                        {
+                            skill: 'java'
+                        }, {
+                            skill: 'js'
+                        }, {
+                            skill: 'react'
+                        }
+                    ],
+                    time: '2017205-20465154'
                 },
                 {
-                    name: '//img.alicdn.com/imgextra/i4/16483031/TB2IaURh3fH8KJjy1zcXXcTzpXa_!!0-saturn_solar.jpg_220x220.jpg'
+                    projectName: '1123123',
+                    bg: '12322222222dasdasda111111111111111',
+                    detial: 'dssssssssssssssssgvsdfffffffffsd',
+                    skills: [
+                        {
+                            skill: 'java'
+                        }, {
+                            skill: 'js'
+                        }, {
+                            skill: 'react'
+                        }
+                    ],
+                    time: '2017205-20465154'
                 },
-                // {
-                //     name: '//img.alicdn.com/imgextra/i2/98536744/TB2q8Dxlf2H8KJjy0FcXXaDlFXa_!!0-saturn_solar.jpg_220x220.jpg'
-                // },
-                // {
-                //     name: '//img.alicdn.com/imgextra/i2/57243257/TB29sA8h0zJ8KJjSspkXXbF7VXa_!!0-saturn_solar.jpg_220x220.jpg'
-                // },
-                // {
-                //     name: '//img.alicdn.com/imgextra/i4/50795768/TB2.NVLlgDD8KJjy0FdXXcjvXXa_!!0-saturn_solar.jpg_220x220.jpg'
-                // },
-                // {
-                //     name: '//img.alicdn.com/imgextra/i3/1287106096881523704/TB2Xergc4AlyKJjSZFyXXbm_XXa_!!0-saturn_solar.jpg_220x220.jpg'
-                // },
-                // {
-                //     name: '//img.alicdn.com/imgextra/i4/15848431/TB2mQbSkTTI8KJjSsphXXcFppXa_!!0-saturn_solar.jpg_220x220.jpg'
-                // },
-                // {
-                //     name: '//img.alicdn.com/imgextra/i1/120701444/TB2nUaHc0rJ8KJjSspaXXXuKpXa_!!0-saturn_solar.jpg_220x220.jpg'
-                // }
+                {
+                    projectName: '1123123',
+                    bg: '12322222222dasdasda111111111111111',
+                    detial: 'dssssssssssssssssgvsdfffffffffsd',
+                    skills: [
+                        {
+                            skill: 'java'
+                        }, {
+                            skill: 'js'
+                        }, {
+                            skill: 'react'
+                        }
+                    ],
+                    time: '2017205-20465154'
+                },
             ]
         };
 

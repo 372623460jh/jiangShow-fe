@@ -47,13 +47,13 @@ cs.prop();
  * spa初始化
  */
 $jh.init({
-    home: '/test1',//默认首页
+    home: '/intro',//默认首页
     container: '#jhAppWrap',//主页面中的占位标签
     errRoute: '/404'//错误页路由名不配置默认是/error
 });
 
-// /**
-//  * 导航栏初始化
-//  */
-// import baseModel from 'model/baseModel';
-// baseModel.initNav({initPageName: 'intro'});
+/**
+ * 导航栏初始化
+ */
+import baseModel from 'model/baseModel';
+baseModel.initNav({initPageName: 'intro'});
