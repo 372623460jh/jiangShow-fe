@@ -9,13 +9,17 @@ var CommonConfig = require('../config/commonConfig');
 
 
 export default {
+
+    /**
+     * 获取项目详情接口
+     * @param value
+     * @param fn
+     */
     getProject: function (value, fn) {
-        fetch(CommonConfig.getProject, CommonConfig.getDefaultConfig).then(function (response) {
+        fetch(CommonConfig.getProject + value.userId, CommonConfig.getDefaultConfig).then(function (response) {
             response.text().then(function (responseText) {
                 fn(ProcessData.parseJSON(responseText));
             })
-        }).then(function (json) {
-            // console.log(json);
         });
     },
 

@@ -13,7 +13,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
     background-color: #54c590;
     box-shadow: 0 0.1rem 0.2rem rgba(122, 122, 122, 0.6);
 }
@@ -76,6 +75,11 @@
 }
 
 /*swiper部分*/
+.project .project_swiper {
+    width: 100%;
+    height: 4.27rem;
+}
+
 .project .swiper-pagination-bullet-active {
     opacity: 1;
     background: #54c590;
@@ -96,7 +100,6 @@
     box-sizing: border-box;
     margin: 0.25rem 0 0 0;
     width: 100%;
-    height: 7rem;
     padding: 0.2rem;
     font-family: '微软雅黑';
     background-color: #ffffff;
@@ -131,7 +134,7 @@
 }
 
 .project .background {
-    height: 1.4rem;
+    max-height: 1.4rem;
     padding: 0.1rem 0.3rem;
     text-align: left;
     line-height: 0.7rem;
@@ -145,7 +148,7 @@
 
 .project .detial {
     box-sizing: border-box;
-    height: 1.7rem;
+    max-height: 1.7rem;
     padding: 0.1rem 0.3rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -155,4 +158,33 @@
     line-height: 0.5rem;
     color: #444444;
     font-size: 0.35rem;
+}
+
+.project .skills {
+    min-height: 1.1rem;
+    box-sizing: border-box;
+    padding: 0 0.3rem;
+}
+
+.project .skills span {
+    float: left;
+    height: 0.6rem;
+    margin: 0.2rem 0.2rem 0 0.2rem;
+    border-radius: 0.35rem;
+    background-color: #cbeddd;
+    color: #54c590;
+    font-size: 0.35rem;
+    line-height: 0.6rem;
+    padding: 0.05rem 0.5rem;
+}
+
+.project .time {
+    display: block;
+    width: 100%;
+    min-height: 0.8rem;
+    box-sizing: border-box;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.35rem;
+    line-height: 0.4rem;
+    color: #919da4;
 }

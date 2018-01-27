@@ -50,23 +50,25 @@ class JhScroll {
             var onscroll = that.throttleTwo(function () {
                 if (that.iScroll.y > 0 && $sc.inToucch && !inRefresh && $dc) {
                     $dc.isShow = true;
-                    let moveY = that.iScroll.y;
+                    let moveY = that.iScroll.y,
+                        down = moveY > dh ? dh : moveY;
                     $dc.css({
-                        'height': moveY > dh ? dh : moveY,
+                        'height': down,
                         '-webkit-transition': 'none'
                     });
                     //调用向下滑动回调height是downCell的实时高度，moveY是iscroll下滑的高度
-                    downMove({height: moveY > dh ? dh : moveY, moveY: moveY});
+                    downMove({height: down, moveY: moveY});
+                    that.iScroll.maxScrollY = oldMaxScrollY - down;
                 }
-                if (that.iScroll.y < that.iScroll.maxScrollY && $sc.inToucch && !inRefresh && $uc) {
+                if (that.iScroll.y < oldMaxScrollY && $sc.inToucch && !inRefresh && $uc) {
                     $uc.isShow = true;
-                    var upHeight = (that.iScroll.maxScrollY - that.iScroll.y) > uh ? uh : (that.iScroll.maxScrollY - that.iScroll.y);
+                    var upHeight = (oldMaxScrollY - that.iScroll.y) > uh ? uh : (oldMaxScrollY - that.iScroll.y);
                     $uc.css({
                         'height': upHeight,
                         '-webkit-transition': 'none'
                     });
                     //调用向下滑动回调height是downCell的实时高度，moveY是iscroll下滑的高度
-                    upMove({height: upHeight, moveY: that.iScroll.maxScrollY - that.iScroll.y});
+                    upMove({height: upHeight, moveY: oldMaxScrollY - that.iScroll.y});
                     that.iScroll.maxScrollY = oldMaxScrollY - upHeight;
                 }
             }, 17);
@@ -85,9 +87,7 @@ class JhScroll {
                             'height': '0rem',
                             '-webkit-transition': 'height .15s ease-out'
                         });
-                        setTimeout(function () {
-                            that.iScroll.refresh();
-                        }, 150);
+                        that.iScroll.maxScrollY = oldMaxScrollY;
                     } else {
                         inRefresh = true;
                         that.closeRefresh = function () {
@@ -95,24 +95,20 @@ class JhScroll {
                                 'height': '0rem',
                                 '-webkit-transition': 'none'
                             });
-                            that.iScroll.refresh();
+                            that.iScroll.maxScrollY = oldMaxScrollY;
                             inRefresh = false;
                         };
-                        setTimeout(function () {
-                            downEnd();
-                        }, 100);
+                        downEnd();
                     }
                 }
                 if ($uc && $uc.isShow) {
                     $uc.isShow = false;
-                    if ((that.iScroll.maxScrollY - that.iScroll.y) < uh) {
+                    if ((oldMaxScrollY - that.iScroll.y) < uh) {
                         $uc.css({
                             'height': '0rem',
                             '-webkit-transition': 'height .15s ease-out'
                         });
-                        setTimeout(function () {
-                            that.iScroll.refresh();
-                        }, 150)
+                        that.iScroll.maxScrollY = oldMaxScrollY;
                     } else {
                         inRefresh = true;
                         that.closeRefresh = function () {
@@ -120,22 +116,14 @@ class JhScroll {
                                 'height': '0rem',
                                 '-webkit-transition': 'none'
                             });
-                            that.iScroll.refresh();
+                            that.iScroll.maxScrollY = oldMaxScrollY;
                             inRefresh = false;
                         };
-                        setTimeout(function () {
-                            upEnd();
-                        }, 100);
+                        upEnd();
                     }
                 }
             });
         }
-    }
-
-    /**
-     * 关闭刷新的方法
-     */
-    closeRefresh() {
     }
 
     /**

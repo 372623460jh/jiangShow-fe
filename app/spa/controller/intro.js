@@ -111,7 +111,6 @@ class Acontroller extends $jh.SpaController {
                                         that.render(nowPage, lastPage);
                                     }, 500);
                                 } else {
-                                    $jh.loading.close();
                                     layer.open({
                                         content: `${res.MSG}`,
                                         btn: '我知道了',

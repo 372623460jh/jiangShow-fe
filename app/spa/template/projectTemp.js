@@ -3,8 +3,7 @@
  */
 'use strict';
 
-import newYearLoad from '../img/loading/newYearLoad.png'
-import img from '../img/skill/12333.png'
+import newYearLoad from '../img/loading/newYearLoad.png';
 
 let template =
     `<div class="project">
@@ -44,23 +43,24 @@ let template =
                         <!--&lt;!&ndash;如果需要分页器&ndash;&gt;-->
                         <div class="swiper-pagination"></div>
                     </li>
-                    {{#imgList}}
+                    {{#project}}  
                     <!--卡片-->
-                    <li class="card" data-clickstate="1">
+                    <li class="card" data-clickstate="1" data-index="{{index}}">
                         <div class="title">
-                            <img src="${img}"></img>    
-                            <span>{{projectName}}</span>
+                            <img src="{{img}}"></img>
+                            <span>{{name}}</span>
                         </div>
-                        <div class="background">{{bg}}</div>
-                        <div class="detial">{{detial}}</div>
-                        <div>
+                        <div class="background">{{projectBg}}</div>
+                        <div class="detial">{{projectDesc}}</div>
+                        <div class="skills">
                             {{#skills}}
-                            <span>{{skill}}</span>
+                            <span>{{name}}</span>
                             {{/skills}}
+                            <div class="clear"></div> 
                         </div>
-                        <div>{{time}}</div>
+                        <span class="time">{{time}}</span>
                     </li>
-                    {{/imgList}}
+                    {{/project}}
                 </ul>
                 <div class="up_cell">
                     <span>加载更多...</span>

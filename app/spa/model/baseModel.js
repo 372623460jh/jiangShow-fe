@@ -95,5 +95,25 @@ export default {
                 method.apply(context, args);
             }
         }
+    },
+
+    /**
+     * 事件委托时用来获取点击父盒子的自定义属性
+     * @param clickObj 点击dom对象
+     * @param targetObj 父盒子dom对象
+     * @param dataSet 需要检索的自定义属性名
+     * @returns {*}
+     */
+    getParentDataSet: function (clickObj, targetObj, dataSet) {
+        var obj = clickObj;
+        while (obj != targetObj) {
+            var ds = obj.dataset[dataSet];
+            if (ds != undefined) {
+                return ds;
+            } else {
+                //寻找父元素兼容ie写法
+                obj = obj.parentNode ? obj.parentNode : obj.parentElement;
+            }
+        }
     }
 }

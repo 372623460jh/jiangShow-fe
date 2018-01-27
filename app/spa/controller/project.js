@@ -14,6 +14,7 @@ import 'lib/swiper/css/swiper.css';
 import LazyLoad from 'lib/lazyLoad';
 import JhScroll from 'lib/jhScroll';
 import CommonModel from 'model/commonModel';
+import BaseModel from 'model/baseModel';
 
 class Bcontroller extends $jh.SpaController {
 
@@ -25,72 +26,31 @@ class Bcontroller extends $jh.SpaController {
 
     onCreate(nowPage, lastPage) {
         var that = this;
-        that.data = {
-            'imgList': [
-                {
-                    projectName: '撒旦法撒大声地',
-                    bg: '黄金客户接口和进黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可口黄金客户即可黄金客户接口和进口黄金客户即可',
-                    detial: '黄金客黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可户接口和进口黄金客户即可黄金客户接口和进口黄金客户即可黄金客户接口和户即可',
-                    skills: [
-                        {
-                            skill: 'java'
-                        }, {
-                            skill: 'js'
-                        }, {
-                            skill: 'react'
+        // 请求数据
+        CommonModel.getProject(
+            {userId: $jh.prop.userId},
+            function (res) {
+                if (res.REV) {
+                    that.data = res.DATA;
+                    $jh.setStorage('getProject', res.DATA);
+                    that.render(nowPage, lastPage);
+                } else {
+                    layer.open({
+                        content: `${res.MSG}`,
+                        btn: '我知道了',
+                        yes: function (index) {
+                            layer.close(index);
                         }
-                    ],
-                    time: '2017205-20465154'
-                },
-                {
-                    projectName: '1123123',
-                    bg: '12322222222dasdasda111111111111111',
-                    detial: 'dssssssssssssssssgvsdfffffffffsd',
-                    skills: [
-                        {
-                            skill: 'java'
-                        }, {
-                            skill: 'js'
-                        }, {
-                            skill: 'react'
-                        }
-                    ],
-                    time: '2017205-20465154'
-                },
-                {
-                    projectName: '1123123',
-                    bg: '12322222222dasdasda111111111111111',
-                    detial: 'dssssssssssssssssgvsdfffffffffsd',
-                    skills: [
-                        {
-                            skill: 'java'
-                        }, {
-                            skill: 'js'
-                        }, {
-                            skill: 'react'
-                        }
-                    ],
-                    time: '2017205-20465154'
-                },
-                {
-                    projectName: '1123123',
-                    bg: '12322222222dasdasda111111111111111',
-                    detial: 'dssssssssssssssssgvsdfffffffffsd',
-                    skills: [
-                        {
-                            skill: 'java'
-                        }, {
-                            skill: 'js'
-                        }, {
-                            skill: 'react'
-                        }
-                    ],
-                    time: '2017205-20465154'
-                },
-            ]
-        };
+                    });
+                }
+            }
+        );
+    }
 
+    render(nowPage, lastPage) {
+        var that = this;
         that.rootDom = $jh.parseDom(projectTemp.html, that.data)[0];
+        nowPage.dom.innerHTML = null;
         nowPage.dom.appendChild(this.rootDom);
         $(document).ready(function () {
 
@@ -101,6 +61,20 @@ class Bcontroller extends $jh.SpaController {
                 $refreshImg = $(that.rootDom).find('.down_cell img'),
                 $refreshSpan = $(that.rootDom).find('.up_cell span'),
                 $loaderInner = $(that.rootDom).find('.down_cell .loader-inner');
+
+            var $ul = $(that.rootDom).find('.scroll_wrapper ul');
+
+            $ul.on('click', function (e) {
+                var index = BaseModel.getParentDataSet(e.target, $ul.get(0), 'index');
+                console.log(index);
+                $jh.go({
+                    routeName: '/test1',
+                    args: {
+                        index: index
+                    },
+                    animation: 'easeIn'
+                })
+            });
 
             //使用JhScroll组件
             var myScroll = new JhScroll('.project_scroll', {
@@ -144,28 +118,51 @@ class Bcontroller extends $jh.SpaController {
                         });
                     },
                     downEnd: function () {
-                        setTimeout(function () {
-                            $refreshImg.css({
-                                opacity: 0,
-                                transition: 'opacity 0.5s linear'
-                            });
-                            $loaderInner.css({
-                                opacity: 1,
-                                transition: 'opacity 0.5s linear'
-                            });
-                        }, 500);
+                        // 下拉刷新数据
+                        CommonModel.getProject(
+                            {userId: $jh.prop.userId},
+                            function (res) {
+                                if (res.REV) {
+                                    that.data = res.DATA;
+                                    $jh.setStorage('getProject', res.DATA);
+                                    setTimeout(function () {
+                                        myScroll.closeRefresh();
+                                        that.render(nowPage, lastPage);
+                                    }, 500);
+                                } else {
+                                    layer.open({
+                                        content: `${res.MSG}`,
+                                        btn: '我知道了',
+                                        yes: function (index) {
+                                            layer.close(index);
+                                        }
+                                    });
+                                }
+                            }
+                        );
+                        $refreshImg.css({
+                            opacity: 0,
+                            transition: 'opacity 0.2s linear'
+                        });
+                        $loaderInner.css({
+                            opacity: 1,
+                            transition: 'opacity 0.2s linear'
+                        });
                     },
                     upEnd: function () {
+                        setTimeout(function () {
+                            myScroll.closeRefresh();
+                        }, 500);
                     }
                 }
             });
 
             var mySwiper = new Swiper('.project_swiper', {
-                autoplay: 5000,//可选选项，自动滑动
+                // autoplay: 5000,//可选选项，自动滑动
                 effect: 'coverflow',
                 loop: true,
                 pagination: '.swiper-pagination',
-                autoplayDisableOnInteraction: false,//操作后继续执行autoplay
+                // autoplayDisableOnInteraction: false,//操作后继续执行autoplay
                 lazyLoading: true//懒加载
             });
 
@@ -174,10 +171,6 @@ class Bcontroller extends $jh.SpaController {
                 offset: 200,
                 time: 300,
                 iScroll: myScroll.iScroll
-            });
-
-            $projectScroll.on("click", function () {
-                myScroll.closeRefresh();
             });
         });
     }
