@@ -25,8 +25,8 @@ $jh.prop.userId = 'jianghe';
 /**
  * 公共样式部分
  */
-import 'style/base.css';
-import 'style/basic.css';
+import 'style/common/base.css';
+import 'style/common/basic.css';
 
 /**
  * 控制器部分
