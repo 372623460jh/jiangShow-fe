@@ -81,7 +81,7 @@ class projectDetialcontroller extends $jh.SpaController {
             });
 
             setTimeout(function () {
-                var myScroll = new iScroll('.detialScroll', {
+                new iScroll('.detialScroll', {
                     click: true,//false阻止事件冒泡
                     disablePointer: true, //禁用指针
                     disableTouch: false, //禁用触摸

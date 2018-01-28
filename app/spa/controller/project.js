@@ -168,7 +168,7 @@ class Bcontroller extends $jh.SpaController {
             //使用图片懒加载组件
             new LazyLoad({
                 offset: 200,
-                time: 300,
+                time: 500,
                 iScroll: myScroll.iScroll
             });
         });

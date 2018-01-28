@@ -4,6 +4,7 @@
 'use strict';
 
 import newYearLoad from '../img/loading/newYearLoad.png';
+import defaultImg from '../img/details/default.png';
 
 let template =
     `<div class="project">
@@ -47,7 +48,7 @@ let template =
                     <!--卡片-->
                     <li class="card" data-clickstate="1" data-index="{{index}}">
                         <div class="title">
-                            <img src="{{img}}"></img>
+                            <img class="jhlazyload" src="${defaultImg}" data-src="{{img}}"></img>
                             <span>{{name}}</span>
                         </div>
                         <div class="background">{{projectBg}}</div>
