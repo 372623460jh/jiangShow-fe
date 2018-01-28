@@ -1,0 +1,250 @@
+.projectDetail {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    font-size: 0.6rem;
+    background-color: #fff;
+    font-family: Ionicons;
+}
+
+.projectDetail .header {
+    width: 100%;
+    height: 2.6rem;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+    background-color: #54c590;
+}
+
+.projectDetail .header .title {
+    height: 1.7rem;
+    width: 60%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 20%;
+    text-align: center;
+    line-height: 1.7rem;
+    font-size: 0.45rem;
+    color: #fff;
+}
+
+.projectDetail .header .heart {
+    width: 0.8rem;
+    height: 0.8rem;
+    position: absolute;
+    right: 0.45rem;
+    top: 0.45rem;
+    border-radius: 0.5rem;
+    background-color: #4dddff;
+}
+
+.projectDetail .header .return {
+    width: 0.8rem;
+    height: 0.8rem;
+    position: absolute;
+    left: 0.45rem;
+    top: 0.45rem;
+    border-radius: 0.5rem;
+    background-color: #fa82ff;
+}
+
+.projectDetail .center {
+    height: 1.8rem;
+    width: 94%;
+    border-radius: 0.06rem;
+    box-shadow: 0 0.05rem 0.05rem #aaa;
+    background-color: #ffffff;
+    position: absolute;
+    top: 1.7rem;
+    left: 3%;
+}
+
+.projectDetail .center img {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    left: 0.4rem;
+    top: 0.4rem;
+}
+
+.projectDetail .center .info {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    left: 20%;
+    top: 0;
+}
+
+.projectDetail .center .appName {
+    width: 100%;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    display: block;
+    position: absolute;
+    top: 0.5rem;
+    color: #000;
+    font-size: 0.32rem;
+}
+
+.projectDetail .center .comName {
+    width: 100%;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    display: block;
+    position: absolute;
+    top: 0.9rem;
+    color: #757575;
+    font-size: 0.3rem;
+}
+
+.projectDetail .center .download {
+    width: 30%;
+    height: 1.8rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    vertical-align: middle;
+    line-height: 0.5rem;
+    text-align: center;
+}
+
+.projectDetail .center .content {
+    width: 60%;
+    height: 0.45rem;
+    border-radius: 0.2rem;
+    color: #54c590;
+    background-color: #fff;
+    transition: background-color .1s linear 0s, color .1s linear 0s;
+    border: 0.02rem solid #54c590;
+    line-height: 0.45rem;
+    display: inline-block;
+    font-size: 0.28rem;
+    box-sizing: border-box;
+}
+
+.projectDetail .center .content:nth-child(1) {
+    margin-top: 0.4rem;
+}
+
+.projectDetail .center .content {
+    width: 60%;
+    height: 0.45rem;
+    border-radius: 0.2rem;
+    color: #54c590;
+    background-color: #fff;
+    border: 0.02rem solid #54c590;
+    line-height: 0.45rem;
+    display: inline-block;
+    font-size: 0.28rem;
+    box-sizing: border-box;
+}
+
+.projectDetail .center .content.cs_down {
+    transition: background-color .1s linear 0s, color .1s linear 0s;
+    color: #fff;
+    background-color: #54c590;
+}
+
+.projectDetail .detialScroll {
+    width: 100%;
+    top: 3.75rem;
+    left: 0;
+    bottom: 1.44rem;
+    position: absolute;
+    overflow: hidden;
+}
+
+.projectDetail .detialScroll .showdom {
+    width: 100%;
+    min-height: 1rem;
+    padding: 0;
+    margin: 0.25rem 0 0.25rem 0;
+    background-color: #ffffff;
+    box-shadow: 0 0.05rem 0.2rem rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+.projectDetail .detialScroll .title {
+    width: 90%;
+    height: 1rem;
+    display: block;
+    margin-left: 10%;
+    margin-top: 0;
+    padding: 0.5rem 0 0 0.3rem;
+    box-sizing: border-box;
+    line-height: 0.5rem;
+    font-size: 0.43rem;
+    color: #afb7bd;
+}
+
+.projectDetail .detialScroll .content {
+    width: 90%;
+    display: block;
+    margin-left: 10%;
+    margin-top: 0;
+    padding: 0.3rem;
+    box-sizing: border-box;
+    line-height: 0.45rem;
+    font-size: 0.32rem;
+    color: #000;
+}
+
+.projectDetail .detialScroll .zhuangshi {
+    position: absolute;
+    width: 0.4rem;
+    top: 0.58rem;
+    left: 10%;
+    margin-left: -0.3rem;
+}
+
+.projectDetail .detialScroll .swiper-container {
+    width: 100%;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.projectDetail .detialScroll .swiper-slide {
+    margin-left: 0.72rem;
+}
+
+.projectDetail .detialScroll .swiper-slide img {
+    width: 4rem;
+}
+
+.projectDetail .detialScroll .photo {
+    width: 0.6rem;
+    height: 0.6rem;
+    position: absolute;
+    top: 0.46rem;
+    left: 0.55rem;
+}
+
+.projectDetail .skills {
+    min-height: 1.1rem;
+    box-sizing: border-box;
+    padding: 0 0.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.projectDetail .skills span {
+    float: left;
+    height: 0.6rem;
+    margin: 0.2rem 0.2rem 0 0.2rem;
+    border-radius: 0.35rem;
+    background-color: #cbeddd;
+    color: #54c590;
+    font-size: 0.35rem;
+    line-height: 0.6rem;
+    padding: 0.05rem 0.5rem;
+}
+
+.projectDetail .bottom {
+    width: 100%;
+    height: 1.44rem;
+    position: absolute;
+    bottom: 0;
+    background-color: #54c590;
+}

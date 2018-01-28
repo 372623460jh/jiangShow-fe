@@ -61,6 +61,19 @@ export default {
     },
 
     /**
+     * 显隐导航栏的对象
+     */
+    makeNav: {
+        dom: $(".nav_tab"),
+        hidden: function () {
+            this.dom.css('display', 'none');
+        },
+        show: function () {
+            this.dom.css('display', 'block');
+        }
+    },
+
+    /**
      * 节流方法1
      * @param method 回调方法
      * @param delay 间隔＞delay 才会执行method

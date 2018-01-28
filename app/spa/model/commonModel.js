@@ -4,9 +4,8 @@
 
 import 'whatwg-fetch';
 import ProcessData from 'lib/processData/processData';
-import layer from 'lib/layer/layer';
-var CommonConfig = require('../config/commonConfig');
 
+var CommonConfig = require('../config/commonConfig');
 
 export default {
 
@@ -30,6 +29,19 @@ export default {
      */
     getMainInfo: function (value, fn) {
         fetch(CommonConfig.getMainInfo + value.userId, CommonConfig.getDefaultConfig).then(function (response) {
+            response.text().then(function (responseText) {
+                fn(ProcessData.parseJSON(responseText));
+            })
+        });
+    },
+
+    /**
+     * 获取技能接口
+     * @param value
+     * @param fn
+     */
+    getSkills: function (value, fn) {
+        fetch(CommonConfig.getSkills + value.userId, CommonConfig.getDefaultConfig).then(function (response) {
             response.text().then(function (responseText) {
                 fn(ProcessData.parseJSON(responseText));
             })

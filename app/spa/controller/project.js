@@ -66,14 +66,13 @@ class Bcontroller extends $jh.SpaController {
 
             $ul.on('click', function (e) {
                 var index = BaseModel.getParentDataSet(e.target, $ul.get(0), 'index');
-                console.log(index);
                 $jh.go({
-                    routeName: '/test1',
+                    routeName: '/projectDetial',
                     args: {
-                        index: index
+                        detial: that.data.project[index]
                     },
                     animation: 'easeIn'
-                })
+                });
             });
 
             //使用JhScroll组件

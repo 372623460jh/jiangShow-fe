@@ -34,6 +34,7 @@ import 'style/basic.css';
 import 'controller/intro';
 import 'controller/project';
 import 'controller/skills';
+import 'controller/projectDetial';
 
 import 'controller/test1';
 import 'controller/test2';
