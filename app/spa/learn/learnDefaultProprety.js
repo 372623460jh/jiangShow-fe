@@ -152,12 +152,30 @@
 //     return data ? fn(data) : fn;
 // };
 //
-// var tpl = '[: for(var k in ary){ var one=ary[k]; :]' +
-//     '<p>[:=one:]</p>' +
-//     '[: } :]';
-// var data = {ary: [123, 'abc']};
-// var div = tmpl(tpl, data);
-// console.log(div); //</p>123</p><p>abc</p>
+var tpl = '[: for(var k in ary){ var one=ary[k]; :]' +
+    '<p>[:=one:]</p>' +
+    '[: } :]';
+var data = {ary: [123, 'abc']};
+var div = tmpl(tpl, data);
+console.log(div); //</p>123</p><p>abc</p>
+
+
+/**
+ *
+ * 原理:通过遍历data,给data的每一个属性增加setter和getter方法（数据拦截方法，读写数据就会被拦截），
+ * 每个data属性都有一个观察者容器实例用来保存所有和该数据相关的观察者，通过遍历dom元素
+ *
+ *
+ * 数据监听者和dom观察者之间的关系是多对多的
+ *
+ * 1个数据监听者可以对应多个dom观察者；
+ * 简言之：1个数据的改变可以驱动多个dom的多个属性改变（具体是哪些dom，哪些属性放在WatcherVessel（dom观察者容器）对象中）
+ *
+ * 1个dom观察者可以对应多个数据监听者；
+ * 简言之：1个dom对象的属性可能由多个数据来决定（具体是哪些数据在Watcher对象的matchResult属性下）
+ *
+ * 1个dom对象可以有多个dom观察者：如文本观察者 类名观察者 自定义属性观察者；每个观察者都对应多个数据
+ */
 
 /**
  * 监听者
@@ -201,14 +219,37 @@ Watcher.prototype = {
     }
 };
 
+/**
+ * 观察者容器类
+ * @constructor
+ */
+function WatcherVessel() {
+    this.subs = [];
+}
+WatcherVessel.prototype = {
+    addSub: function (sub) {
+        this.subs.push(sub);
+    },
+    notify: function () {
+        this.subs.forEach(function (sub) {
+            sub.update();
+        });
+    }
+};
+/**
+ * 缓存当前需要和数据监听者关联的dom观察者
+ * 通过主动触发数据监听者的get方法来建立数据监听者和dom观察者的联系
+ */
+WatcherVessel.target = null;
+
 
 /**
  * 映射器用来建立dom(节点)与watcher(观察者)之间的联系(根据dom对象中的占位符来创建观察者)
  * @constructor
  */
-function Mapper(dom, he) {
+function Mapper(he) {
     //需要映射器关联的dom对象
-    this.dom = dom;
+    this.dom = he.dom;
     //组件上下文对象
     this.he = he;
     this.init();
@@ -299,7 +340,7 @@ Mapper.prototype = {
         });
         this.updateText(node, initText);
         /**
-         * 创建监听者当数据改变时会执行该回调
+         * 创建观察者
          */
         new Watcher(this.he, matchResult, function (value) {
             matchResult.forEach(function (item) {
@@ -337,31 +378,64 @@ Mapper.prototype = {
     },
 };
 
-// var template =
-//     '<div id="testdiv">' +
-//     '   <div>' +
-//     '       <div>' +
-//     '           <span>1</span>' +
-//     '       </div>' +
-//     '       <div>' +
-//     '           <span>1</span>' +
-//     '       </div>' +
-//     '   </div>' +
-//     '   <div>' +
-//     '       <div>' +
-//     '           <span>1</span>' +
-//     '       </div>' +
-//     '       <div>' +
-//     '           <span>1</span>' +
-//     '           <div>' +
-//     '               <span>1</span>' +
-//     '           </div>' +
-//     '       </div>' +
-//     '   </div>' +
-//     '</div>';
-var template =
-    '<div id="testdiv">sss{{name}}213123{{age}}aaa</div>';
+/**
+ * 组件对象
+ * @param options
+ */
+function He(options) {
+    this.data = options.data || '';//数据
+    this.dom = options.el;//数据对应的dom对象
 
+    //给数据添加数据拦截事件
+    this.addObserver(this.data);
+
+    //数据拦截事件添加完后需要建立数据与dom的映射关系
+    // var mapper = new Mapper(this);
+};
+He.prototype = {
+    constructor: He,
+    /**
+     * 给数据添加监听器的方法
+     */
+    addObserver: function (data) {
+        var that = this;
+        if (!data || typeof data != 'object') {
+            return;
+        }
+        //循环给每一个数据添加监听器
+        Object.keys(data).forEach(function (key) {
+            // if ({}.toString.call(data[key]) == '[object Array]') {
+            //     //如果待添加监听器的类型是数组
+            //     that.addObserver(data[key]);
+            // } else if ({}.toString.call(data[key]) == '[object Object]') {
+            //     //如果待添加监听器的类型是对象
+            //     that.addObserver(data[key]);
+            // } else if ({}.toString.call(data[key]) == '[object String]' || {}.toString.call(data[key]) == '[object Number]') {
+            //     that._observer(data, key, data[key]);
+            // } else {
+            //     console.error('不支持的数据类型');
+            //     return;
+            // }
+            that._observer(data, key, data[key]);
+        });
+    },
+    _observer: function (data, key, val) {
+        var that = this;
+        that.addObserver(data[key]);
+        Object.defineProperty(data, key, {
+            get: function () {
+                return val;
+            },
+            set: function (newValue) {
+                if (val === newValue) return;
+                console.log(key + ":" + val + "==>" + newValue);
+                val = newValue;
+            },
+            configurable: false,//是否允许删除该属性
+            enumerable: true//是否允许被枚举
+        });
+    }
+};
 
 function parseDom(html) {
     var objE = document.createElement("div");
@@ -369,16 +443,20 @@ function parseDom(html) {
     return objE;
 }
 
-var mapper = new Mapper(parseDom(template), {
-    data: {
-        name: 'jianghe',
-        age: 24,
-        worker: {
-            test: 123,
-            test1: 333
-        }
-    }
-});
+var template =
+    '<div id="testdiv">sss{{test.name}}213123{{test.age}}aaa</div>';
 
+window.testdada = {
+    test:{
+        name:123123,
+        age:1233
+    }
+};
+
+
+var he = new He({
+    el: parseDom(template),
+    data: window.testdada
+});
 
 
