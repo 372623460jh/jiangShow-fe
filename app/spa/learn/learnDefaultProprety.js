@@ -152,12 +152,12 @@
 //     return data ? fn(data) : fn;
 // };
 //
-var tpl = '[: for(var k in ary){ var one=ary[k]; :]' +
-    '<p>[:=one:]</p>' +
-    '[: } :]';
-var data = {ary: [123, 'abc']};
-var div = tmpl(tpl, data);
-console.log(div); //</p>123</p><p>abc</p>
+// var tpl = '[: for(var k in ary){ var one=ary[k]; :]' +
+//     '<p>[:=one:]</p>' +
+//     '[: } :]';
+// var data = {ary: [123, 'abc']};
+// var div = tmpl(tpl, data);
+// console.log(div); //</p>123</p><p>abc</p>
 
 
 /**
@@ -404,18 +404,18 @@ He.prototype = {
         }
         //循环给每一个数据添加监听器
         Object.keys(data).forEach(function (key) {
-            // if ({}.toString.call(data[key]) == '[object Array]') {
-            //     //如果待添加监听器的类型是数组
-            //     that.addObserver(data[key]);
-            // } else if ({}.toString.call(data[key]) == '[object Object]') {
-            //     //如果待添加监听器的类型是对象
-            //     that.addObserver(data[key]);
-            // } else if ({}.toString.call(data[key]) == '[object String]' || {}.toString.call(data[key]) == '[object Number]') {
-            //     that._observer(data, key, data[key]);
-            // } else {
-            //     console.error('不支持的数据类型');
-            //     return;
-            // }
+            if ({}.toString.call(data[key]) == '[object Array]') {
+                //如果待添加监听器的类型是数组
+                that.addObserver(data[key]);
+            } else if ({}.toString.call(data[key]) == '[object Object]') {
+                //如果待添加监听器的类型是对象
+                that.addObserver(data[key]);
+            } else if ({}.toString.call(data[key]) == '[object String]' || {}.toString.call(data[key]) == '[object Number]') {
+                that._observer(data, key, data[key]);
+            } else {
+                console.error('不支持的数据类型');
+                return;
+            }
             that._observer(data, key, data[key]);
         });
     },
@@ -444,13 +444,11 @@ function parseDom(html) {
 }
 
 var template =
-    '<div id="testdiv">sss{{test.name}}213123{{test.age}}aaa</div>';
+    '<div id="testdiv">sss{{name}}213123{{age}}aaa</div>';
 
 window.testdada = {
-    test:{
-        name:123123,
-        age:1233
-    }
+    name: 123123,
+    age: 1233
 };
 
 
