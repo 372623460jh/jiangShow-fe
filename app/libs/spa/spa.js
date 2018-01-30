@@ -1820,13 +1820,13 @@
             //baseIn切入动画
             data.parent.appendChild(showDom);
             showDom.style.display = 'block';
-
             upPageDom.style.display = 'none';
             data.parent.removeChild(upPageDom);
         } else if (animation === 'easeIn') {
             //baseIn切入动画
             showDom.style.display = 'none';
             showDom.style.left = '100%';
+            showDom.style.zIndex = '99';
             showDom.style.display = 'block';
             data.parent.appendChild(showDom);
             setTimeout(function () {
@@ -1835,6 +1835,7 @@
             }, 20);
             setTimeout(function () {
                 showDom.style.transition = 'none';
+                showDom.style.zIndex = 'none';
                 upPageDom.style.display = 'none';
                 data.parent.removeChild(upPageDom);
             }, 400);
@@ -1842,6 +1843,7 @@
             //baseIn切入动画
             showDom.style.display = 'none';
             showDom.style.left = '-100%';
+            showDom.style.zIndex = '99';
             showDom.style.display = 'block';
             data.parent.appendChild(showDom);
             setTimeout(function () {
@@ -1850,6 +1852,7 @@
             }, 20);
             setTimeout(function () {
                 showDom.style.transition = 'none';
+                showDom.style.zIndex = 'none';
                 upPageDom.style.display = 'none';
                 data.parent.removeChild(upPageDom);
             }, 400);

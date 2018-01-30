@@ -10,6 +10,7 @@
 .skills .skills_nav {
     width: 100%;
     height: 1.5rem;
+    z-index: 1;
     position: absolute;
     top: 0;
     left: 0;
@@ -30,9 +31,144 @@
     top: 1.5rem;
     bottom: 1.44rem;
     width: 100%;
-    background-color: #6fff46;
+    overflow: hidden;
 }
 
+/*内容部分*/
+.skills .main {
+    background-color: #ececec;
+}
+
+.skills .left, .skills .right {
+    width: 50%;
+    box-sizing: border-box;
+    float: left;
+    position: relative;
+}
+
+.skills .left {
+    padding: 0rem 0.15rem 0.3rem 0.3rem;
+}
+
+.skills .right {
+    padding: 0rem 0.3rem 0.3rem 0.15rem;
+}
+
+.skills .skillbox {
+    margin-top: 0.3rem;
+    width: 100%;
+    border-radius: 0.3rem;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.skills .left .skillbox:nth-child(2n), .skills .right .skillbox:nth-child(2n+1) {
+    height: 5.6rem;
+}
+
+.skills .left .skillbox:nth-child(2n) .content, .skills .right .skillbox:nth-child(2n+1) .content {
+    height: 3.2rem;
+    line-height: 3.2rem;
+    vertical-align: middle;
+    width: 100%;
+    background-color: #54c590;
+    color: #fff;
+}
+
+.skills .content img {
+    height: 0.9rem;
+    width: 0.9rem;
+    background-color: #ff784d;
+    margin-left: 0.3rem;
+}
+
+.skills .content span {
+    margin-left: 0.15rem;
+    max-height: 2.7rem;
+    font-size: 0.43rem;
+    font-family: 'Verdana';
+    overflow: hidden;
+}
+
+.skills .skillbox .usetime, .skills .skillbox .rank, .skills .skillbox .rankbar {
+    height: 0.8rem;
+    line-height: 0.8rem;
+    vertical-align: baseline;
+    width: 100%;
+}
+
+.skills .usetime i, .skills .rank i {
+    display: inline-block;
+    height: 0.4rem;
+    width: 0.4rem;
+    background-color: #ff784d;
+    margin-left: 0.3rem;
+    margin-bottom: 0.2rem;
+}
+
+.skills .usetime span, .skills .rank span {
+    display: inline-block;
+    margin-left: 0.05rem;
+    line-height: 0.8rem;
+    max-height: 3rem;
+    font-size: 0.3rem;
+    font-family: '微软雅黑';
+    color: #54c590;
+    overflow: hidden;
+}
+
+.skills .left .skillbox:nth-child(2n+1), .skills .right .skillbox:nth-child(2n) {
+    height: 4rem;
+}
+
+.skills .left .skillbox:nth-child(2n+1) .content, .skills .right .skillbox:nth-child(2n) .content {
+    height: 1.6rem;
+    line-height: 1.6rem;
+    vertical-align: middle;
+    width: 100%;
+    border-bottom: 0.015rem solid #54c590;
+    box-sizing: border-box;
+    color: #888;
+}
+
+.skills .skillbox .rankbar {
+    padding: 0 0.3rem;
+    margin-top: -0.1rem;
+    box-sizing: border-box;
+}
+
+.skills .custom-range {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 0;
+    border-radius: 0.1rem; /*将轨道设为圆角的*/
+}
+
+.skills .custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+.skills .custom-range::-webkit-slider-runnable-track {
+    height: 0.3rem;
+    border-radius: 0.1rem; /*将轨道设为圆角的*/
+    border: solid 3px rgba(84, 197, 144, 0.3);
+}
+
+.skills .custom-range:focus {
+    outline: none;
+}
+
+.skills .custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 0.6rem;
+    width: 0.6rem;
+    margin-top: -0.17rem; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff;
+    border-radius: 0.32rem; /*外观设置为圆形*/
+    border: solid 3px rgba(84, 197, 144, 0.5); /*设置边框*/
+}
+
+/*轮播图部分*/
 .skills .skills_swiper {
     height: 2.58rem;
     width: 100%;
