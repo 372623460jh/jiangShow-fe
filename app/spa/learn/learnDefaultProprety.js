@@ -38,3 +38,18 @@
 // var data = {ary: [123, 'abc']};
 // var div = tmpl(tpl, data);
 // console.log(div); //</p>123</p><p>abc</p>
+
+
+
+// if ({}.toString.call(data[key]) == '[object Array]') {
+//     //如果待添加监听器的类型是数组
+//     that.addObserver(data[key]);
+// } else if ({}.toString.call(data[key]) == '[object Object]') {
+//     //如果待添加监听器的类型是对象
+//     that.addObserver(data[key]);
+// } else if ({}.toString.call(data[key]) == '[object String]' || {}.toString.call(data[key]) == '[object Number]') {
+//     that._observer(data, key, data[key]);
+// } else {
+//     console.error('不支持的数据类型');
+//     return;
+// }

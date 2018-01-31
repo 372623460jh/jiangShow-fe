@@ -13,3 +13,6 @@ dom a dom b
 
 //a的第一个字节会被移除
 b.appendChild(a.firstChild);
+
+- Object.getOwnPropertyDescriptor(obj.key);
+获取指定对象的自身属性描述符。自身属性描述符是指直接在对象上定义（而非从对象的原型继承）的描述符。

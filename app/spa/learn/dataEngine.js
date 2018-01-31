@@ -178,7 +178,7 @@
          * @private
          */
         _matchString: function (textString) {
-            var reg = /\{\{([A-Za-z0-9_\.]+)\}\}/g,//匹配占位符的正则
+            var reg = /\{\{([A-Za-z0-9_\.\s]+)\}\}/g,//匹配占位符的正则
                 matchResult = [];//保存匹配结果
             if (!textString) {
                 return matchResult;
@@ -192,7 +192,7 @@
                 if (!arr) break;
                 matchResult.push({
                     perch: arr[0],
-                    result: arr[1]
+                    result: arr[1].replace(/\s/g, '')
                 });
             }
             return matchResult;
@@ -322,83 +322,113 @@
     };
 
     /**
+     * 数据监听者对象
+     * @param value     需要监听的数据
+     * @constructor
+     */
+    function Observer(value) {
+        this.data = value;
+        //创建一个观察者容器
+        this.watcherVessel = new WatcherVessel();
+        if (Array.isArray(this.data)) {
+            //如果要监听的数据是数组
+            this.addObserverArray(this.data);
+        } else {
+            this.addObserver(this.data);
+        }
+    };
+    /**
+     * 非数组的添加数据监听方法
+     * @param data
+     */
+    Observer.prototype.addObserver = function addObserver(data) {
+        var keys = Object.keys(data);
+        //循环给每一个数据添加监听器
+        for (var i = 0, l = data.length; i < l; i++) {
+            defineReactive(data, keys[i], data[keys[i]]);
+        }
+    };
+    /**
+     * 数组的添加数据监听方法
+     * @param data
+     */
+    Observer.prototype.addObserverArray = function addObserverArray(data) {
+        //循环给每一个数据添加监听器
+        for (var i = 0, l = data.length; i < l; i++) {
+            observe(data[i]);
+        }
+    };
+
+    /**
+     * 创建自定义属性的方法
+     * @param data
+     * @param key
+     * @param val
+     * @private
+     */
+    function defineReactive(data, key, val) {
+
+        var watcherVessel = new WatcherVessel();
+
+        //调用监听数据的方法获取字节点的数据监听对象
+        var childOb = observe(val);
+
+        Object.defineProperty(data, key, {
+            get: function () {
+                if (WatcherVessel.target) {
+                    watcherVessel.addWatcher(WatcherVessel.target);
+                }
+                return val;
+            },
+            set: function (newValue) {
+                var oldValue = val;
+                if (val === newValue) return;
+                console.log(key + ":" + val + "==>" + newValue);
+                val = newValue;
+                /**
+                 * 执行所有观察者的update方法
+                 * rootData根数据
+                 * oldValue老数据
+                 * key键值
+                 * rootData[key]新数据
+                 */
+                watcherVessel.notify({
+                    newValue: newValue,
+                    oldValue: oldValue,
+                    rootData: data,
+                    key: key
+                });
+            },
+            configurable: true,//是否允许删除该属性
+            enumerable: true//是否允许被枚举
+        });
+    };
+
+    /**
+     * 监听数据的方法
+     * @param value     需要监听的数据
+     * 返回监听数据对象
+     */
+    function observe(value) {
+        if (!value || typeof value != 'object') {
+            return;
+        }
+        var ob = new Observer(value);
+        return ob;
+    }
+
+    /**
      * 组件对象
      * @param options
      */
     function He(options) {
         this.data = options.data || '';//数据
         this.dom = this.parseDom(options.htmlstr);//数据对应的dom对象
-        this.addObserver(this.data);//给数据添加数据拦截事件
+        this.ob = observe(this.data);//给数据添加数据拦截事件
         this.element = new Mapper(this).fragment;// 数据拦截事件添加完后需要建立数据与dom的映射关系
     };
     He.prototype = {
         constructor: He,
-        /**
-         * 给数据添加监听器的方法
-         */
-        addObserver: function (data) {
-            var that = this;
-            if (!data || typeof data != 'object') {
-                return;
-            }
-            //循环给每一个数据添加监听器
-            Object.keys(data).forEach(function (key) {
-                // if ({}.toString.call(data[key]) == '[object Array]') {
-                //     //如果待添加监听器的类型是数组
-                //     that.addObserver(data[key]);
-                // } else if ({}.toString.call(data[key]) == '[object Object]') {
-                //     //如果待添加监听器的类型是对象
-                //     that.addObserver(data[key]);
-                // } else if ({}.toString.call(data[key]) == '[object String]' || {}.toString.call(data[key]) == '[object Number]') {
-                //     that._observer(data, key, data[key]);
-                // } else {
-                //     console.error('不支持的数据类型');
-                //     return;
-                // }
-                that._observer(data, key, data[key]);
-            });
-        },
-        /**
-         * 建立数据监听者
-         * @param data 根数据
-         * @param key 键值
-         * @param val 具体数据 == data[key]
-         * @private
-         */
-        _observer: function (data, key, val) {
-            var that = this;
-            that.addObserver(val);
-            var watcherVessel = new WatcherVessel();
-            Object.defineProperty(data, key, {
-                get: function () {
-                    if (WatcherVessel.target) {
-                        watcherVessel.addWatcher(WatcherVessel.target);
-                    }
-                    return val;
-                },
-                set: function (newValue) {
-                    var oldValue = val;
-                    if (val === newValue) return;
-                    console.log(key + ":" + val + "==>" + newValue);
-                    val = newValue;
-                    /**
-                     * 执行所有观察者的update方法
-                     * rootData根数据
-                     * oldValue老数据
-                     * key键值
-                     * rootData[key]新数据
-                     */
-                    watcherVessel.notify({
-                        newValue: newValue,
-                        oldValue: oldValue,
-                        rootData: data,
-                        key: key
-                    });
-                },
-                configurable: false,//是否允许删除该属性
-                enumerable: true//是否允许被枚举
-            });
-        },
         /**
          * 将html转换为dom
          * @param html
@@ -408,6 +438,21 @@
             var objE = document.createElement("div");
             objE.innerHTML = html;
             return objE;
+        },
+
+        /**
+         * 将dom转为字符串
+         * @param el            dom
+         * @return {string}     dom字串
+         */
+        getOuterHTML: function (el) {
+            if (el.outerHTML) {
+                return el.outerHTML
+            } else {
+                var container = document.createElement('div');
+                container.appendChild(el.cloneNode(true));
+                return container.innerHTML
+            }
         }
     };
 

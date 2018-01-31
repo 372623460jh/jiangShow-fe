@@ -5,20 +5,31 @@
 	<title>Title</title>
 </head>
 <body>
-<div id="app">
-	{{ message }}
-</div>
+<div id="app">{{test.test2}}</div>
 </body>
 <!--<script src="./dataEngine.js" type="text/javascript"></script>-->
-<script src="./vue.js" type="text/javascript"></script>
+<script src="./vue_test.js" type="text/javascript"></script>
 <script>
 
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'Hello Vue!'
+            message: 'Hello Vue!',
+            test: {
+                test1: '123123',
+                test2: [
+                    {
+                        test2: 123
+                    }
+                ]
+            },
+            test1: [
+                {
+                    test1: 6548
+                }
+            ]
         }
-    })
+    });
 
     //    var template =
     //        '<div class="{{classname1}} test {{classname2}}" data-age="{{data1}}测试自定义属性{{data2}}">' +
