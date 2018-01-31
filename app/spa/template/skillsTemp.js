@@ -3,13 +3,23 @@
  */
 'use strict';
 
+import defaultImg from '../img/details/default.png';
+import newYearLoad from '../img/loading/newYearLoad.png'
+
 let template =
     `<div class="skills">
         <div class="skills_nav">
             <span>技能</span>
         </div>
         <div class="main">
-            <div>
+            <div class="skills_warp">
+                <div class="skills_down_cell">
+                    <img class="newyear" src="${newYearLoad}" alt="">
+                    <div class="loader-inner">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
                 <!--轮播图-->
                 <div class="skills_swiper">
                     <div class="swiper-wrapper">
@@ -31,54 +41,46 @@ let template =
                 </div>
                 <div class="content">
                     <div class="left">
+                        {{#leftSkills}}
                         <div class="skillbox">
                             <div class="content">
-                                <img/> 
-                                <span>Java</span>
+                                <img class="jhlazyload" src="${defaultImg}" data-src="{{img}}"></img>
+                                <span>{{skillsName}}</span>
                             </div>
                             <div class="usetime">
                                 <i></i>
-                                <span>技能使用48+个月</span>
+                                <span>技能使用{{useTime}}个月</span>
                             </div>
                             <div class="rank">
                                 <i></i>
-                                <span>技能自评分:85分</span>
+                                <span>技能自评分:{{score}}分</span>
                             </div>
                             <div class="rankbar">
-                                <input type="range" class="custom-range" min="0" max="100" name="volume" value="30">
+                                <input type="range" class="custom-range" min="0" max="100" name="volume" value="{{score}}">
                             </div>
                         </div>
-                        <div class="skillbox">
-                            <div class="content">
-                                <img/> 
-                                <span>Java</span>
-                            </div>
-                            <div class="usetime">
-                                <i></i>
-                                <span>技能使用48+个月</span>
-                            </div>
-                            <div class="rank">
-                                <i></i>
-                                <span>技能自评分:85分</span>
-                            </div>
-                            <div class="rankbar">
-                                <input type="range" class="custom-range" min="0" max="100" name="volume">
-                            </div>
-                        </div>
+                        {{/leftSkills}}
                     </div>
                     <div class="right">
+                       {{#rightSkills}}
                         <div class="skillbox">
-                            <div class="content"></div>
-                            <div class="usetime"></div>
-                            <div class="rank"></div>
-                            <div class="rankbar"></div>
+                            <div class="content">
+                                <img class="jhlazyload" src="${defaultImg}" data-src="{{img}}"></img>
+                                <span>{{skillsName}}</span>
+                            </div>
+                            <div class="usetime">
+                                <i></i>
+                                <span>技能使用{{useTime}}个月</span>
+                            </div>
+                            <div class="rank">
+                                <i></i>
+                                <span>技能自评分:{{score}}分</span>
+                            </div>
+                            <div class="rankbar">
+                                <input type="range" class="custom-range" min="0" max="100" name="volume" value="{{score}}">
+                            </div>
                         </div>
-                        <div class="skillbox">
-                            <div class="content"></div>
-                            <div class="usetime"></div>
-                            <div class="rank"></div>
-                            <div class="rankbar"></div>
-                        </div>
+                        {{/rightSkills}}
                     </div>
                     <div class="clear"></div> 
                 </div>
