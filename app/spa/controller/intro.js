@@ -8,8 +8,8 @@ import introTemp from 'template/introTemp';
 import $jh from 'lib/spa/spa';
 import $ from 'jquery';
 import layer from 'lib/layer/layer';
-import Drawer from 'lib/drawer';
-import JhScroll from 'lib/jhScroll';
+import Drawer from 'lib/drawer/drawer';
+import JhScroll from 'lib/jhScroll/jhScroll';
 import IScroll from 'lib/iScroll/iscroll-probe';
 import CommonModel from 'model/commonModel';
 
@@ -51,6 +51,9 @@ class Acontroller extends $jh.SpaController {
         this.rootDom = $jh.parseDom(introTemp.html, that.data)[0];
         nowPage.dom.innerHTML = '';
         nowPage.dom.appendChild(this.rootDom);
+
+
+
         $(this.rootDom).ready(function () {
             // 执行动画
             that.initAnimation();
@@ -65,131 +68,6 @@ class Acontroller extends $jh.SpaController {
                 $loaderInner = $(that.rootDom).find('.intro_down_cell .loader-inner'),
                 $rootDom = $(that.rootDom),
                 dra;
-
-            var myScroll = new JhScroll('.intro_scroll', {
-                click: true,//false阻止事件冒泡
-                disablePointer: true, //禁用指针
-                disableTouch: false, //禁用触摸
-                disableMouse: false, //禁用鼠标
-                bounceTime: 500,//反弹动画时间
-                scrollX: true, //是否使用x方向滚动条
-                freeScroll: true, //自由拖动
-                useTransition: true, //使用过渡效果
-                deceleration: 0.005, //滚动势能
-                DownUpLoad: {
-                    downwardHeight: 1.8 * $jh.prop.rem,
-                    $Scroll: $introScroll,
-                    $scrollWrapper: $scrollWrapper,
-                    $downCell: $downCell,
-                    downMove: function (obj) {
-                        var rih = obj.height * 0.6,
-                            riw = obj.height * 0.6 * 2.92;
-                        $refreshImg.css({
-                            transition: 'none',
-                            opacity: 1,
-                            width: riw,
-                            height: rih
-                        });
-                        $loaderInner.css({
-                            transition: 'none',
-                            opacity: 0,
-                        });
-                        $downCell.css({
-                            lineHeight: obj.height + 'px'
-                        });
-                    },
-                    downEnd: function () {
-                        // 下拉刷新数据
-                        CommonModel.getMainInfo(
-                            {userId: $jh.prop.userId},
-                            function (res) {
-                                if (res.REV) {
-                                    that.data = res.DATA;
-                                    $jh.setStorage('getMainInfo', res.DATA);
-                                    setTimeout(function () {
-                                        myScroll.closeRefresh();
-                                        that.render(nowPage, lastPage);
-                                    }, 500);
-                                } else {
-                                    layer.open({
-                                        content: `${res.MSG}`,
-                                        btn: '我知道了',
-                                        yes: function (index) {
-                                            layer.close(index);
-                                        }
-                                    });
-                                }
-                            }
-                        );
-                        $refreshImg.css({
-                            opacity: 0,
-                            transition: 'opacity 0.2s linear'
-                        });
-                        $loaderInner.css({
-                            opacity: 1,
-                            transition: 'opacity 0.2s linear'
-                        });
-                    }
-                }
-            });
-
-            $drawer_menu.on("click", function (e) {
-
-                let name = e.currentTarget.innerText;
-                if (name == '个人信息') {
-                    name = 0;
-                } else if (name == '工作经历') {
-                    name = 1;
-                } else if (name == '求职意向') {
-                    name = 2;
-                } else if (name == '教育经历') {
-                    name = 3;
-                }
-
-                var hei = -$scrollWrapper.find('ul').children().eq(name).get(0).offsetTop,
-                    moveY = (myScroll.iScroll.maxScrollY >= hei) ? myScroll.iScroll.maxScrollY : hei;
-
-                if (dra.moveObj.drawerStatic == 'yes') {
-                    $content.css({
-                        '-webkit-transition': 'margin-left .15s ease-out',
-                        'margin-left': '0'
-                    });
-                    dra.triggerDrawer();
-                }
-                setTimeout(function () {
-                    myScroll.iScroll.scrollTo(0, moveY, 1500, IScroll.utils.ease.bounce);
-                }, 100);
-                return false;//阻止冒泡
-            });
-
-            //菜单框
-            $menu.on("click", function () {
-                if (dra.moveObj.drawerStatic == 'yes') {
-                    $content.css({
-                        '-webkit-transition': 'margin-left .15s ease-out',
-                        'margin-left': '0'
-                    });
-                } else if (dra.moveObj.drawerStatic == 'no') {
-                    $content.css({
-                        '-webkit-transition': 'margin-left .15s ease-out',
-                        'margin-left': '25%'
-                    });
-                }
-                dra.triggerDrawer();
-                return false;//阻止冒泡
-            });
-
-            //主体部分
-            $content.on("click", function () {
-                if (dra.moveObj.drawerStatic == 'yes') {
-                    dra.triggerDrawer();
-                    $content.css({
-                        '-webkit-transition': 'margin-left .15s ease-in',
-                        'margin-left': '0'
-                    });
-                }
-                return false;//阻止冒泡
-            });
 
             var initwidth = $drawer.width();
             dra = new Drawer({
@@ -212,6 +90,134 @@ class Acontroller extends $jh.SpaController {
                 }
             });
 
+            setTimeout(function () {
+                var myScroll = new JhScroll('.intro_scroll', {
+                    click: true,//false阻止事件冒泡
+                    disablePointer: true, //禁用指针
+                    disableTouch: false, //禁用触摸
+                    disableMouse: false, //禁用鼠标
+                    bounceTime: 500,//反弹动画时间
+                    scrollX: true, //是否使用x方向滚动条
+                    freeScroll: true, //自由拖动
+                    useTransition: true, //使用过渡效果
+                    deceleration: 0.005, //滚动势能
+                    DownUpLoad: {
+                        downwardHeight: 1.8 * $jh.prop.rem,
+                        $Scroll: $introScroll,
+                        $scrollWrapper: $scrollWrapper,
+                        $downCell: $downCell,
+                        downMove: function (obj) {
+                            var rih = obj.height * 0.6,
+                                riw = obj.height * 0.6 * 2.92;
+                            $refreshImg.css({
+                                transition: 'none',
+                                opacity: 1,
+                                width: riw,
+                                height: rih
+                            });
+                            $loaderInner.css({
+                                transition: 'none',
+                                opacity: 0,
+                            });
+                            $downCell.css({
+                                lineHeight: obj.height + 'px'
+                            });
+                        },
+                        downEnd: function () {
+                            // 下拉刷新数据
+                            CommonModel.getMainInfo(
+                                {userId: $jh.prop.userId},
+                                function (res) {
+                                    if (res.REV) {
+                                        that.data = res.DATA;
+                                        $jh.setStorage('getMainInfo', res.DATA);
+                                        setTimeout(function () {
+                                            myScroll.closeRefresh();
+                                            that.render(nowPage, lastPage);
+                                        }, 500);
+                                    } else {
+                                        layer.open({
+                                            content: `${res.MSG}`,
+                                            btn: '我知道了',
+                                            yes: function (index) {
+                                                layer.close(index);
+                                            }
+                                        });
+                                    }
+                                }
+                            );
+                            $refreshImg.css({
+                                opacity: 0,
+                                transition: 'opacity 0.2s linear'
+                            });
+                            $loaderInner.css({
+                                opacity: 1,
+                                transition: 'opacity 0.2s linear'
+                            });
+                        }
+                    }
+                });
+                $drawer_menu.on("click", function (e) {
+
+                    let name = e.currentTarget.innerText;
+                    if (name == '个人信息') {
+                        name = 0;
+                    } else if (name == '工作经历') {
+                        name = 1;
+                    } else if (name == '求职意向') {
+                        name = 2;
+                    } else if (name == '教育经历') {
+                        name = 3;
+                    }
+
+                    var hei = -$scrollWrapper.find('ul').children().eq(name).get(0).offsetTop,
+                        moveY = (myScroll.iScroll.maxScrollY >= hei) ? myScroll.iScroll.maxScrollY : hei;
+
+                    if (dra.moveObj.drawerStatic == 'yes') {
+                        $content.css({
+                            '-webkit-transition': 'margin-left .15s ease-out',
+                            'margin-left': '0'
+                        });
+                        dra.triggerDrawer();
+                    }
+                    setTimeout(function () {
+                        myScroll.iScroll.scrollTo(0, moveY, 1500, IScroll.utils.ease.bounce);
+                    }, 100);
+                    return false;//阻止冒泡
+                });
+
+                //菜单框
+                $menu.on("click", function () {
+                    if (dra.moveObj.drawerStatic == 'yes') {
+                        $content.css({
+                            '-webkit-transition': 'margin-left .15s ease-out',
+                            'margin-left': '0'
+                        });
+                    } else if (dra.moveObj.drawerStatic == 'no') {
+                        $content.css({
+                            '-webkit-transition': 'margin-left .15s ease-out',
+                            'margin-left': '25%'
+                        });
+                    }
+                    dra.triggerDrawer();
+                    return false;//阻止冒泡
+                });
+
+                //主体部分
+                $content.on("click", function () {
+                    if (dra.moveObj.drawerStatic == 'yes') {
+                        dra.triggerDrawer();
+                        $content.css({
+                            '-webkit-transition': 'margin-left .15s ease-in',
+                            'margin-left': '0'
+                        });
+                    }
+                    return false;//阻止冒泡
+                });
+
+
+
+            }, 100);
         });
 
 

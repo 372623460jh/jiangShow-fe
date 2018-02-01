@@ -96,22 +96,18 @@
     margin-bottom: 0.25rem;
 }
 
-.intro .small_icon:before {
-    content: '';
+.intro .row .small_icon img {
     position: absolute;
     height: 0.4rem;
     width: 0.4rem;
     top: -0.17rem;
     left: 0rem;
-    background-color: #ba7bff;
 }
 
-.intro .big_icon:before {
-    content: '';
+.intro .row .big_icon img {
     position: absolute;
     height: 0.55rem;
     width: 0.55rem;
-    background-color: #279d3a;
 }
 
 .intro .big_span {
@@ -182,10 +178,7 @@
 }
 
 .intro .info img {
-    width: 9.2rem;
-    float: left;
-    height: 3.8rem;
-    background-color: #2975ff;
+    width: 100%;
 }
 
 .intro .info .person_info, .intro .info .resume_info, .intro .info .work_info, .intro .info .study_info {
@@ -206,11 +199,11 @@
     box-sizing: border-box;
 }
 
-.intro .pi_util .big_icon:nth-child(1):before {
+.intro .pi_util .big_icon:nth-child(1) img {
     right: 0.55rem;
 }
 
-.intro .pi_util .big_icon:nth-child(2):before {
+.intro .pi_util .big_icon:nth-child(2) img {
     right: 1.3rem;
 }
 

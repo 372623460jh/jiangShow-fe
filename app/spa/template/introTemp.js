@@ -15,8 +15,25 @@ var yun2 = require('../img/main/yun2.png');
 var yun3 = require('../img/main/yun3.png');
 var myphoto = require('../img/main/myphoto.png');
 var left_bottom = require('../img/main/left-bottom.png');
-var img1 = require('../img/skill/12333.png');
-import newYearLoad from '../img/loading/newYearLoad.png'
+var newYearLoad = require('../img/main/newYearLoad.png');
+
+var big1 = require('../img/main/big1.png');
+var big2 = require('../img/main/big2.png');
+var big3 = require('../img/main/big3.png');
+var big4 = require('../img/main/big4.png');
+var big5 = require('../img/main/big5.png');
+var big6 = require('../img/main/big6.png');
+var big7 = require('../img/main/big7.png');
+var big8 = require('../img/main/big8.png');
+
+var small1 = require('../img/main/small1.png');
+var small2 = require('../img/main/small2.png');
+var small3 = require('../img/main/small3.png');
+
+var card1 = require('../img/main/card1.png');
+var card2 = require('../img/main/card2.png');
+var card3 = require('../img/main/card3.png');
+var card4 = require('../img/main/card4.png');
 
 let template =
     `<div class="intro">
@@ -84,10 +101,12 @@ let template =
                                     <span class="title">个人信息</span>
                                     <span class="tips">简单介绍本人的学历，工作年限，联系方式等基本信息^_^</span>
                                 </div>
-                                <img src="${yun3}" alt="">
+                                <img src="${card4}" alt="">
                                 <div class="person_info">
                                     <div class="row">
-                                        <i class="big_icon"></i>
+                                        <i class="big_icon">
+                                            <img src="${big1}">
+                                        </i>
                                         <span class="big_span mar07">{{name}}</span>
                                         <span class="small_span mar03">{{sex}}</span>
                                         <span class="small_span mar015">{{age}}</span>
@@ -102,16 +121,24 @@ let template =
                                     </div>
                                     {{/work}}
                                     <div class="row row_info">
-                                        <i class="big_icon"></i>
+                                        <i class="big_icon">
+                                            <img src="${big2}">
+                                        </i>
                                         <span class="small_span phone">{{tel}}</span>
-                                        <i class="big_icon"></i>
+                                        <i class="big_icon">
+                                            <img src="${big3}">
+                                        </i>
                                         <span class="small_span email">{{email}}</span>
                                     </div>
                                 </div>
                                 <div class="pi_util">
                                     <div class="row">
-                                        <i class="big_icon"></i>
-                                        <i class="big_icon"></i>
+                                        <i class="big_icon">
+                                            <img src="${big4}">
+                                        </i>
+                                        <i class="big_icon">
+                                            <img src="${big5}">
+                                        </i>
                                     </div>
                                 </div>
                                 <div class="clear"></div> 
@@ -124,24 +151,30 @@ let template =
                                     <span class="title">工作经历</span>
                                     <span class="tips">简单介绍本人从毕业至今的工作经历，职位以及工作描述</span>
                                 </div>
-                                <img src="${yun3}" alt="">
+                                <img src="${card2}" alt="">
                                 <div class="work_info">
                                     {{#workInfo}}
                                     <div class="compdiv">
                                         <div class="row">
-                                            <i class="big_icon"></i>
+                                            <i class="big_icon">
+                                                <img src="${big7}">
+                                            </i>
                                             <span class="big_span mar07">{{company}}</span>
                                             <span class="small_span mar03">{{timeTrunk}}</span>
                                         </div>
                                         <div class="row">
                                             <span class="small_span">企业性质:</span>
                                             <span class="small_span mar015">{{companyNature}}</span>
-                                            <i class="small_icon img025"></i>
+                                            <i class="small_icon img025">
+                                                <img src="${small3}">
+                                            </i>
                                             <span class="small_span mar07">职位:</span>
                                             <span class="small_span">{{position}}</span>
                                         </div>
                                         <div class="row work_cont">
-                                            <i class="small_icon img_con"></i>
+                                            <i class="small_icon img_con">
+                                                <img src="${small2}">
+                                            </i>
                                             <p class="cp_con">{{jobDesc}}</p>
                                         </div>
                                     </div>
@@ -156,23 +189,29 @@ let template =
                                     <span class="title">求职意向</span>
                                     <span class="tips">描述本人希望从事的职业以及将来的职业规划</span>
                                 </div>
-                                <img src="${yun3}" alt="">
+                                <img src="${card1}" alt="">
                                 <div class="resume_info">
                                     {{#intension}}
                                     <div class="compdiv">
                                         <div class="row">
-                                            <i class="big_icon"></i>
+                                            <i class="big_icon">
+                                                <img src="${big8}">
+                                            </i>
                                             <span class="big_span mar07">{{position}}</span>
                                         </div>
                                         <div class="row">
                                             <span class="small_span">期望行业:</span>
                                             <span class="small_span">{{trade}}</span>
-                                            <i class="small_icon img025"></i>
+                                            <i class="small_icon img025">
+                                                <img src="${small1}">
+                                            </i>
                                             <span class="small_span mar07">薪资:</span>
                                             <span class="small_span">{{pay}}</span>
                                         </div>
                                         <div class="row work_cont">
-                                            <i class="small_icon img_con"></i>
+                                            <i class="small_icon img_con">
+                                                <img src="${small2}">
+                                            </i>
                                             <p class="cp_con">{{intensionDesc}}</p>
                                         </div>  
                                     </div>
@@ -188,10 +227,12 @@ let template =
                                     <span class="title">教育经历</span>
                                     <span class="tips">简单介绍本人就读的大学及专业</span>
                                 </div>
-                                <img src="${yun3}" alt="">
+                                <img src="${card3}" alt="">
                                 <div class="study_info">
                                     <div class="row">
-                                        <i class="big_icon"></i>
+                                        <i class="big_icon">
+                                            <img src="${big6}">
+                                        </i>
                                         <span class="big_span mar07">{{school}}</span>
                                         <span class="small_span mar03">{{learnTime}}</span>
                                     </div>
@@ -203,7 +244,9 @@ let template =
                                         <span class="small_span mar03">{{nature}}</span>
                                     </div>
                                     <div class="row">
-                                        <i class="small_icon img01"></i>
+                                        <i class="small_icon img01">
+                                            <img src="${small3}">
+                                        </i>
                                         <span class="small_span mar05">专业:</span>
                                         <span class="small_span mar015">{{major}}</span>
                                     </div>

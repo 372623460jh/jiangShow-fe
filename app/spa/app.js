@@ -36,12 +36,8 @@ import 'controller/project';
 import 'controller/skills';
 import 'controller/projectDetial';
 
-import 'controller/test1';
-import 'controller/test2';
-import 'controller/test3';
-
 // 点击态组件
-import cs from 'lib/clickState';
+import cs from 'lib/clickState/clickState';
 cs.prop();
 
 /**

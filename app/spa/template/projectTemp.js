@@ -3,8 +3,8 @@
  */
 'use strict';
 
-import newYearLoad from '../img/loading/newYearLoad.png';
-import defaultImg from '../img/details/default.png';
+import newYearLoad from '../img/main/newYearLoad.png';
+import defaultImg from '../img/main/default.png';
 
 let template =
     `<div class="project">

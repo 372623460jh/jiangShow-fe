@@ -10,8 +10,8 @@ import $ from 'jquery';
 import skillsTemp from 'template/skillsTemp';
 import 'lib/swiper/css/swiper.css';
 import Swiper from 'lib/swiper/js/swiper3';
-import JhScroll from 'lib/jhScroll';
-import LazyLoad from 'lib/lazyLoad';
+import JhScroll from 'lib/jhScroll/jhScroll';
+import LazyLoad from 'lib/lazyLoad/lazyLoad';
 import CommonModel from 'model/commonModel';
 
 class Ccontroller extends $jh.SpaController {

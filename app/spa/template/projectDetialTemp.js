@@ -3,22 +3,18 @@
  */
 'use strict';
 
-var zhuangshi = require('../img/details/zhuangshi1.png');
-
-var pic1 = require('../img/details/12333-1.png');
-var pic2 = require('../img/details/12333-2.png');
-var pic3 = require('../img/details/12333-3.png');
-var pic4 = require('../img/details/12333-4.png');
-var pic5 = require('../img/details/12333-5.png');
-var pic6 = require('../img/details/12333-6.png');
-
+var zhuangshi = require('../img/main/zhuangshi1.png');
 
 let template =
     `<div class="projectDetail">
         <div class="header">
-            <div class="return" data-clickstate="1"></div>
+            <div class="return" data-clickstate="1">
+                <i></i>
+            </div>
             <span class="title">{{name}}</span>
-            <div class="heart" data-clickstate="1"></div>
+            <div class="heart" data-clickstate="1">
+                <i></i>
+            </div>
         </div>
         <div class="center">
             <img src="{{img}}" alt="">

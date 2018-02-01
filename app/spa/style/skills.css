@@ -3,7 +3,6 @@
     height: 100%;
     position: relative;
     overflow: hidden;
-    font-size: 0.6rem;
     font-family: Ionicons;
 }
 
@@ -22,7 +21,7 @@
     width: 100%;
     line-height: 1.5rem;
     padding: 0 0.5rem;
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     color: #fff;
 }
 
@@ -38,7 +37,6 @@
 .skills .main {
     background-color: #ececec;
 }
-
 
 .skills .skills_down_cell {
     width: 100%;

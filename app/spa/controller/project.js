@@ -11,8 +11,8 @@ import projectTemp from 'template/projectTemp';
 import $ from 'jquery';
 import Swiper from 'lib/swiper/js/swiper3';
 import 'lib/swiper/css/swiper.css';
-import LazyLoad from 'lib/lazyLoad';
-import JhScroll from 'lib/jhScroll';
+import LazyLoad from 'lib/lazyLoad/lazyLoad';
+import JhScroll from 'lib/jhScroll/jhScroll';
 import CommonModel from 'model/commonModel';
 import BaseModel from 'model/baseModel';
 
@@ -66,13 +66,15 @@ class Bcontroller extends $jh.SpaController {
 
             $ul.on('click', function (e) {
                 var index = BaseModel.getParentDataSet(e.target, $ul.get(0), 'index');
-                $jh.go({
-                    routeName: '/projectDetial',
-                    args: {
-                        detial: that.data.project[index]
-                    },
-                    animation: 'easeIn'
-                });
+                if (index != undefined) {
+                    $jh.go({
+                        routeName: '/projectDetial',
+                        args: {
+                            detial: that.data.project[index]
+                        },
+                        animation: 'easeIn'
+                    });
+                }
             });
 
             //使用JhScroll组件

@@ -36,8 +36,8 @@
     position: absolute;
     right: 0.45rem;
     top: 0.45rem;
-    border-radius: 0.5rem;
-    background-color: #4dddff;
+    border-radius: 0.4rem;
+    color: #fff;
 }
 
 .projectDetail .header .return {
@@ -46,8 +46,40 @@
     position: absolute;
     left: 0.45rem;
     top: 0.45rem;
-    border-radius: 0.5rem;
-    background-color: #fa82ff;
+    border-radius: 0.4rem;
+    color: #fff;
+}
+
+.projectDetail .header .return.cs_down {
+    transition: background-color 0.25s ease-out;
+    -moz-transition: background-color 0.25s ease-out;
+    -webkit-transition: background-color 0.25s ease-out;
+    -o-transition: background-color 0.25s ease-out;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.projectDetail .header .heart.cs_down {
+    transition: background-color 0.25s ease-out;
+    -moz-transition: background-color 0.25s ease-out;
+    -webkit-transition: background-color 0.25s ease-out;
+    -o-transition: background-color 0.25s ease-out;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.projectDetail .header .return i:before {
+    content: "";
+    position: absolute;
+    font-size: 0.45rem;
+    left: 0.22rem;
+    top: 0.17rem;
+}
+
+.projectDetail .header .heart i:before {
+    content: "";
+    position: absolute;
+    font-size: 0.55rem;
+    left: 0.17rem;
+    top: 0.15rem;
 }
 
 .projectDetail .center {
