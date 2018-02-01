@@ -8707,7 +8707,7 @@
         var re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr;
         return value.replace(re, function (match) {
             return decodingMap[match];
-        })
+        });
     }
 
     function parseHTML(html, options) {
@@ -8730,6 +8730,7 @@
 
                         if (commentEnd >= 0) {
                             if (options.shouldKeepComment) {
+                                //注释部分
                                 options.comment(html.substring(4, commentEnd));
                             }
                             advance(commentEnd + 3);
@@ -8737,13 +8738,12 @@
                         }
                     }
 
-                    // 匹配是否以<![开头
+                    // 处理比如说<![CDATA["，结束于 "]]>这类标签
                     if (conditionalComment.test(html)) {
                         var conditionalEnd = html.indexOf(']>');
-
                         if (conditionalEnd >= 0) {
                             advance(conditionalEnd + 2);
-                            continue
+                            continue;
                         }
                     }
 
@@ -8751,7 +8751,7 @@
                     var doctypeMatch = html.match(doctype);
                     if (doctypeMatch) {
                         advance(doctypeMatch[0].length);
-                        continue
+                        continue;
                     }
 
                     // End tag:
@@ -8760,7 +8760,7 @@
                         var curIndex = index;
                         advance(endTagMatch[0].length);
                         parseEndTag(endTagMatch[1], curIndex, index);
-                        continue
+                        continue;
                     }
 
                     // Start tag:
