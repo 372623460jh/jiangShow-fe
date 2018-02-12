@@ -25,19 +25,19 @@ let template =
                         <!--轮播图-->
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img class="swiper-lazy" data-src="//img.test.ijianghe.cn/images/jiangshow/lunbo1.jpg">
+                                <img class="swiper-lazy" data-src="http://img.ijianghe.cn/images/jiangshow/lunbo1.jpg">
                                 <div class="swiper-lazy-preloader"></div>
                             </div>
                             <div class="swiper-slide">
-                                <img class="swiper-lazy" data-src="//img.test.ijianghe.cn/images/jiangshow/lunbo2.jpg">
+                                <img class="swiper-lazy" data-src="http://img.ijianghe.cn/images/jiangshow/lunbo2.jpg">
                                 <div class="swiper-lazy-preloader"></div>
                             </div>
                             <div class="swiper-slide">
-                                <img class="swiper-lazy" data-src="//img.test.ijianghe.cn/images/jiangshow/lunbo1.jpg">
+                                <img class="swiper-lazy" data-src="http://img.ijianghe.cn/images/jiangshow/lunbo1.jpg">
                                 <div class="swiper-lazy-preloader"></div>
                             </div>
                             <div class="swiper-slide">
-                                <img class="swiper-lazy" data-src="//img.test.ijianghe.cn/images/jiangshow/lunbo2.jpg">
+                                <img class="swiper-lazy" data-src="http://img.ijianghe.cn/images/jiangshow/lunbo2.jpg">
                                 <div class="swiper-lazy-preloader"></div>
                             </div>
                         </div>

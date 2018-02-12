@@ -24,16 +24,16 @@ let template =
                 <div class="skills_swiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="//img.test.ijianghe.cn/images/jiangshow/lunbo11.jpg">
+                            <img src="http://img.ijianghe.cn/images/jiangshow/lunbo11.jpg">
                         </div>
                         <div class="swiper-slide">
-                            <img src="//img.test.ijianghe.cn/images/jiangshow/lunbo12.jpg">
+                            <img src="http://img.ijianghe.cn/images/jiangshow/lunbo12.jpg">
                         </div>
                         <div class="swiper-slide">
-                            <img src="//img.test.ijianghe.cn/images/jiangshow/lunbo11.jpg">
+                            <img src="http://img.ijianghe.cn/images/jiangshow/lunbo11.jpg">
                         </div>
                         <div class="swiper-slide">
-                            <img src="//img.test.ijianghe.cn/images/jiangshow/lunbo12.jpg">
+                            <img src="http://img.ijianghe.cn/images/jiangshow/lunbo12.jpg">
                         </div>
                     </div>
                     <!--如果需要分页器-->

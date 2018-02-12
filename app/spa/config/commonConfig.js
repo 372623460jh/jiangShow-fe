@@ -2,7 +2,7 @@
  * Created by Et on 2018/1/10.
  */
 
-const domain = '//127.0.0.1:9528';
+const domain = 'http://mob.ijianghe.cn/mobapi';
 
 module.exports = {
     // fetch get请求的默认配置
