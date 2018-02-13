@@ -5,8 +5,11 @@
 'use strict';
 import $jh from 'lib/spa/spa';
 import $ from 'jquery';
+import layer from 'lib/layer/layer';
+import jsInterface from 'lib/jsInterface/jsInterface';
 
 export default {
+
     /**
      * 返回平台类别
      * @return {string}
@@ -70,6 +73,29 @@ export default {
         },
         show: function () {
             this.dom.css('display', 'block');
+        }
+    },
+
+    /**
+     * 按两次推出系统方法
+     */
+    exitSystem: function () {
+        if (!$jh.prop.time) {
+            $jh.prop.time = 1;
+            layer.open({
+                content: '再按一次返回退出系统!',
+                skin: 'msg',
+                time: 2 //2秒后自动关闭
+            });
+            setTimeout(function () {
+                $jh.prop.time = 0;
+            }, 1000);
+        } else if ($jh.prop.time == 1) {
+            $jh.prop.time = 0;
+            //关闭应用
+            jsInterface.interface.exit();
+        } else {
+            $jh.prop.time = 0;
         }
     },
 

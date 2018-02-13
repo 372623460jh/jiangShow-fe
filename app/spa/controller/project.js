@@ -15,6 +15,7 @@ import LazyLoad from 'lib/lazyLoad/lazyLoad';
 import JhScroll from 'lib/jhScroll/jhScroll';
 import CommonModel from 'model/commonModel';
 import BaseModel from 'model/baseModel';
+import baseModel from 'model/baseModel';
 
 class Bcontroller extends $jh.SpaController {
 
@@ -177,7 +178,7 @@ class Bcontroller extends $jh.SpaController {
     }
 
     onBack() {
-        console.log('关闭webview');
+        baseModel.exitSystem();
     }
 }
 

@@ -13,6 +13,7 @@ import Swiper from 'lib/swiper/js/swiper3';
 import JhScroll from 'lib/jhScroll/jhScroll';
 import LazyLoad from 'lib/lazyLoad/lazyLoad';
 import CommonModel from 'model/commonModel';
+import baseModel from 'model/baseModel';
 
 class Ccontroller extends $jh.SpaController {
 
@@ -144,7 +145,7 @@ class Ccontroller extends $jh.SpaController {
     }
 
     onBack() {
-        console.log('关闭webview');
+        baseModel.exitSystem();
     }
 
     //定义一个初始化滑动条的方法

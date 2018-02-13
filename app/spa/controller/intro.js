@@ -11,7 +11,9 @@ import layer from 'lib/layer/layer';
 import Drawer from 'lib/drawer/drawer';
 import JhScroll from 'lib/jhScroll/jhScroll';
 import IScroll from 'lib/iScroll/iscroll-probe';
+import baseModel from 'model/baseModel';
 import CommonModel from 'model/commonModel';
+
 
 class Acontroller extends $jh.SpaController {
 
@@ -51,7 +53,6 @@ class Acontroller extends $jh.SpaController {
         this.rootDom = $jh.parseDom(introTemp.html, that.data)[0];
         nowPage.dom.innerHTML = '';
         nowPage.dom.appendChild(this.rootDom);
-
 
 
         $(this.rootDom).ready(function () {
@@ -216,7 +217,6 @@ class Acontroller extends $jh.SpaController {
                 });
 
 
-
             }, 100);
         });
 
@@ -227,6 +227,10 @@ class Acontroller extends $jh.SpaController {
         //重回时启动动画
         this.initAnimation();
     };
+
+    onBack() {
+        baseModel.exitSystem();
+    }
 
     /**
      * 执行动画方法
