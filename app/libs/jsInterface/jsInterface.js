@@ -33,6 +33,7 @@
 
         // android原生提供的接口对象
         interface: {
+
             // 关闭webview方法
             closeWebview: function () {
                 if (window.JsInterface.closeWebview) {
@@ -41,12 +42,31 @@
                     console.log('浏览器端调用closeWebview');
                 }
             },
+
             // 退出应用
             exit: function () {
                 if (window.JsInterface.exit) {
                     window.JsInterface.exit();
                 } else {
                     console.log('浏览器端调用exit');
+                }
+            },
+
+            // 打开启动屏
+            showStartScreen: function () {
+                if (window.JsInterface.showStartScreen) {
+                    window.JsInterface.showStartScreen();
+                } else {
+                    console.log('浏览器端调用showStartScreen');
+                }
+            },
+
+            // 关闭启动屏
+            hideStartScreen: function () {
+                if (window.JsInterface.hideStartScreen) {
+                    window.JsInterface.hideStartScreen();
+                } else {
+                    console.log('浏览器端调用hideStartScreen');
                 }
             }
         }

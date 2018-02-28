@@ -26,6 +26,12 @@ class Acontroller extends $jh.SpaController {
     onCreate(nowPage, lastPage) {
         var that = this;
         this.data = {};
+
+        setTimeout(function () {
+            // 关闭启动屏
+            jsInterface.interface.hideStartScreen();
+        }, 500);
+
         // 请求数据
         CommonModel.getMainInfo(
             {userId: $jh.prop.userId},
