@@ -94,8 +94,7 @@ let template =
                         </div>
                     </div>
                     <ul>
-                        {{#personInfo}}
-                        <li>
+                        <li he-if='personInfo'>
                             <div class="info">
                                 <div class="pi_top">
                                     <span class="title">个人信息</span>
@@ -107,28 +106,26 @@ let template =
                                         <i class="big_icon">
                                             <img src="${big1}">
                                         </i>
-                                        <span class="big_span mar07">{{name}}</span>
-                                        <span class="small_span mar03">{{sex}}</span>
-                                        <span class="small_span mar015">{{age}}</span>
-                                        <span class="small_span mar015">{{education}}</span>
-                                        <span class="small_span mar03">{{workTime}}</span>
+                                        <span class="big_span mar07">{{personInfo.name}}</span>
+                                        <span class="small_span mar03">{{personInfo.sex}}</span>
+                                        <span class="small_span mar015">{{personInfo.age}}</span>
+                                        <span class="small_span mar015">{{personInfo.education}}</span>
+                                        <span class="small_span mar03">{{personInfo.workTime}}</span>
                                     </div>
                                     <span class="small_span tips1">曾就职于</span>
-                                    {{#work}}
-                                    <div class="row com">
-                                        <span class="small_span mar15">{{company}}</span>
-                                        <span class="small_span mar03">{{position}}</span>
+                                    <div he-for='item in personInfo.work' class="row com">
+                                        <span class="small_span mar15">{{item.company}}</span>
+                                        <span class="small_span mar03">{{item.position}}</span>
                                     </div>
-                                    {{/work}}
                                     <div class="row row_info">
                                         <i class="big_icon">
                                             <img src="${big2}">
                                         </i>
-                                        <span class="small_span phone">{{tel}}</span>
+                                        <span class="small_span phone">{{personInfo.tel}}</span>
                                         <i class="big_icon">
                                             <img src="${big3}">
                                         </i>
-                                        <span class="small_span email">{{email}}</span>
+                                        <span class="small_span email">{{personInfo.email}}</span>
                                     </div>
                                 </div>
                                 <div class="pi_util">
@@ -143,8 +140,7 @@ let template =
                                 </div>
                                 <div class="clear"></div> 
                             </div>
-                        </li>
-                        {{/personInfo}}              
+                        </li>           
                         <li>
                             <div class="info">
                                 <div class="pi_top">
@@ -153,32 +149,30 @@ let template =
                                 </div>
                                 <img src="${card2}" alt="">
                                 <div class="work_info">
-                                    {{#workInfo}}
-                                    <div class="compdiv">
+                                    <div he-for='item in workInfo' class="compdiv">
                                         <div class="row">
                                             <i class="big_icon">
                                                 <img src="${big7}">
                                             </i>
-                                            <span class="big_span mar07">{{company}}</span>
-                                            <span class="small_span mar03">{{timeTrunk}}</span>
+                                            <span class="big_span mar07">{{item.company}}</span>
+                                            <span class="small_span mar03">{{item.timeTrunk}}</span>
                                         </div>
                                         <div class="row">
                                             <span class="small_span">企业性质:</span>
-                                            <span class="small_span mar015">{{companyNature}}</span>
+                                            <span class="small_span mar015">{{item.companyNature}}</span>
                                             <i class="small_icon img025">
                                                 <img src="${small3}">
                                             </i>
                                             <span class="small_span mar07">职位:</span>
-                                            <span class="small_span">{{position}}</span>
+                                            <span class="small_span">{{item.position}}</span>
                                         </div>
                                         <div class="row work_cont">
                                             <i class="small_icon img_con">
                                                 <img src="${small2}">
                                             </i>
-                                            <p class="cp_con">{{jobDesc}}</p>
+                                            <p class="cp_con">{{item.jobDesc}}</p>
                                         </div>
-                                    </div>
-                                    {{/workInfo}}                            
+                                    </div>                           
                                 </div>
                                 <div class="clear"></div> 
                             </div>
@@ -191,37 +185,34 @@ let template =
                                 </div>
                                 <img src="${card1}" alt="">
                                 <div class="resume_info">
-                                    {{#intension}}
-                                    <div class="compdiv">
+                                    <div he-for='item in intension' class="compdiv">
                                         <div class="row">
                                             <i class="big_icon">
                                                 <img src="${big8}">
                                             </i>
-                                            <span class="big_span mar07">{{position}}</span>
+                                            <span class="big_span mar07">{{item.position}}</span>
                                         </div>
                                         <div class="row">
                                             <span class="small_span">期望行业:</span>
-                                            <span class="small_span">{{trade}}</span>
+                                            <span class="small_span">{{item.trade}}</span>
                                             <i class="small_icon img025">
                                                 <img src="${small1}">
                                             </i>
                                             <span class="small_span mar07">薪资:</span>
-                                            <span class="small_span">{{pay}}</span>
+                                            <span class="small_span">{{item.pay}}</span>
                                         </div>
                                         <div class="row work_cont">
                                             <i class="small_icon img_con">
                                                 <img src="${small2}">
                                             </i>
-                                            <p class="cp_con">{{intensionDesc}}</p>
+                                            <p class="cp_con">{{item.intensionDesc}}</p>
                                         </div>  
                                     </div>
-                                    {{/intension}}
                                 </div>
                                 <div class="clear"></div> 
                             </div>
                         </li>
-                        {{#education}}
-                        <li>
+                        <li he-if='education'>
                             <div class="info">
                                 <div class="pi_top">
                                     <span class="title">教育经历</span>
@@ -233,28 +224,27 @@ let template =
                                         <i class="big_icon">
                                             <img src="${big6}">
                                         </i>
-                                        <span class="big_span mar07">{{school}}</span>
-                                        <span class="small_span mar03">{{learnTime}}</span>
+                                        <span class="big_span mar07">{{education.school}}</span>
+                                        <span class="small_span mar03">{{education.learnTime}}</span>
                                     </div>
                                     <div class="row">
                                         <span class="small_span">学历:</span>
-                                        <span class="small_span">{{education}}</span>
+                                        <span class="small_span">{{education.education}}</span>
                                         <span class="small_span mar03">学位:</span>
-                                        <span class="small_span">{{degree}}</span>
-                                        <span class="small_span mar03">{{nature}}</span>
+                                        <span class="small_span">{{education.degree}}</span>
+                                        <span class="small_span mar03">{{education.nature}}</span>
                                     </div>
                                     <div class="row">
                                         <i class="small_icon img01">
                                             <img src="${small3}">
                                         </i>
                                         <span class="small_span mar05">专业:</span>
-                                        <span class="small_span mar015">{{major}}</span>
+                                        <span class="small_span mar015">{{education.major}}</span>
                                     </div>
                                 </div>
                                 <div class="clear"></div> 
                             </div>
                         </li>
-                        {{/education}}
                     </ul>
                 </div>
             </div>

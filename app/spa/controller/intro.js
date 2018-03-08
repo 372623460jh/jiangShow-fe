@@ -13,6 +13,7 @@ import JhScroll from 'lib/jhScroll/jhScroll';
 import IScroll from 'lib/iScroll/iscroll-probe';
 import baseModel from 'model/baseModel';
 import CommonModel from 'model/commonModel';
+import He from 'lib/He/he';
 
 
 class Acontroller extends $jh.SpaController {
@@ -21,6 +22,7 @@ class Acontroller extends $jh.SpaController {
         super();
         this.rootDom = null;
         this.data = {};
+        this.he = null;
     }
 
     onCreate(nowPage, lastPage) {
@@ -38,6 +40,12 @@ class Acontroller extends $jh.SpaController {
             function (res) {
                 if (res.REV) {
                     that.data = res.DATA;
+                    that.he = new He({
+                        template: introTemp.html,
+                        data: that.data
+                    });
+                    that.rootDom = that.he.$el;
+                    nowPage.dom.appendChild(that.rootDom);
                     $jh.setStorage('getMainInfo', res.DATA);
                     that.render(nowPage, lastPage);
                 } else {
@@ -56,11 +64,6 @@ class Acontroller extends $jh.SpaController {
 
     render(nowPage, lastPage) {
         var that = this;
-        this.rootDom = $jh.parseDom(introTemp.html, that.data)[0];
-        nowPage.dom.innerHTML = '';
-        nowPage.dom.appendChild(this.rootDom);
-
-
         $(this.rootDom).ready(function () {
             // 执行动画
             that.initAnimation();
@@ -137,10 +140,9 @@ class Acontroller extends $jh.SpaController {
                                 function (res) {
                                     if (res.REV) {
                                         that.data = res.DATA;
-                                        $jh.setStorage('getMainInfo', res.DATA);
+                                        that.he.setAllDate(that.data);
                                         setTimeout(function () {
                                             myScroll.closeRefresh();
-                                            that.render(nowPage, lastPage);
                                         }, 500);
                                     } else {
                                         layer.open({
