@@ -44,24 +44,20 @@ let template =
                         <!--&lt;!&ndash;如果需要分页器&ndash;&gt;-->
                         <div class="swiper-pagination"></div>
                     </li>
-                    {{#project}}  
                     <!--卡片-->
-                    <li class="card" data-clickstate="1" data-index="{{index}}">
+                    <li -for="item in project" class="card" data-clickstate="1" :data-index="item.index">
                         <div class="title">
-                            <img class="jhlazyload" src="${defaultImg}" data-src="{{img}}"></img>
-                            <span>{{name}}</span>
+                            <img class="jhlazyload" src="${defaultImg}" :data-src="item.img"></img>
+                            <span>{{item.name}}</span>
                         </div>
-                        <div class="background">{{projectBg}}</div>
-                        <div class="detial">{{projectDesc}}</div>
+                        <div class="background">{{item.projectBg}}</div>
+                        <div class="detial">{{item.projectDesc}}</div>
                         <div class="skills">
-                            {{#skills}}
-                            <span>{{name}}</span>
-                            {{/skills}}
+                            <span -for="item1 in item.skills">{{item1.name}}</span>
                             <div class="clear"></div> 
                         </div>
-                        <span class="time">{{time}}</span>
+                        <span class="time">{{item.time}}</span>
                     </li>
-                    {{/project}}
                 </ul>
                 <div class="up_cell">
                     <span>加载更多...</span>

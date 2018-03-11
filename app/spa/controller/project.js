@@ -16,6 +16,7 @@ import JhScroll from 'lib/jhScroll/jhScroll';
 import CommonModel from 'model/commonModel';
 import BaseModel from 'model/baseModel';
 import baseModel from 'model/baseModel';
+import Vu from 'lib/Vu/vu';
 
 class Bcontroller extends $jh.SpaController {
 
@@ -23,6 +24,7 @@ class Bcontroller extends $jh.SpaController {
         super();
         this.rootDom = null;
         this.data = {};
+        this.vu = null;
     }
 
     onCreate(nowPage, lastPage) {
@@ -32,8 +34,18 @@ class Bcontroller extends $jh.SpaController {
             {userId: $jh.prop.userId},
             function (res) {
                 if (res.REV) {
+                    setTimeout(function () {
+                        // 关闭loading
+                        $jh.loading.close();
+                    }, 200);
                     that.data = res.DATA;
                     $jh.setStorage('getProject', res.DATA);
+                    that.vu = new Vu({
+                        template: projectTemp.html,
+                        data: that.data
+                    });
+                    that.rootDom = that.vu.$el;
+                    nowPage.dom.appendChild(that.rootDom);
                     that.render(nowPage, lastPage);
                 } else {
                     layer.open({
@@ -50,10 +62,7 @@ class Bcontroller extends $jh.SpaController {
 
     render(nowPage, lastPage) {
         var that = this;
-        that.rootDom = $jh.parseDom(projectTemp.html, that.data)[0];
-        nowPage.dom.innerHTML = null;
-        nowPage.dom.appendChild(this.rootDom);
-        $(document).ready(function () {
+        $(that.rootDom).ready(function () {
 
             var $projectScroll = $(that.rootDom).find('.project_scroll'),
                 $downCell = $(that.rootDom).find('.down_cell'),
@@ -68,6 +77,7 @@ class Bcontroller extends $jh.SpaController {
             $ul.on('click', function (e) {
                 var index = BaseModel.getParentDataSet(e.target, $ul.get(0), 'index');
                 if (index != undefined) {
+                    $jh.loading.show({name: 'test', data: {title: '加载中~'}});
                     $jh.go({
                         routeName: '/projectDetial',
                         args: {
@@ -127,9 +137,9 @@ class Bcontroller extends $jh.SpaController {
                                 if (res.REV) {
                                     that.data = res.DATA;
                                     $jh.setStorage('getProject', res.DATA);
+                                    that.vu.setAllDate(that.data);
                                     setTimeout(function () {
                                         myScroll.closeRefresh();
-                                        that.render(nowPage, lastPage);
                                     }, 500);
                                 } else {
                                     layer.open({
@@ -176,6 +186,13 @@ class Bcontroller extends $jh.SpaController {
             });
         });
     }
+
+    onResume(nowPage, lastPage) {
+        setTimeout(function () {
+            // 关闭loading
+            $jh.loading.close();
+        }, 200);
+    };
 
     onBack() {
         baseModel.exitSystem();

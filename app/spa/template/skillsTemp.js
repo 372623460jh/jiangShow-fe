@@ -41,46 +41,42 @@ let template =
                 </div>
                 <div class="content">
                     <div class="left">
-                        {{#leftSkills}}
-                        <div class="skillbox">
+                        <div -for="item in leftSkills" class="skillbox">
                             <div class="content">
-                                <img class="jhlazyload" src="${defaultImg}" data-src="{{img}}"></img>
-                                <span>{{skillsName}}</span>
+                                <img class="jhlazyload" src="${defaultImg}" :data-src="item.img"></img>
+                                <span>{{item.skillsName}}</span>
                             </div>
                             <div class="usetime">
                                 <i></i>
-                                <span>技能使用{{useTime}}个月</span>
+                                <span>技能使用{{item.useTime}}个月</span>
                             </div>
                             <div class="rank">
                                 <i></i>
-                                <span>技能自评分:{{score}}分</span>
+                                <span>技能自评分:{{item.score}}分</span>
                             </div>
                             <div class="rankbar">
-                                <input type="range" class="custom-range" min="0" max="100" name="volume" value="{{score}}">
+                                <input type="range" class="custom-range" min="0" max="100" name="volume" :value="item.score">
                             </div>
                         </div>
-                        {{/leftSkills}}
                     </div>
                     <div class="right">
-                       {{#rightSkills}}
-                        <div class="skillbox">
+                        <div -for="item in rightSkills" class="skillbox">
                             <div class="content">
-                                <img class="jhlazyload" src="${defaultImg}" data-src="{{img}}"></img>
-                                <span>{{skillsName}}</span>
+                                <img class="jhlazyload" src="${defaultImg}" :data-src="item.img"></img>
+                                <span>{{item.skillsName}}</span>
                             </div>
                             <div class="usetime">
                                 <i></i>
-                                <span>技能使用{{useTime}}个月</span>
+                                <span>技能使用{{item.useTime}}个月</span>
                             </div>
                             <div class="rank">
                                 <i></i>
-                                <span>技能自评分:{{score}}分</span>
+                                <span>技能自评分:{{item.score}}分</span>
                             </div>
                             <div class="rankbar">
-                                <input type="range" class="custom-range" min="0" max="100" name="volume" value="{{score}}">
+                                <input type="range" class="custom-range" min="0" max="100" name="volume" :value="item.score">
                             </div>
                         </div>
-                        {{/rightSkills}}
                     </div>
                     <div class="clear"></div> 
                 </div>

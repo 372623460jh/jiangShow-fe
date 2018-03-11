@@ -13,7 +13,7 @@ import JhScroll from 'lib/jhScroll/jhScroll';
 import IScroll from 'lib/iScroll/iscroll-probe';
 import baseModel from 'model/baseModel';
 import CommonModel from 'model/commonModel';
-import He from 'lib/He/he';
+import Vu from 'lib/Vu/vu';
 
 
 class Acontroller extends $jh.SpaController {
@@ -22,7 +22,7 @@ class Acontroller extends $jh.SpaController {
         super();
         this.rootDom = null;
         this.data = {};
-        this.he = null;
+        this.vu = null;
     }
 
     onCreate(nowPage, lastPage) {
@@ -39,12 +39,16 @@ class Acontroller extends $jh.SpaController {
             {userId: $jh.prop.userId},
             function (res) {
                 if (res.REV) {
+                    setTimeout(function () {
+                        // 关闭loading
+                        $jh.loading.close();
+                    }, 200);
                     that.data = res.DATA;
-                    that.he = new He({
+                    that.vu = new Vu({
                         template: introTemp.html,
                         data: that.data
                     });
-                    that.rootDom = that.he.$el;
+                    that.rootDom = that.vu.$el;
                     nowPage.dom.appendChild(that.rootDom);
                     $jh.setStorage('getMainInfo', res.DATA);
                     that.render(nowPage, lastPage);
@@ -140,7 +144,7 @@ class Acontroller extends $jh.SpaController {
                                 function (res) {
                                     if (res.REV) {
                                         that.data = res.DATA;
-                                        that.he.setAllDate(that.data);
+                                        that.vu.setAllDate(that.data);
                                         setTimeout(function () {
                                             myScroll.closeRefresh();
                                         }, 500);
@@ -232,6 +236,10 @@ class Acontroller extends $jh.SpaController {
     };
 
     onResume(nowPage, lastPage) {
+        setTimeout(function () {
+            // 关闭loading
+            $jh.loading.close();
+        }, 200);
         //重回时启动动画
         this.initAnimation();
     };

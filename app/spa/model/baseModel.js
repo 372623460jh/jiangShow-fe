@@ -41,18 +41,21 @@ export default {
                     $(this).removeClass("_outline");
                     switch (key) {
                         case 'intro':
+                            $jh.loading.show({name: 'test', data: {title: '加载中~'}});
                             $jh.switchPage({
                                 routeName: '/intro',
                             });
                             break;
                         case 'project':
                             clearInterval(window.timer);
+                            $jh.loading.show({name: 'test', data: {title: '加载中~'}});
                             $jh.switchPage({
                                 routeName: '/project',
                             });
                             break;
                         case 'skills':
                             clearInterval(window.timer);
+                            $jh.loading.show({name: 'test', data: {title: '加载中~'}});
                             $jh.switchPage({
                                 routeName: '/skills',
                             });

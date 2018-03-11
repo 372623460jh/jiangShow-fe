@@ -94,7 +94,7 @@ let template =
                         </div>
                     </div>
                     <ul>
-                        <li he-if='personInfo'>
+                        <li -if='personInfo'>
                             <div class="info">
                                 <div class="pi_top">
                                     <span class="title">个人信息</span>
@@ -113,7 +113,7 @@ let template =
                                         <span class="small_span mar03">{{personInfo.workTime}}</span>
                                     </div>
                                     <span class="small_span tips1">曾就职于</span>
-                                    <div he-for='item in personInfo.work' class="row com">
+                                    <div -for='item in personInfo.work' class="row com">
                                         <span class="small_span mar15">{{item.company}}</span>
                                         <span class="small_span mar03">{{item.position}}</span>
                                     </div>
@@ -149,7 +149,7 @@ let template =
                                 </div>
                                 <img src="${card2}" alt="">
                                 <div class="work_info">
-                                    <div he-for='item in workInfo' class="compdiv">
+                                    <div -for='item in workInfo' class="compdiv">
                                         <div class="row">
                                             <i class="big_icon">
                                                 <img src="${big7}">
@@ -185,7 +185,7 @@ let template =
                                 </div>
                                 <img src="${card1}" alt="">
                                 <div class="resume_info">
-                                    <div he-for='item in intension' class="compdiv">
+                                    <div -for='item in intension' class="compdiv">
                                         <div class="row">
                                             <i class="big_icon">
                                                 <img src="${big8}">
@@ -212,7 +212,7 @@ let template =
                                 <div class="clear"></div> 
                             </div>
                         </li>
-                        <li he-if='education'>
+                        <li -if='education'>
                             <div class="info">
                                 <div class="pi_top">
                                     <span class="title">教育经历</span>

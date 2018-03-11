@@ -17,70 +17,52 @@ let template =
             </div>
         </div>
         <div class="center">
-            <img src="{{img}}" alt="">
+            <img :src="img" alt="">
             <div class="info">
                 <span class="appName">{{alias}}</span>
                 <span class="comName">{{company}}</span>
             </div>
             <div class="download">
-                {{#androidUrl}}
-                <span class="content android" data-clickstate="1">Android</span>
-                {{/androidUrl}}
-                {{#iosUrl}}
-                <span class="content ios" data-clickstate="1">Ios</span>
-                {{/iosUrl}}
+                <span -if="androidUrl" class="content android" data-clickstate="1">Android</span>
+                <span -if="iosUrl" class="content ios" data-clickstate="1">Ios</span>
             </div>          
         </div>
         <div class="detialScroll">
             <ul>
                 <li class="skills">
-                    {{#skills}}
-                    <span>{{name}}</span>
-                    {{/skills}}
+                    <span -for="item in skills">{{item.name}}</span>
                     <div class="clear"></div> 
                 </li>
-                {{#hasImg}}
-                <li class="showdom">
-                    <img class="photo" src="{{img}}" alt="">
+                <li -if="hasImg" class="showdom">
+                    <img class="photo" :src="img" alt="">
                     <span class="title">项目截图</span>
                     <!--轮播图-->
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            {{#imgList}}
-                            <div class="swiper-slide"><img src="{{url}}" alt=""/></div>
-                            {{/imgList}}
+                            <div -for="item in imgList" class="swiper-slide"><img :src="item.url" alt=""/></div>
                         </div>
                     </div>
                 </li>
-                {{/hasImg}}
-                {{#projectBg}}
-                <li class="showdom">
+                <li -if="projectBg" class="showdom">
                     <img class="zhuangshi" src="${zhuangshi}" alt="">
                     <span class="title">项目背景</span>
                     <span class="content">{{projectBg}}</span>
                 </li>
-                {{/projectBg}}
-                {{#projectTask}}
-                <li class="showdom">
+                <li -if="projectTask" class="showdom">
                     <img class="zhuangshi" src="${zhuangshi}" alt="">
                     <span class="title">项目任务</span>
                     <span class="content">{{projectTask}}</span>
                 </li>
-                {{/projectTask}}
-                {{#projectDesc}}
-                <li class="showdom">
+                <li -if="projectDesc" class="showdom">
                     <img class="zhuangshi" src="${zhuangshi}" alt="">
                     <span class="title">工作描述</span>
                     <span class="content">{{projectDesc}}</span>
                 </li>
-                {{/projectDesc}}
-                {{#projectRes}}
-                <li class="showdom">
+                <li -if="projectRes" class="showdom">
                     <img class="zhuangshi" src="${zhuangshi}" alt="">
                     <span class="title">项目结果</span>
                     <span class="content">{{projectRes}}</span>
                 </li>
-                {{/projectRes}}
             </ul>        
         </div>
         <div class="bottom"></div>

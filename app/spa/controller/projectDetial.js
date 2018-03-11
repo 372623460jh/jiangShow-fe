@@ -14,7 +14,7 @@ import $ from 'jquery';
 import iScroll from 'lib/iScroll/iscroll-probe';
 import Swiper from 'lib/swiper/js/swiper3';
 import layer from 'lib/layer/layer';
-
+import Vu from 'lib/Vu/vu';
 
 class projectDetialcontroller extends $jh.SpaController {
 
@@ -26,6 +26,10 @@ class projectDetialcontroller extends $jh.SpaController {
 
     onCreate(nowPage, lastPage) {
         var that = this;
+        setTimeout(function () {
+            // 关闭loading
+            $jh.loading.close();
+        }, 200);
         this.data = nowPage.args.detial;
         that.render(nowPage, lastPage);
     }
@@ -33,9 +37,15 @@ class projectDetialcontroller extends $jh.SpaController {
     render(nowPage, lastPage) {
         var that = this;
         that.data.hasImg = that.data.imgList ? true : false;
-        that.rootDom = $jh.parseDom(projectDetialTemp.html, that.data)[0];
-        nowPage.dom.innerHTML = null;
-        nowPage.dom.appendChild(this.rootDom);
+
+        that.vu = new Vu({
+            template: projectDetialTemp.html,
+            data: that.data
+        });
+
+        that.rootDom = that.vu.$el;
+
+        nowPage.dom.appendChild(that.rootDom);
 
         $(that.rootDom).ready(function () {
 
@@ -100,6 +110,13 @@ class projectDetialcontroller extends $jh.SpaController {
             });
         });
     }
+
+    onResume(nowPage, lastPage) {
+        setTimeout(function () {
+            // 关闭loading
+            $jh.loading.close();
+        }, 200);
+    };
 
     onBack() {
         $jh.goBack({

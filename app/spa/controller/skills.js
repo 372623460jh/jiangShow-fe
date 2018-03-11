@@ -14,6 +14,7 @@ import JhScroll from 'lib/jhScroll/jhScroll';
 import LazyLoad from 'lib/lazyLoad/lazyLoad';
 import CommonModel from 'model/commonModel';
 import baseModel from 'model/baseModel';
+import Vu from 'lib/Vu/vu';
 
 class Ccontroller extends $jh.SpaController {
 
@@ -29,8 +30,18 @@ class Ccontroller extends $jh.SpaController {
             {userId: $jh.prop.userId},
             function (res) {
                 if (res.REV) {
+                    setTimeout(function () {
+                        // 关闭loading
+                        $jh.loading.close();
+                    }, 200);
                     that.data = res.DATA;
                     $jh.setStorage('getSkills', res.DATA);
+                    that.vu = new Vu({
+                        template: skillsTemp.html,
+                        data: that.data
+                    });
+                    that.rootDom = that.vu.$el;
+                    nowPage.dom.appendChild(that.rootDom);
                     that.render(nowPage, lastPage)
                 } else {
                     layer.open({
@@ -47,9 +58,6 @@ class Ccontroller extends $jh.SpaController {
 
     render(nowPage, lastPage) {
         var that = this;
-        that.rootDom = $jh.parseDom(skillsTemp.html, that.data)[0];
-        nowPage.dom.innerHTML = null;
-        nowPage.dom.appendChild(this.rootDom);
 
         var range = $(that.rootDom).find('.custom-range'),
             $main = $(that.rootDom).find(".main"),
@@ -58,7 +66,7 @@ class Ccontroller extends $jh.SpaController {
             $refreshImg = $(that.rootDom).find('.skills_down_cell img'),
             $loaderInner = $(that.rootDom).find('.skills_down_cell .loader-inner');
 
-        $(this.rootDom).ready(function () {
+        $(that.rootDom).ready(function () {
 
             //轮播图组件
             new Swiper('.skills_swiper', {
@@ -103,12 +111,16 @@ class Ccontroller extends $jh.SpaController {
                             {userId: $jh.prop.userId},
                             function (res) {
                                 if (res.REV) {
-                                    that.data = res.DATA;
-                                    $jh.setStorage('getSkills', res.DATA);
-                                    setTimeout(function () {
-                                        myScroll.closeRefresh();
-                                        that.render(nowPage, lastPage);
-                                    }, 500);
+                                    $jh.setStorage('getSkills', (that.data = res.DATA));
+                                    that.vu.resetVu(that.data, function () {
+                                        setTimeout(function () {
+                                            nowPage.dom.innerHTML = '';
+                                            nowPage.dom.appendChild(that.vu.$el);
+                                            that.rootDom = that.vu.$el;
+                                            that.render(nowPage, lastPage);
+                                            myScroll.closeRefresh();
+                                        }, 500);
+                                    });
                                 } else {
                                     layer.open({
                                         content: `${res.MSG}`,
@@ -144,12 +156,20 @@ class Ccontroller extends $jh.SpaController {
         });
     }
 
+    onResume(nowPage, lastPage) {
+        setTimeout(function () {
+            // 关闭loading
+            $jh.loading.close();
+        }, 200);
+    };
+
     onBack() {
         baseModel.exitSystem();
     }
 
     //定义一个初始化滑动条的方法
     initRange(range) {
+        var that = this;
         range.each(function (key, item) {
             //初始化进度条的渐变颜色
             $(item).css('background', 'linear-gradient(to right, #54c590, white ' + item.value + '%, white)');
